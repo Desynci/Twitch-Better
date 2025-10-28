@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better
 @namespace      1337
-@version        1.9.6
+@version        1.9.7
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -47,7 +47,7 @@
 
 @var checkbox remove-disclosure "Adult content note " 0
 @var checkbox remove-hype-train "Hypetrains" 0
-@var checkbox remove-banner "Clips banner" 1
+
 @var checkbox remove-turbo "Turbo promotion" 0
 @var checkbox remove-gift "Gift button" 0
 @var checkbox remove-subscription "Subscription button" 0
@@ -63,7 +63,7 @@
     '→ Cosmic Abyss*': "cosmic",
 	'→ Rainbow': "rainbow"
 }
-@var select badge-type "Badge changer:" {
+@var select custom-badge "Badge changer:" {
 	'None*': "disabled",
     '→ Moderator': "moderator",
 	'→ Channel creator': "author",
@@ -112,7 +112,7 @@
 	.onsite-notification-toast__action-wrapper { width: unset; border-left: none !important; }
 		
 		// Fix strange animation bug on closing popup 
-	[data-popper-placement]:has(.tw-transition[aria-hidden="true"]) { display: none; }
+	.ReactModal__Overlay--after-open:has(.tw-transition[aria-hidden="true"]) { display: none; }
 		
 	if (welcome) {
 		.top-nav .itDlPz [data-test-selector="toggle-balloon-wrapper__mouse-enter-detector"]::after { 
@@ -154,7 +154,7 @@
 		
 	.chat-line__message-body--highlighted {
 		background: linear-gradient(90deg, #9db2ff 0%, #9db2ff 40%, #de76f0 50%, #9db2ff 90%, #9db2ff 100%); 
-		font-weight: 900; 
+		if (!dark-chat) { height: 900; }
 		background-size: 200% 200%; 
 		animation: gradient 8s linear infinite; 
 		background-clip: text; 
@@ -257,7 +257,8 @@
 		}
 	}
 		
-	if (remove-banner) { [style*="badge-promo-banner"] { display: none !important; } }
+	//@var checkbox remove-banner "Clips banner" 1
+	//if (remove-banner) { [style*="badge-promo-banner"] { display: none !important; } }
 	if (remove-hype-train) { .hype-train__banner { display: none !important; } }
 	if (remove-disclosure) { #channel-player-disclosures { display: none !important; } }
 	if (transparent-player) { .player-controls, .top-bar { background: none; } }
@@ -356,12 +357,12 @@
 				
 			.chat-line__message-container { background: var(--color-background-body); margin: 1rem; padding: .8rem 1rem; } .chat-line__icons { top: -0.9rem; } } }
 			
-		if (custom-badge) {
-			if (badge-type=="custom") { __badge = __custom-badge-url }
-			if (badge-type=="moderator") { __badge = "https://static-cdn.jtvnw.net/badges/v1/3267646d-33f0-4b17-b3df-f923a41db1d0/2" }
-			if (badge-type=="author") { __badge = "https://static-cdn.jtvnw.net/badges/v1/5527c58c-fb7d-422d-b71b-f309dcb85cc1/2" }
-			if (badge-type=="vip") { __badge = "https://static-cdn.jtvnw.net/badges/v1/b817aba4-fad8-49e2-b88a-7cc744dfa6ec/2" }
-			if (badge-type=="hornet") { __badge = "https://static-cdn.jtvnw.net/badges/v1/4dc7b047-8c59-4522-97f2-24fb63147f56/3" }
+		if (custom-badge!="disabled") {
+			if (custom-badge=="custom") { __badge = __custom-badge-url }
+			if (custom-badge=="moderator") { __badge = "https://static-cdn.jtvnw.net/badges/v1/3267646d-33f0-4b17-b3df-f923a41db1d0/2" }
+			if (custom-badge=="author") { __badge = "https://static-cdn.jtvnw.net/badges/v1/5527c58c-fb7d-422d-b71b-f309dcb85cc1/2" }
+			if (custom-badge=="vip") { __badge = "https://static-cdn.jtvnw.net/badges/v1/b817aba4-fad8-49e2-b88a-7cc744dfa6ec/2" }
+			if (custom-badge=="hornet") { __badge = "https://static-cdn.jtvnw.net/badges/v1/4dc7b047-8c59-4522-97f2-24fb63147f56/3" }
 			
 			.chat-line__message[data-a-user={nick}] { 
 				.chat-line__username-container span > .dvtAVE:last-of-type {			
@@ -419,7 +420,7 @@
 		@css { @starting-style { transform: translateY(30px); opacity: 0 !important; } } 
 	}
 
-	.kJMgAB, .notched-range--handle { transition: .5s }
+	.kJMgAB, .notched-range--handle, .offline-recommendations-video-card [class^="offline-recommendations-video-card-border"] { transition: .5s }
 	.fOtgyk, .emote-button__link img, .edit-appearance__badge-chooser { transition: .3s }
 	.iOIbVE.iOIbVE, .chat-line__username-container--hoverable, .kMwhRV, .jUiaVy, .jwWicM, .predictions-list-item__body, .jLHIWd { transition: .2s }
 	.dcNXJO, .kzYOur, .kXuCmW, .jUkMRL, .kccyMt, .hovRjt, .dCFkna, .cAajJv, a.navigation-link, .hWTXlR, .kMwhRV, .dEeZDR, 
