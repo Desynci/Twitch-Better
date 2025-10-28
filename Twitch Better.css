@@ -1,5 +1,84 @@
+/* ==UserStyle==
+@name           Twitch Better
+@namespace      1337
+@version        1.9.5
+@author         idesync
+@description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
+@@supportURL 	https://github.com/Desynci/Twitch-Better/issues
+@preprocessor 	stylus
+
+@var select holder-1 "🌠  General" {
+    ' ': "holder-1"
+}
+@var checkbox welcome "Twitch Better logo" 1
+@var checkbox new-pause "Absolute pause" 1
+@var checkbox apply-blur "Apply blur on menu" 1
+@var checkbox compact-pause "Use new chat pause" 1
+@var checkbox transparent-player "More transparent player" 1
+@var checkbox new-design "Apply design tweaks" 1
+@var checkbox dark-chat "Use dark chat mode" 0
+@var color timeline_color "VOD timeline color:" #a970ff
+
+@var select animations "🎭 Animations" {
+    'ON*': "enabled",
+	'OFF': "disabled"
+}
+@var checkbox animate-badge "Animate chat badges" 0
+@var checkbox rainbow-effect "Rainbow nicknames appear" 0
+@var select animate-messages "Messages animation:" {
+    'None': "none",
+	'→ №1': "default",
+	'→ №2': "opacity",
+	'→ №3*': "from-right",
+}
+@var checkbox last-only "Animate last message only" 0
+
+@var select sidebar-tweaks "🍫 Sidebar tweaks" {
+    'ON*': "enabled",
+	'OFF': "disabled"
+	
+}
+@var range sidebar-size "Width:" [24,12,28,1,"rem"]
+@var checkbox sidebar-hover-only "Show only on hover" 1
+
+@var select holder-4 "🍂 Removers" {
+    ' ': "holder-4"
+}
+
+@var checkbox remove-disclosure "Adult content note " 0
+@var checkbox remove-hype-train "Hypetrains" 0
+@var checkbox remove-banner "Clips banner" 1
+@var checkbox remove-turbo "Turbo promotion" 0
+@var checkbox remove-gift "Gift button" 0
+@var checkbox remove-subscription "Subscription button" 0
+@var checkbox remove-bits "All Bits buttons" 0
+@var checkbox remove-powerups "Power ups (Bits)" 0
+
+@var select highlight "🌌 Highlight Your Message" {
+    'ON*': "enabled",
+	'OFF': "disabled"
+}
+@var text nick "Your nickname in lower case:" nickname
+@var select highlight-type "Highlight type:" {
+    '→ Cosmic Abyss*': "cosmic",
+	'→ Rainbow': "rainbow"
+}
+@var select badge-type "Badge changer:" {
+	'None*': "disabled",
+    '→ Moderator': "moderator",
+	'→ Channel creator': "author",
+	'→ VIP': "vip",
+	'→ Hornet': "hornet",
+	'→ Custom': "custom"
+}
+@var text __custom-badge-url "[Custom] Link to image in quotes:" "'Example.com/img.jpg'"
+
+
+==/UserStyle== */
+
 @-moz-document domain("twitch.tv") {	
-	__title = "Twitch Better | V2"
+	
+	__title = "Twitch Better | V2 "
 	
 	__badge = ""
 	whispers-popup = "'ScBalloonWrapper-sc-14jr088-0 PjurZ InjectLayout-sc-1i43xsx-0 bAWxnr tw-balloon'"
@@ -12,7 +91,6 @@
 		#channel-player {
 			.lnTwMD { width: 2.8rem; height: 2.8rem; }
 			.dcNXJO { width: 4.3rem; height: 3.3rem; }
-
 		}
 	}
 	
@@ -21,7 +99,7 @@
 	.seekbar-bar > [style*="169"] { background-color: timeline_color !important }
 	.side-nav__scrollable_content { scrollbar-width: none; }
 	.channel-root--home .channel-info-content { width: unset }
-	.reward-icon__animated, .predictions-list-item__body { will-change: transform; }
+	.reward-icon__animated, .predictions-list-item__body, .extensions-dock-card__image { will-change: transform; }
 	.finNtM a { text-decoration: none; }
 	.chat-scrollable-area__message-container--paused { padding-bottom: 1rem; }
 	.whispers-threads-box__header, .whispers-threads-box__header+.gxOWjV, .jmERFg { border-bottom: none !important; }
@@ -51,8 +129,8 @@
 			background-size: 200% 200%;
 			animation: gradient 5s 2.5s linear infinite, logo 12s 4s backwards; /* logo-blink 4s 9s */
 			background-clip: text;
-			transition: .45s;
-				/* after animation */
+			transition: .45s, clip-path .45s .45s;
+				/* state after animation */
 			clip-path: inset(0 23% 0 0); 
 			transform: translateX(0); 
 			opacity: 0.5; 
@@ -72,8 +150,6 @@
 				opacity: 1; 
 			}
 		}
-		
-		
 	}
 		
 	.chat-line__message-body--highlighted {
@@ -109,7 +185,7 @@
 	}
 	
 	if (dark-chat) {
-		.chat-room[data-a-target="chat-theme-dark"] {
+		.chat-room[data-a-target="chat-theme-dark"], .video-chat__message-list-wrapper {
 			background: #0e0e10 !important;
 			transition: background .5s;
 		}
@@ -156,6 +232,8 @@
 	}
 	
 	if (new-design) {
+		.video-chat__header { height: 40px; border-bottom: var(--border-width-default) solid var(--color-border-base) !important; background-color: var(--color-background-base) !important; box-shadow: none !important; }
+		
 		.tw-channel-status-text-indicator { color: #0e0e10 }
 			
 		[data-a-target="animated-channel-viewers-count"] {
@@ -171,6 +249,11 @@
 		
 		.tw-tag {
 			background-color: #34363c61 !important;
+		}
+		
+			// VOD info panel
+		#live-channel-stream-information .hoYUtL {
+			background-color: #131316 !important;
 		}
 	}
 		
@@ -313,19 +396,34 @@
 	
 	.chat-paused-footer { 
 		transform: none;
-		background-color: #0a0a0ab8 !important; 
-		border-color: rgba(79, 79, 79, .48); 
+		background-color: rgba(10, 10, 10, .722) !important; 
+		border-color: #4f4f4f7a; 
 		transition: .4s; 
-		opacity: 1; 
+		opacity: 1;
 		inset-inline-start: 11%;
 		@css { @starting-style { transform: translateY(30px) !important; opacity: 0 !important; } } 
+	}
+	
+	.video-chat__sync-button {
+		width: 301px;
+		backdrop-filter: blur(5px);
+		background-color: rgba(10, 10, 1, .239) !important;
+		border: 1px solid #4f4f4f7a;
+		transition: .3s;
+		color: var(--color-text-overlay) !important;
+		height: 40px;
+		margin-block-end: 25px !important;
+		border-radius: 99999px;
+		&:hover { transform: scaleX(0.970); color: #ffffffbf !important; background-color: rgba(30, 30, 30, .722) !important; }
+		&:active { transform: scaleX(0.960); transition: .15s; background-color: hsla(0, 0%, 25%, .722) !important; }
+		@css { @starting-style { transform: translateY(30px); opacity: 0 !important; } } 
 	}
 
 	.kJMgAB, .notched-range--handle { transition: .5s }
 	.fOtgyk, .emote-button__link img, .edit-appearance__badge-chooser { transition: .3s }
 	.iOIbVE.iOIbVE, .chat-line__username-container--hoverable, .kMwhRV, .jUiaVy, .jwWicM, .predictions-list-item__body, .jLHIWd { transition: .2s }
 	.dcNXJO, .kzYOur, .kXuCmW, .jUkMRL, .kccyMt, .hovRjt, .dCFkna, .cAajJv, a.navigation-link, .hWTXlR, .kMwhRV, .dEeZDR, 
-	.social-media-link__external-link-icon, .gxYeIp, .bZLSuF, .gGttfb, .bNByMh, .kLgTJj, .eCrblY, .ldMHo, .fvWwI, .fixed-prediction-button, .dOkkBt, .iwMIba, .imYKMv, .bmaSLQ, .hQMzBR { transition: .15s }
+	.social-media-link__external-link-icon, .gxYeIp, .bZLSuF, .gGttfb, .bNByMh, .kLgTJj, .eCrblY, .ldMHo, .fvWwI, .fixed-prediction-button, .dOkkBt, .iwMIba, .imYKMv, .bmaSLQ, .hQMzBR, .extensions-dock-card__image { transition: .15s }
 	.chat-line__message-highlight, .chat-line__icon, .kZmtcH, button.imYKMv, .gcA-DkW { transition: .05s linear }
 	.emote-button__link:hover img { transform: scale(0.7); }
 	.emote-button__link:active img { transform: scale(1.1); transition: .15s }
@@ -401,10 +499,11 @@
 			.vod-message { animation: messages-right .4s }
 		}  
 		
-			// remove horizontal chat scroller caused by messages transform
+			// -- remove horizontal chat scroller caused by messages transform
 		if (animate-messages && animate-messages!="opacity") {
-			.chat-scrollable-area__message-container, .vod-message:not(:has(.tw-balloon), :hover) { overflow: hidden; } 
+			.chat-scrollable-area__message-container { overflow-x: hidden; } 
 		}
+			// --
 		
 		if (rainbow-effect) { .chat-line__username-container { animation: spin-hue .85s; } }
 		
@@ -453,6 +552,12 @@
 		}
 	// --
 		
+			// verification badge animation
+		.channel-info-content .dMBVIY {
+			.ijyopa .tw-svg { transition: transform .35s; }
+			a:hover+.ijyopa .tw-svg { transform: rotate(0.07turn) scale(1.1) }
+		} 
+	
 		.tw-progress-bar .gegykz { animation: spin-hue 3s infinite linear; }
 	
 		.streamer-card__balloon {
@@ -528,7 +633,8 @@
 		.volume-slider__slider-container[aria-hidden="true"] { 
 			.ScRangeFillValue-sc-q01wc3-3 { background-color: transparent; } 
 		}
-		.viewer-card-layer__draggable, .vod-message .dQedsG, .chat-settings__header { animation: settings-header .3s; }
+		.vod-message .dQedsG, .chat-settings__header { animation: settings-header .3s; }
+		.viewer-card-layer__draggable { animation: swipe .3s; }
 		.viewer-card-header__background, .support-panel .goal_widget_v2__container { animation: content-in .5s }
 		.community-highlight [class="Layout-sc-1xcs6mc-0 fSfyIg"] { animation: community-highlight .3s }
 		[aria-label="Hide for yourself"] { animation: hide-button .5s }
@@ -568,9 +674,7 @@
 		[data-popper-placement] { background: #18181bb0 !important; .fNeqge, .whispers-threads-box__header { background: #ffffff0d !important; box-shadow: none !important; } }
 		
 		[aria-label="emote-picker"] .dnjUiS, .gxOWjV { background: #18181b57 !important; } 
-		/*.gktysi:focus, .gktysi:focus option { background: #18181bb0 !important }*/
 		.gSwbdq { background-color: #5c16c58c !important; backdrop-filter: blur(4px); }
-		/*if (compact-pause) { [class="Layout-sc-1xcs6mc-0 gIraVA chat-input-tray__open"] { position: absolute; } }*/
 		.streamer-card__balloon .gboHV { background: #18181bd1 }
 			
 		[class={chat-customization}] {  
@@ -578,7 +682,11 @@
 			.dduVcl, .chat-identity-menu__content { background: none !important; }
 		}
 		
-		.dewBQX, .hWLVNA, .fJgKVb {
+		.dewBQX {
+			background: #18181ba1 !important;
+		}
+		
+		.hWLVNA, .fJgKVb {
 			background: #18181ba1 !important;
 			backdrop-filter: blur(10px);
 		}
@@ -593,21 +701,6 @@
 		
 			// not needed?
 		[aria-label*="(alt+x)"], .fJgKVb, .NjUUT, .kjWTWh { background-color: transparent !important; }
-	}
-	
-	.video-chat__sync-button { 
-		background-color: rgba(10, 10, 10, .84) !important; 
-		border-color: rgba(79, 79, 79, 0.48); 
-		transition: 0.35s;
-		color: var(--color-text-overlay) !important; 
-		margin-block-end: 27px !important;
-		position: absolute !important;
-		font-size: var(--button-text-default);
-		border-radius: 0.4rem; 
-		height: 3em;
-		will-change: transform;
-		&:hover { transform: scaleY(1.1); color: #ffffffbf !important; }
-		@css { @starting-style { transform: translateY(100%); opacity: 0 !important; } } 
 	}
 	
 	/*.bXENUW.chat-room__content > .Layout-sc-1xcs6mc-0:has(.channel-leaderboard-header-rotating__users) {
@@ -665,12 +758,12 @@
 50% { opacity: 0; content: unset; }
 to { opacity: 1; content: unset; } }
 	
-@keyframes logo { 0% { clip-path: inset(0 61% 0 0); transform: translateX(-5px) translateY(-200%); opacity: 0; color: #b1b1bf; cursor: wait; }
+@keyframes logo { 0% { clip-path: inset(0 61% 0 0); transform: translateX(-5px) translateY(-200%); opacity: 0; color: #b1b1bf; cursor: wait; word-spacing: unset; }
 8% { clip-path: inset(0 61% 0 0); transform: translateX(-5px) translateY(0); color: #b1b1bf; opacity: 0.8; cursor: wait; }
 20%, 30% { clip-path: inset(0 23% 0 0); transform: translateX(-5px); color: transparent; opacity: 1; cursor: wait; }
 42%, 78% { clip-path: inset(0 0 0 83%); transform: translateX(-135px); color: #b1b1bf; opacity: 1; cursor: wait; }
 90% { clip-path: inset(0 23% 0 0); transform: translateX(0); opacity: 0.5; color: #efeff1; cursor: wait; }
-to { clip-path: inset(0 23% 0 0); transform: translateX(0); opacity: 0.5; color: #b1b1bf; } }
+to { clip-path: inset(0 23% 0 0); transform: translateX(0); opacity: 0.5; color: #b1b1bf; cursor: wait; word-spacing: unset; } }
 
 @keyframes logo-blink { 0% { opacity: 1; }
 25% { opacity: 0.8; } 
@@ -780,5 +873,5 @@ to { background-position: -200%; } }
 @keyframes gradient-rotate { to { --angle: 360deg; } }
 	
 @property --angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
-
+	
 }
