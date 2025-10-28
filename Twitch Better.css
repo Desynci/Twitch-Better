@@ -1,10 +1,10 @@
 /* ==UserStyle==
 @name           Twitch Better
 @namespace      1337
-@version        1.9.5
+@version        1.9.6
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
-@@supportURL 	https://github.com/Desynci/Twitch-Better/issues
+@supportURL 	https://github.com/Desynci/Twitch-Better/issues
 @preprocessor 	stylus
 
 @var select holder-1 "🌠  General" {
@@ -634,7 +634,7 @@
 			.ScRangeFillValue-sc-q01wc3-3 { background-color: transparent; } 
 		}
 		.vod-message .dQedsG, .chat-settings__header { animation: settings-header .3s; }
-		.viewer-card-layer__draggable { animation: swipe .3s; }
+		.viewer-card-layer__draggable { animation: swipe .45s .2s backwards; }
 		.viewer-card-header__background, .support-panel .goal_widget_v2__container { animation: content-in .5s }
 		.community-highlight [class="Layout-sc-1xcs6mc-0 fSfyIg"] { animation: community-highlight .3s }
 		[aria-label="Hide for yourself"] { animation: hide-button .5s }
