@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better
 @namespace      1337
-@version        1.9.7
+@version        1.9.8
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -17,7 +17,9 @@
 @var checkbox transparent-player "More transparent player" 1
 @var checkbox new-design "Apply design tweaks" 1
 @var checkbox dark-chat "Use dark chat mode" 0
+@var checkbox use-glow "Add glow effect to buttons" 1
 @var color timeline_color "VOD timeline color:" #a970ff
+@var color thumb_color "VOD thumb color:" #ffffff
 
 @var select animations "🎭 Animations" {
     'ON*': "enabled",
@@ -45,9 +47,8 @@
     ' ': "holder-4"
 }
 
-@var checkbox remove-disclosure "Adult content note " 0
+@var checkbox remove-disclosure "Adult content notification" 0
 @var checkbox remove-hype-train "Hypetrains" 0
-
 @var checkbox remove-turbo "Turbo promotion" 0
 @var checkbox remove-gift "Gift button" 0
 @var checkbox remove-subscription "Subscription button" 0
@@ -69,6 +70,7 @@
 	'→ Channel creator': "author",
 	'→ VIP': "vip",
 	'→ Hornet': "hornet",
+	'→ Ruby Heart': "ruby-heart",
 	'→ Custom': "custom"
 }
 @var text __custom-badge-url "[Custom] Link to image in quotes:" "'Example.com/img.jpg'"
@@ -78,8 +80,6 @@
 
 @-moz-document domain("twitch.tv") {	
 	
-	__title = "Twitch Better | V2 "
-	
 	__badge = ""
 	whispers-popup = "'ScBalloonWrapper-sc-14jr088-0 PjurZ InjectLayout-sc-1i43xsx-0 bAWxnr tw-balloon'"
 	settings = "'player-settings-menu'"
@@ -87,18 +87,19 @@
 	notifications = "'ScBalloonWrapper-sc-14jr088-0 PjurZ InjectLayout-sc-1i43xsx-0 bAWxnr tw-balloon'"
 	side-nav-bg = transparentify(#18181b, #fff, 0.8)
 	
-	if (new-controls=0) {
+	/*if (youtube-controls) {
 		#channel-player {
 			.lnTwMD { width: 2.8rem; height: 2.8rem; }
 			.dcNXJO { width: 4.3rem; height: 3.3rem; }
 		}
-	}
+	}*/
 	
 	.chat-wysiwyg-input-box, .jwWicM { box-shadow: inset 0 0 0 var(--input-border-width-small) #636363f2; }
 	.chat-input-tray__open { background: #232327b0 !important; }
-	.seekbar-bar > [style*="169"] { background-color: timeline_color !important }
+	.seekbar-bar > [style*="169"] { background-color: timeline_color !important; }
+	.seekbar-thumb { background-color: thumb_color !important; }
 	.side-nav__scrollable_content { scrollbar-width: none; }
-	.channel-root--home .channel-info-content { width: unset }
+	.channel-root--home .channel-info-content { width: unset; }
 	.reward-icon__animated, .predictions-list-item__body, .extensions-dock-card__image { will-change: transform; }
 	.finNtM a { text-decoration: none; }
 	.chat-scrollable-area__message-container--paused { padding-bottom: 1rem; }
@@ -116,7 +117,8 @@
 		
 	if (welcome) {
 		.top-nav .itDlPz [data-test-selector="toggle-balloon-wrapper__mouse-enter-detector"]::after { 
-			content: __title;
+			content: "Twitch Better | V2";
+			padding-right: 2px;
 			position: absolute;
 			left: 51px;
 			font-size: var(--font-size-3);
@@ -127,11 +129,12 @@
 			white-space: nowrap;
 			background: linear-gradient(90deg, #9db2ff 0%, #9db2ff 40%, #de76f0 50%, #9db2ff 90%, #9db2ff 100%); 
 			background-size: 200% 200%;
-			animation: gradient 5s 2.5s linear infinite, logo 12s 4s backwards; /* logo-blink 4s 9s */
+			animation: gradient 5s 2.5s linear infinite, logo 11s 4s backwards; /* logo-blink 4s 9s */
 			background-clip: text;
-			transition: .45s, clip-path .45s .45s;
+			transition: .45s .05s, clip-path .6s .05s;
+			transition-property: opacity, clip-path, word-spacing, color;
 				/* state after animation */
-			clip-path: inset(0 23% 0 0); 
+			clip-path: inset(0 25% 0 0); 
 			transform: translateX(0); 
 			opacity: 0.5; 
 			color: #b1b1bf; 
@@ -139,16 +142,8 @@
 		}
 		
 		.top-nav .itDlPz [data-test-selector="toggle-balloon-wrapper__mouse-enter-detector"] {
-			&:hover::after {
-				word-spacing: 3.5px;
-			}
-			
-			&:active::after {
-				clip-path: inset(0 0 0 0); 
-				word-spacing: unset;
-				color: transparent;
-				opacity: 1; 
-			}
+			&:hover::after { word-spacing: 3.5px; }
+			&:active::after { clip-path: inset(0 0 0 0); word-spacing: unset; color: transparent; opacity: 1; }
 		}
 	}
 		
@@ -217,7 +212,7 @@
 		}
 		
 		[data-test-selector="chat-private-callout-queue__callout-container"] .bTkUWo { 
-			background-color: #00000069 !important; 
+			background-color: transparent !important; 
 		}
 		
 		[data-a-target="chat-private-callout__primary-button"] {
@@ -234,6 +229,13 @@
 	if (new-design) {
 		.video-chat__header { height: 40px; border-bottom: var(--border-width-default) solid var(--color-border-base) !important; background-color: var(--color-background-base) !important; box-shadow: none !important; }
 		
+		.seekbar-thumb { width: 1.7rem; height: 1.7rem; }
+			
+		.rewards-list button.hWTXlR { 
+			background-color: #544365; 
+			&:hover { background-color: #786090;  }
+		}
+			
 		.tw-channel-status-text-indicator { color: #0e0e10 }
 			
 		[data-a-target="animated-channel-viewers-count"] {
@@ -256,10 +258,30 @@
 			background-color: #131316 !important;
 		}
 	}
+	
+	if (use-glow) {
+		.community-points-summary .fOtgyk {
+			__points-color = (dark-chat) ? #00800096 : #00a70085; // Stylelint false error detection
+			__points-color-hover = (dark-chat) ? #008000cc : #00c70085;
+			
+			box-shadow: 0px 0px 8px __points-color;
+			&:hover { box-shadow: 0px 0px 10px __points-color-hover; } 
+		}
 		
+		[data-a-target="chat-send-button"] {
+			__chat-color = (dark-chat) ? #9600ff96 : #a92dff96;
+			__chat-color-hover = (dark-chat) ? #a11bff96 : #be61ff96;
+			
+			box-shadow: 0px 0px 8px __chat-color;
+			&:hover { box-shadow: 0px 0px 10px __chat-color-hover; } 
+		}
+		
+		.tw-pill.gsuaOr { box-shadow: 0px 0px 7px #ff75e6; } // [BETA] span
+	}	
+	
 	//@var checkbox remove-banner "Clips banner" 1
 	//if (remove-banner) { [style*="badge-promo-banner"] { display: none !important; } }
-	if (remove-hype-train) { .hype-train__banner { display: none !important; } }
+	if (remove-hype-train) { .hype-train__banner, .side-nav-card [class="Layout-sc-1xcs6mc-0 hMzOYz"], .online-side-nav-channel-tooltip__body .ipRTld .hMzOYz { display: none !important; } }
 	if (remove-disclosure) { #channel-player-disclosures { display: none !important; } }
 	if (transparent-player) { .player-controls, .top-bar { background: none; } }
 	
@@ -363,6 +385,7 @@
 			if (custom-badge=="author") { __badge = "https://static-cdn.jtvnw.net/badges/v1/5527c58c-fb7d-422d-b71b-f309dcb85cc1/2" }
 			if (custom-badge=="vip") { __badge = "https://static-cdn.jtvnw.net/badges/v1/b817aba4-fad8-49e2-b88a-7cc744dfa6ec/2" }
 			if (custom-badge=="hornet") { __badge = "https://static-cdn.jtvnw.net/badges/v1/4dc7b047-8c59-4522-97f2-24fb63147f56/3" }
+			if (custom-badge=="ruby-heart") { __badge = "https://static-cdn.jtvnw.net/badges/v1/ca0aa8ce-b2a8-4582-a5de-4d5b6915dc47/2" }
 			
 			.chat-line__message[data-a-user={nick}] { 
 				.chat-line__username-container span > .dvtAVE:last-of-type {			
@@ -500,11 +523,10 @@
 			.vod-message { animation: messages-right .4s }
 		}  
 		
-			// -- remove horizontal chat scroller caused by messages transform
+			// remove horizontal chat scroller caused by messages transform
 		if (animate-messages && animate-messages!="opacity") {
 			.chat-scrollable-area__message-container { overflow-x: hidden; } 
 		}
-			// --
 		
 		if (rainbow-effect) { .chat-line__username-container { animation: spin-hue .85s; } }
 		
@@ -524,15 +546,20 @@
 		
 		//[data-a-target={settings}] > div:not(:has(.tw-drop-down-menu-item-figure))
 		[data-a-target={settings}] > div, .chat-settings__content > div {
-			animation: settings-menu .2s; 
+			animation: settings-menu .225s; 
+		}
+		
+		[data-a-target="player-settings-menu"] .CayVJ.imYKMv:first-of-type { // close icon animation
+			.tw-drop-down-menu-item-figure { transition: .15s; }
+			&:active { .tw-drop-down-menu-item-figure { transform: scale(0.5); } }
 		}
 		
 	// -- settings arrows anims
 		[data-a-target={settings}] {
-			.cWChvM > div { transition: .15s }
+			.cWChvM > div { transition: .2s }
 			
 			.imYKMv[role="menuitem"]:hover {
-				.cWChvM > div { transform: translateX(-6px) }
+				.cWChvM > div { transform: translateX(-3px) }
 			}
 		}
 		
@@ -559,7 +586,8 @@
 			a:hover+.ijyopa .tw-svg { transform: rotate(0.07turn) scale(1.1) }
 		} 
 	
-		.tw-progress-bar .gegykz { animation: spin-hue 3s infinite linear; }
+		.tw-progress-bar .gegykz, .tw-progress-bar .dqeKsq { animation: spin-hue 3s infinite linear; }
+		.reward-icon--large { transition: .25s; filter: hue-rotate(0); &:hover { filter: hue-rotate(0.1turn); } }
 	
 		.streamer-card__balloon {
 			.kXaRRs { animation: streamer-card .6s !important; }
@@ -608,8 +636,28 @@
 				.ipRTld { animation-delay: 400ms; } }
 		}
 		
-		//.chat-input { z-index: 12; }
-		//.viewer-card-layer { z-index: 20 !important; }
+	// credits to Youtube RetroWave by xyadx
+	// https://userstyles.world/style/292/youtube-retrowave
+		/*.seekbar-thumb::after {
+			display: block;
+    		opacity: 1;
+			content: "";
+			height: 25px;
+			width: 25px;
+			background-image: url(https://i.postimg.cc/wxtHHvWL/starfall.gif);
+			background-repeat: no-repeat;
+   	 		background-position: center;
+   	 		background-size: 100%;
+    		transform: rotate(258deg) translateY(-5px) translateX(6px);
+    		border-radius: 81px;
+		}
+		
+		.seekbar-thumb {
+			background: red;
+			animation: yadpogi 3s linear infinite;
+			&:hover { transform: scale(1.5) translateX(-5.5px); }
+			transition: transform .2s cubic-bezier(.05,0,0,1);
+		}*/
 
 		#channel-points-reward-center-body { overflow: hidden !important }
 		.rewards-list > div, .emote-picker__search-content-dark, .emote-grid-section__header-title { animation: rewards-list .4s !important }
@@ -634,7 +682,8 @@
 		.volume-slider__slider-container[aria-hidden="true"] { 
 			.ScRangeFillValue-sc-q01wc3-3 { background-color: transparent; } 
 		}
-		.vod-message .dQedsG, .chat-settings__header { animation: settings-header .3s; }
+		.seekbar-thumb { animation: seekbar-thumb .3s; transition: transform .2s .05s; transform: scaleZ(1) translateX(-50%); &:hover { transform: scale(1.3) translateX(-6px) } }
+		.vod-message .dQedsG { animation: pop-small .3s; }
 		.viewer-card-layer__draggable { animation: swipe .45s .2s backwards; }
 		.viewer-card-header__background, .support-panel .goal_widget_v2__container { animation: content-in .5s }
 		.community-highlight [class="Layout-sc-1xcs6mc-0 fSfyIg"] { animation: community-highlight .3s }
@@ -661,7 +710,7 @@
 	.onsite-notifications-toast-manager { animation: community-highlight .5s }
 	
 	if (apply-blur) {
-		[data-popper-placement], .support-panel-container, .clip-editor-popup, .dJwphs.chat-input-tray__open { background: #00000094 !important; animation: blur-55 0.9s forwards; border-radius: var(--border-radius-large); .support-panel, .hMGodn, .bAWxnr, .kCsLVM, .dduVcl { background: none !important; } .boRevm, .fJjWcz, [data-a-target="player-settings-menu"] > [class="Layout-sc-1xcs6mc-0 igZqfU"]:first-of-type, .bJNNGV, .KbcXb { background: #17171787 !important } }
+		[data-popper-placement], .support-panel-container, .clip-editor-popup, .dJwphs.chat-input-tray__open, [aria-labelledby="active-settings-menu-header"] > div { background: #00000094 !important; animation: blur-55 0.9s forwards; border-radius: var(--border-radius-large); .support-panel, .hMGodn, .bAWxnr, .kCsLVM, .dduVcl { background: none !important; } .boRevm, .fJjWcz, [data-a-target="player-settings-menu"] > [class="Layout-sc-1xcs6mc-0 igZqfU"]:first-of-type, .bJNNGV, .KbcXb { background: #17171787 !important } }
 		[data-popper-placement]:has(.dduVcl), [aria-describedby="channel-points-reward-center-body"], .hVLlmi, [class="Attached-sc-go6eno-0 gdnAaW"] div, .icXHzp, .dEvhpQ:not(.chat-input-tray__open--persistent), [aria-label="emote-picker"], .vod-message .dduVcl, .kGRpNK { background: #18181bb0 !important; border-radius: var(--border-radius-large); animation: blur-15 0.4s forwards; .dduVcl, .iGvYpN { background: none !important; } }
 		[data-popper-placement][data-popper-placement="right-start"] { 
 			backdrop-filter: none !important; background: none !important; 
@@ -760,11 +809,11 @@
 to { opacity: 1; content: unset; } }
 	
 @keyframes logo { 0% { clip-path: inset(0 61% 0 0); transform: translateX(-5px) translateY(-200%); opacity: 0; color: #b1b1bf; cursor: wait; word-spacing: unset; }
-8% { clip-path: inset(0 61% 0 0); transform: translateX(-5px) translateY(0); color: #b1b1bf; opacity: 0.8; cursor: wait; }
-20%, 30% { clip-path: inset(0 23% 0 0); transform: translateX(-5px); color: transparent; opacity: 1; cursor: wait; }
-42%, 78% { clip-path: inset(0 0 0 83%); transform: translateX(-135px); color: #b1b1bf; opacity: 1; cursor: wait; }
-90% { clip-path: inset(0 23% 0 0); transform: translateX(0); opacity: 0.5; color: #efeff1; cursor: wait; }
-to { clip-path: inset(0 23% 0 0); transform: translateX(0); opacity: 0.5; color: #b1b1bf; cursor: wait; word-spacing: unset; } }
+8% { clip-path: inset(0 61% 0 0); transform: translateX(-5px) translateY(0); color: #b1b1bf; opacity: 0.8; }
+20%, 30% { clip-path: inset(0 25% 0 0); transform: translateX(-5px); color: transparent; opacity: 1; }
+42%, 78% { clip-path: inset(0 0 0 83%); transform: translateX(-135px); color: #b1b1bf; opacity: 1; }
+90% { clip-path: inset(0 25% 0 0); transform: translateX(0); color: #efeff1; opacity: 0.5; }
+to { clip-path: inset(0 25% 0 0); transform: translateX(0); color: #b1b1bf; opacity: 0.5; cursor: wait; word-spacing: unset; } }
 
 @keyframes logo-blink { 0% { opacity: 1; }
 25% { opacity: 0.8; } 
@@ -772,7 +821,7 @@ to { clip-path: inset(0 23% 0 0); transform: translateX(0); opacity: 0.5; color:
 75% { opacity: 0.8; }
 to { opacity: 1; } }
 		
-@keyframes settings-header { 0% { transform: translateY(15px); }
+@keyframes pop-small { 0% { transform: translateY(15px); }
 to { transform: none; } }
 	
 @keyframes user-menu { 0% { clip-path: inset(0 0 100% 0); transform: scaleY(0) scaleZ(1); transform-origin: top; }
@@ -804,6 +853,9 @@ to {  filter: grayscale(0); opacity: 1; pointer-events: none; transform: transla
 
 @keyframes content-in { 0% { transform: scale(0.3); opacity: 0; filter: grayscale(1); }
 to { transform: scale(1); filter: grayscale(0); opacity: 1; } }
+
+@keyframes seekbar-thumb { 0% { transform: scale(0.3) translateX(-50%); opacity: 0; filter: grayscale(1); transform-origin: left; }
+to { transform: scale(1) translateX(-50%); filter: grayscale(0); opacity: 1; transform-origin: left; } }
 
 @keyframes emotes { 0% { transform: scale(0.3); opacity: 0; }
 to { transform: scale(1.1); } }
@@ -875,4 +927,18 @@ to { background-position: -200%; } }
 	
 @property --angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
 	
+// credits to Youtube RetroWave by xyadx
+// https://userstyles.world/style/292/youtube-retrowave
+@keyframes yadpogi { 0% { box-shadow: 0 0 9px 3px #ff00d4; }
+10% { box-shadow: 0 0 7px 3px #9d00ff; }
+20% { box-shadow: 0 0 9px 3px #5100ff; }
+30% { box-shadow: 0 0 7px 3px #00d9ff; }
+40% { box-shadow: 0 0 9px 3px #00ffc3; } 
+50% { box-shadow: 0 0 7px 3px #b3ff00; }
+60% { box-shadow: 0 0 9px 3px #ff8400; } 
+70% { box-shadow: 0 0 7px 3px #ff6a00; }
+80% { box-shadow: 0 0 9px 3px #f00; } 
+90% { box-shadow: 0 0 7px 3px #ee436b; } 
+100% { box-shadow: 0 0 7px 3px #ff00d4; } }
+
 }
