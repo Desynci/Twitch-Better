@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better
 @namespace      1337
-@version        1.9.8
+@version        1.9.9
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -25,8 +25,8 @@
     'ON*': "enabled",
 	'OFF': "disabled"
 }
-@var checkbox animate-badge "Animate chat badges" 0
-@var checkbox rainbow-effect "Rainbow nicknames appear" 0
+@var checkbox animate-badge "Animate chat badges" 1
+@var checkbox rainbow-effect "Rainbow nicknames appear" 1
 @var select animate-messages "Messages animation:" {
     'None': "none",
 	'→ №1': "default",
@@ -47,7 +47,7 @@
     ' ': "holder-4"
 }
 
-@var checkbox remove-disclosure "Adult content notification" 0
+@var checkbox remove-disclosure "Explicit content warning" 0
 @var checkbox remove-hype-train "Hypetrains" 0
 @var checkbox remove-turbo "Turbo promotion" 0
 @var checkbox remove-gift "Gift button" 0
@@ -106,7 +106,7 @@
 	.whispers-threads-box__header, .whispers-threads-box__header+.gxOWjV, .jmERFg { border-bottom: none !important; }
 	.side-nav { background: #18181b !important; }
 	.kpgZBi { border-radius: 12px !important; }
-	[data-a-target="share-button"] { display: none }
+	[data-a-target="share-button"] { display: none; }
 		
 		// Notification tweaks
 	.onsite-notification-toast__action.dhbGUE { display: none !important; }
@@ -246,7 +246,7 @@
 		}
 		
 		a[data-a-target="stream-game-link"] {
-			color: #a366ff;
+			color: #a366ff; &:visited { color: #a366ff }
 		}
 		
 		.tw-tag {
@@ -268,7 +268,7 @@
 			&:hover { box-shadow: 0px 0px 10px __points-color-hover; } 
 		}
 		
-		[data-a-target="chat-send-button"] {
+		[data-a-target="chat-send-button"]:not([disabled]) {
 			__chat-color = (dark-chat) ? #9600ff96 : #a92dff96;
 			__chat-color-hover = (dark-chat) ? #a11bff96 : #be61ff96;
 			
@@ -303,7 +303,7 @@
 	}
 	
 	if (remove-turbo) {
-		.top-nav__menu [class="Layout-sc-1xcs6mc-0"] > [class="InjectLayout-sc-1i43xsx-0 iDMNUO"] { button[class="ScCoreButton-sc-ocjdkq-0 gGttfb"], button[class="ScCoreButton-sc-ocjdkq-0 iPkwTD ScButtonIcon-sc-9yap0r-0 dcNXJO"]:not([data-a-target])  { display: none; } }
+		.top-nav__menu [class="Layout-sc-1xcs6mc-0"] > [class="InjectLayout-sc-1i43xsx-0 iDMNUO"] { button[class="ScCoreButton-sc-ocjdkq-0 gGttfb"], button[class="ScCoreButton-sc-ocjdkq-0 iPkwTD ScButtonIcon-sc-9yap0r-0 dcNXJO"]:not([data-a-target]), button[class="ScCoreButton-sc-ocjdkq-0 iPkwTD ScButtonIcon-sc-9yap0r-0 dcNXJO"]:not([data-a-target])+.tw-new-item-indicator__container, button[class="ScCoreButton-sc-ocjdkq-0 gGttfb"]+.tw-new-item-indicator__container { display: none; } }
 	}
 	
 	if (remove-gift) {
@@ -510,6 +510,8 @@
 			else { .chat-scrollable-area__message-container > div { animation: messages .4s; } }
 			
 			.vod-message { animation: messages .4s; }
+				
+			.chat-scrollable-area__message-container { overflow-y: hidden; } // remove chat scroller caused by messages transform
 		}
 		
 		else if (animate-messages=="opacity") {
@@ -521,12 +523,9 @@
 			else { .chat-scrollable-area__message-container > div { animation: messages-right .4s } }	
 			
 			.vod-message { animation: messages-right .4s }
+				
+			.chat-scrollable-area__message-container { overflow-x: hidden; } // remove chat scroller caused by messages transform
 		}  
-		
-			// remove horizontal chat scroller caused by messages transform
-		if (animate-messages && animate-messages!="opacity") {
-			.chat-scrollable-area__message-container { overflow-x: hidden; } 
-		}
 		
 		if (rainbow-effect) { .chat-line__username-container { animation: spin-hue .85s; } }
 		
@@ -660,7 +659,8 @@
 		}*/
 
 		#channel-points-reward-center-body { overflow: hidden !important }
-		.rewards-list > div, .emote-picker__search-content-dark, .emote-grid-section__header-title { animation: rewards-list .4s !important }
+		.rewards-list > div, .emote-picker__search-content-dark .tw-search-input, .emote-grid-section__header-title { animation: rewards-list .4s !important }
+		.scrollable-area.emote-picker__nav-content { animation: opacity .6s .15s backwards !important }
 			
 		[data-popper-placement][data-popper-placement="right-start"] { transition: .4s; animation: opacity .3s .3s backwards !important; @css { @starting-style { opacity: 0 !important; } } }
 		[data-popper-placement]:has(.top-nav__overflow-menu) { 
@@ -765,7 +765,6 @@
 		[data-a-target="player-mute-unmute-button"], .volume-slider__slider-container { margin-left: 1px; }
 		.player-controls__left-control-group { flex-grow: 0 !important; }
 
-			// .player-controls:has([data-a-player-state="playing"])
 		.player-controls {
 			[class="InjectLayout-sc-1i43xsx-0 iDMNUO"]:has([data-a-player-state="playing"]) { 
 				position: absolute !important;
@@ -774,20 +773,22 @@
 			}
 		}
 
-		.iPkwTD[data-a-player-state] { transition: margin-left .4s .1s; will-change: margin-left; }
+		.iPkwTD[data-a-player-state] { transition: margin-left .4s .1s, opacity .4s .1s; will-change: margin-left; }
 		
-		.iPkwTD[data-a-player-state="playing"] { position: absolute !important;
+		.iPkwTD[data-a-player-state="playing"] { 
+			position: absolute !important;
 			color: transparent !important;
 			height: 100% !important;
 			width: 100% !important;
 			border-radius: 0px;
 			background: none !important;
 			margin-left: -32px;
+			opacity: 0;
 			outline: none;
 		}
 
 		.iPkwTD[data-a-player-state="paused"] {
-			> .lnTwMD { position: absolute; color: white !important; }
+			> .lnTwMD { position: absolute; color: white !important; opacity: 1; }
 		}
 	}
 
@@ -941,4 +942,28 @@ to { background-position: -200%; } }
 90% { box-shadow: 0 0 7px 3px #ee436b; } 
 100% { box-shadow: 0 0 7px 3px #ff00d4; } }
 
+@keyframes rainbow-border { 0% { border-color: #ff00d4; }
+10% { border-color: #9d00ff; }
+20% { border-color: #5100ff; }
+30% { border-color: #00d9ff; }
+40% { border-color: #00ffc3; }
+50% { border-color: #b3ff00; }
+60% { border-color: #ff8400; }
+70% { border-color: #ff6a00; }
+80% { border-color: #f00; }
+90% { border-color: #ee436b; }
+100% { border-color: #ff00d4; } }
+	
+}
+
+@-moz-document regexp("https?:\/\/www\.twitch\.tv\/[^\/]+\/clip\/.*") {
+	if (new-pause) {
+		.player-controls {
+			[data-a-target="player-play-pause-button"][data-a-player-state="playing"] { 
+				position: absolute !important;
+				height: 10000% !important;
+				width: 1000% !important;
+			}
+		}
+	}
 }
