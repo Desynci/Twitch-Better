@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.0.5
+@version        2.1.0
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -13,7 +13,7 @@
 @var checkbox welcome "Twitch Better logo" 1
 @var checkbox new-pause "Absolute pause (breaks extensions!)" 1
 @var checkbox apply-blur "Apply blur on menu" 1
-@var select player-controls "Player controls mode:" {
+@var select player-controls "Player controls:" {
     'Default': "default",
 	'YouTube Light*': "yt-light",
 	'YouTube Dark': "yt-dark",
@@ -45,7 +45,7 @@
 	'OFF': "disabled"
 	
 }
-@var range sidebar-size "Width:" [24,12,28,1,"rem"]
+@var range sidebar-size "Width:" [24,12,28,0.2,"rem"]
 @var checkbox sidebar-hover-only "Show only on hover" 1
 
 @var select holder-4 "🍂 Removers" {
@@ -80,9 +80,11 @@
 	'→ Ruby Heart': "ruby-heart",
 	'→ Hypetrain': "hypetrain",
 	'→ Duolingo': "duolingo",
+	'→ Dino': "dino",
+	'→ Cake 2023': "cake",
 	'[Custom]': "custom"
 }
-@var text __custom-badge-url "[Custom] Link to image in quotes:" "'Example.com/img.jpg'"
+@var text __custom-badge-url "[Custom] Image URL in quotes:" "'Site.com/img.jpg'"
 
 
 ==/UserStyle== */
@@ -113,10 +115,43 @@
 		// Notification tweaks
 	.onsite-notification-toast__action.dhbGUE { display: none !important; }
 	.onsite-notification-toast__action-wrapper { width: unset; border-left: none !important; }
+	.onsite-notifications-toast-manager { animation: community-highlight .5s }
 		
 		// Fix strange animation bug on closing popup 
 	.ReactModal__Overlay--after-open:has(.tw-transition[aria-hidden="true"]) { display: none; }
 		
+	.chat-line__message-body--highlighted {
+		background: linear-gradient(90deg, #9db2ff 0%, #9db2ff 40%, #de76f0 50%, #9db2ff 90%, #9db2ff 100%); 
+		font-weight: 900;
+		background-size: 200% 200%; 
+		animation: gradient 8s linear infinite; 
+		background-clip: text; 
+		color: transparent; 
+		border: none !important;
+		font-size: 15px;
+		font-variant-emoji: text;
+	}
+	
+	button[data-a-target="user-menu-toggle"] {
+		transition: .25s ease;
+		border-radius: var(--border-radius-rounded);
+		
+		&:hover {
+			box-shadow: 0px 0px 0 4px #7171807a;
+		} 
+		
+		&[aria-expanded="true"] {
+			box-shadow: 0px 0px 0 2px var(--color-twitch-purple-12);
+		}
+	}
+	
+	button[data-a-target="chat-badge"], .dvtAVE > .chat-badge {
+		transition: .2s;
+		transform: scaleZ(1);
+		
+		&:hover { transform: scale(1.2) }
+	}
+	
 	if (welcome) {
 		.top-nav .itDlPz [data-test-selector="toggle-balloon-wrapper__mouse-enter-detector"]::after { 
 			content: "Twitch Better | V2";
@@ -147,38 +182,6 @@
 			&:hover::after { word-spacing: 3.5px; }
 			&:active::after { clip-path: inset(0 0 0 0); word-spacing: unset; color: transparent; opacity: 1; }
 		}
-	}
-		
-	.chat-line__message-body--highlighted {
-		background: linear-gradient(90deg, #9db2ff 0%, #9db2ff 40%, #de76f0 50%, #9db2ff 90%, #9db2ff 100%); 
-		if (!dark-chat) { height: 900; }
-		background-size: 200% 200%; 
-		animation: gradient 8s linear infinite; 
-		background-clip: text; 
-		color: transparent; 
-		border: none !important;
-		font-size: 15px;
-		font-variant-emoji: text;
-	}
-	
-	button[data-a-target="user-menu-toggle"] {
-		transition: .25s ease;
-		border-radius: var(--border-radius-rounded);
-		
-		&:hover {
-			box-shadow: 0px 0px 0 4px #7171807a;
-		} 
-		
-		&[aria-expanded="true"] {
-			box-shadow: 0px 0px 0 2px var(--color-twitch-purple-12);
-		}
-	}
-	
-	button[data-a-target="chat-badge"], .dvtAVE > .chat-badge {
-		transition: .2s;
-		transform: scaleZ(1);
-		
-		&:hover { transform: scale(1.2) }
 	}
 	
 	if (player-controls!="default") {
@@ -249,7 +252,7 @@
 					background-color: transparent;
 				}
 				
-				.tw-svg { transform: scale(0.95); }
+				.tw-svg { transform: scale(0.94); }
 			}
 			
 			.iPkwTD:hover { 
@@ -333,11 +336,11 @@
 				position: relative;
 				
 				if (player-controls=="yt-light") { background-color: rgba(83, 83, 95, .478); }
-				else if (player-controls=="yt-dark") { background-color: hsla(240, 7%, 1%, .478); }
+				else if (player-controls=="yt-dark") { background-color: rgba(2, 2, 3, .478); }
 		
 				&:hover { 
-					if (player-controls=="yt-light") { background-color: hsla(240, 7%, 53%, .67); }
-					else if (player-controls=="yt-dark") { background-color: hsla(240, 7%, 1%, .67); }
+					if (player-controls=="yt-light") { background-color: rgba(100, 100, 115, .478); }
+					else if (player-controls=="yt-dark") { background-color: rgba(2, 2, 3, .67); }
 				}
 				
 			}
@@ -345,14 +348,14 @@
 			> div:not(.cofMAX, .resize-detector)::after {
 				content: "";
 				position: absolute;
-				inset: -3px;
+				inset: 2.5px;
 				pointer-events: none;
-				border-radius: 27px;
+				border-radius: 55px;
 				transition: background-color .15s;
 			}
 			
 			> div:not(.cofMAX, .resize-detector):hover::after {
-				if (player-controls=="yt-light") { background-color: rgba(0, 0, 0, .1); }
+				if (player-controls=="yt-light") { background-color: rgba(255, 255, 255, .15); }
 				else if (player-controls=="yt-dark") { background-color: rgba(255, 255, 255, .1); }
 				
 				animation: content-in .2s;
@@ -360,7 +363,7 @@
 
 			[aria-label$="(alt+x)"]:hover .tw-svg { 
 				transform: translateY(-3px) rotate(-0.02turn);
-				transition: transform .3s !important;
+				transition: transform .25s !important;
 			}
 			
 			[data-a-target="player-settings-button"]:hover .tw-aspect {
@@ -368,7 +371,7 @@
 			}
 			
 			path, .tw-aspect, .tw-svg {
-				transition: transform .25s, fill .25s, color .25s;
+				transition: transform .2s, fill .25s, color .25s;
 			}
 			
 			button {
@@ -652,8 +655,10 @@
 			if (custom-badge=="verified") { __badge = "https://static-cdn.jtvnw.net/badges/v1/d12a2e27-16f6-41d0-ab77-b780518f00a3/2" }
 			if (custom-badge=="hornet") { __badge = "https://static-cdn.jtvnw.net/badges/v1/4dc7b047-8c59-4522-97f2-24fb63147f56/3" }
 			if (custom-badge=="ruby-heart") { __badge = "https://static-cdn.jtvnw.net/badges/v1/ca0aa8ce-b2a8-4582-a5de-4d5b6915dc47/2" }
-			if (custom-badge=="hypetrain") { __badge = "https://static-cdn.jtvnw.net/badges/v1/9c8d038a-3a29-45ea-96d4-5031fb1a7a81/2" }
+			if (custom-badge=="hypetrain") { __badge = "https://static-cdn.jtvnw.net/badges/v1/9c8d038a-3a29-45ea-96d4-5031fb1a7a81/2" } 
 			if (custom-badge=="duolingo") { __badge = "https://static-cdn.jtvnw.net/badges/v1/be750d4d-a3b9-4116-ae75-6ee4f3294a19/2" }
+			if (custom-badge=="dino") { __badge = "https://static-cdn.jtvnw.net/badges/v1/1d4b03b9-51ea-42c9-8f29-698e3c85be3d/2" }
+			if (custom-badge=="cake") { __badge = "https://static-cdn.jtvnw.net/badges/v1/e33e0c67-c380-4241-828a-099c46e51c66/2" }
 			
 			.chat-line__message[data-a-user={nick}] { 
 				.chat-line__username-container span > .dvtAVE:last-of-type {			
@@ -699,15 +704,15 @@
 	.video-chat__sync-button {
 		width: 301px;
 		backdrop-filter: blur(5px);
-		background-color: rgba(10, 10, 1, .239) !important;
+		background-color: rgba(10, 10, 10, .722) !important;
 		border: 1px solid #4f4f4f7a;
 		transition: .3s;
 		color: var(--color-text-overlay) !important;
 		height: 40px;
 		margin-block-end: 25px !important;
 		border-radius: 99999px;
-		&:hover { transform: scaleX(0.970); color: #ffffffbf !important; background-color: rgba(30, 30, 30, .722) !important; }
-		&:active { transform: scaleX(0.960); transition: .15s; background-color: hsla(0, 0%, 25%, .722) !important; }
+		&:hover { transform: scaleX(0.990); color: #ffffffbf !important; background-color: rgba(30, 30, 30, .722) !important; }
+		&:active { transform: scaleX(0.970); transition: .15s; background-color: rgba(64, 64, 64, .42) !important; }
 		@css { @starting-style { transform: translateY(30px); opacity: 0 !important; } } 
 	}
 
@@ -853,7 +858,7 @@
 			a:hover+.ijyopa .tw-svg { transform: rotate(0.07turn) scale(1.1) }
 		} 
 	
-		.tw-progress-bar .gegykz, .tw-progress-bar .dqeKsq { animation: spin-hue 3s infinite linear; }
+		.tw-progress-bar .dqeKsq { animation: spin-hue 3s infinite linear; }
 		.reward-icon--large { transition: .25s; filter: hue-rotate(0); &:hover { filter: hue-rotate(0.1turn); } }
 	
 		.streamer-card__balloon {
@@ -970,8 +975,6 @@
 			}
 		}
 	}
-	
-	.onsite-notifications-toast-manager { animation: community-highlight .5s }
 	
 	if (apply-blur) {
 		[data-popper-placement], .support-panel-container, .clip-editor-popup, .dJwphs.chat-input-tray__open, [aria-labelledby="active-settings-menu-header"] > div { background: #00000094 !important; animation: blur-55 0.9s forwards; border-radius: var(--border-radius-large); .support-panel, .hMGodn, .bAWxnr, .kCsLVM, .dduVcl { background: none !important; } .boRevm, .fJjWcz, [data-a-target="player-settings-menu"] > [class="Layout-sc-1xcs6mc-0 igZqfU"]:first-of-type, .bJNNGV, .KbcXb { background: #17171787 !important } }
@@ -1240,5 +1243,12 @@ to { background-position: -200%; } }
 				width: 1000% !important;
 			}
 		}
+	}
+}
+
+@-moz-document url("https://clips.twitch.tv/create") {
+	.clips-root__main .cTHnga {
+		transition: width .5s;
+		&:hover { width: 170% !important; }
 	}
 }
