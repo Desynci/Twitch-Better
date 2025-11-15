@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.1.0
+@version        2.1.5
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -21,7 +21,7 @@
 @var checkbox compact-pause "Use new chat pause" 1
 @var checkbox transparent-player "More transparent player" 1
 @var checkbox new-design "Apply design tweaks" 1
-@var checkbox dark-chat "Use dark chat mode" 0
+@var checkbox dark-chat "Use dark chat mode" 1
 @var checkbox use-glow "Add glow effect to buttons" 1
 @var color timeline_color "VOD timeline color:" #a970ff
 @var color thumb_color "VOD thumb color:" #ffffff
@@ -46,7 +46,7 @@
 	
 }
 @var range sidebar-size "Width:" [24,12,28,0.2,"rem"]
-@var checkbox sidebar-hover-only "Show only on hover" 1
+@var checkbox sidebar-hover-only "Show only on hover" 0
 
 @var select holder-4 "🍂 Removers" {
     ' ': "holder-4"
@@ -80,8 +80,9 @@
 	'→ Ruby Heart': "ruby-heart",
 	'→ Hypetrain': "hypetrain",
 	'→ Duolingo': "duolingo",
-	'→ Dino': "dino",
-	'→ Cake 2023': "cake",
+	'→ Dino': "dino", 
+	'→ r/place 23': "cake",
+	'→ Awards 23': "tga2023",
 	'[Custom]': "custom"
 }
 @var text __custom-badge-url "[Custom] Image URL in quotes:" "'Site.com/img.jpg'"
@@ -495,6 +496,12 @@
 			
 		.seekbar-bar, .seekbar-segment { height: 9px; }
 			
+		.community-highlight-stack__card {
+			.cKpxcT, .ircmYD, .community-highlight { 
+				border-radius: 11px !important; 
+			}
+		}
+			
 		.rewards-list button.hWTXlR { 
 			background-color: #544365; 
 			&:hover { background-color: #786090;  }
@@ -659,6 +666,7 @@
 			if (custom-badge=="duolingo") { __badge = "https://static-cdn.jtvnw.net/badges/v1/be750d4d-a3b9-4116-ae75-6ee4f3294a19/2" }
 			if (custom-badge=="dino") { __badge = "https://static-cdn.jtvnw.net/badges/v1/1d4b03b9-51ea-42c9-8f29-698e3c85be3d/2" }
 			if (custom-badge=="cake") { __badge = "https://static-cdn.jtvnw.net/badges/v1/e33e0c67-c380-4241-828a-099c46e51c66/2" }
+			if (custom-badge=="tga2023") { __badge = "https://static-cdn.jtvnw.net/badges/v1/10cf46de-61e7-4a42-807a-7898408ce352/2" }
 			
 			.chat-line__message[data-a-user={nick}] { 
 				.chat-line__username-container span > .dvtAVE:last-of-type {			
@@ -977,7 +985,7 @@
 	}
 	
 	if (apply-blur) {
-		[data-popper-placement], .support-panel-container, .clip-editor-popup, .dJwphs.chat-input-tray__open, [aria-labelledby="active-settings-menu-header"] > div { background: #00000094 !important; animation: blur-55 0.9s forwards; border-radius: var(--border-radius-large); .support-panel, .hMGodn, .bAWxnr, .kCsLVM, .dduVcl { background: none !important; } .boRevm, .fJjWcz, [data-a-target="player-settings-menu"] > [class="Layout-sc-1xcs6mc-0 igZqfU"]:first-of-type, .bJNNGV, .KbcXb { background: #17171787 !important } }
+		[data-popper-placement], .support-panel-container, .clip-editor-popup, .dJwphs.chat-input-tray__open, [aria-labelledby="active-settings-menu-header"] > div, [data-a-target="player-overlay-video-stats"] { background: #00000094 !important; animation: blur-55 0.9s forwards; border-radius: var(--border-radius-large); .support-panel, .hMGodn, .bAWxnr, .kCsLVM, .dduVcl { background: none !important; } .boRevm, .fJjWcz, [data-a-target="player-settings-menu"] > [class="Layout-sc-1xcs6mc-0 igZqfU"]:first-of-type, .bJNNGV, .KbcXb { background: #17171787 !important } }
 		[data-popper-placement]:has(.dduVcl), [aria-describedby="channel-points-reward-center-body"], .hVLlmi, [class="Attached-sc-go6eno-0 gdnAaW"] div, .icXHzp, .dEvhpQ:not(.chat-input-tray__open--persistent), [aria-label="emote-picker"], .vod-message .dduVcl, .kGRpNK { background: #18181bb0 !important; border-radius: var(--border-radius-large); animation: blur-15 0.4s forwards; .dduVcl, .iGvYpN { background: none !important; } }
 		[data-popper-placement][data-popper-placement="right-start"] { 
 			backdrop-filter: none !important; background: none !important; 
@@ -989,6 +997,11 @@
 		}
 		
 		[data-popper-placement] { background: #18181bb0 !important; .fNeqge, .whispers-threads-box__header { background: #ffffff0d !important; box-shadow: none !important; } }
+		
+		[data-a-target="player-overlay-video-stats"] { 
+			.tw-table-heading { background: #ffffff0d !important; border: none !important; }
+			.tw-table { box-shadow: none; } 
+		}
 		
 		.whispers-thread {
 			background: #00000094 !important; animation: blur-55 0.9s forwards;
@@ -1029,6 +1042,11 @@
 				&:hover { backdrop-filter: blur(6px) }
 		}
 		
+		.community-highlight-stack__backlog-card {
+			background: #18181b5e !important;
+			backdrop-filter: blur(2px);
+		}
+		
 			// not needed?
 		[aria-label*="(alt+x)"], .fJgKVb, .NjUUT, .kjWTWh { background-color: transparent !important; }
 	}
@@ -1038,7 +1056,7 @@
 		.volume-slider__slider-container[aria-hidden="true"] { .ScRangeFillValue-sc-q01wc3-3 { background-color: transparent; } }
 	
 	if (new-pause) {
-		.extensions-dock__layout, .player-controls__left-control-group > div:not(.iDMNUO), .muted-segments-alert__scroll-wrapper, .theatre-social-panel, .stream-info-card, .disclosure-tool, [aria-label="Chat Happening Now Overlay"] { z-index: 3; }
+		.extensions-dock__layout, .player-controls__left-control-group > div:not(.iDMNUO), .muted-segments-alert__scroll-wrapper, .theatre-social-panel, .stream-info-card, .disclosure-tool, [aria-label="Chat Happening Now Overlay"], .player-overlay-background--darkness-3, .video-player__overlay .cojdHE:has([data-a-target="player-overlay-video-stats"]) { z-index: 3;  }
 		.player-controls .kIqpCX { z-index: 2; position: relative; }
 		//[data-a-target="player-mute-unmute-button"], .volume-slider__slider-container { margin-left: 1px; }
 		.player-controls__left-control-group { flex-grow: 0 !important; }
@@ -1248,7 +1266,7 @@ to { background-position: -200%; } }
 
 @-moz-document url("https://clips.twitch.tv/create") {
 	.clips-root__main .cTHnga {
-		transition: width .5s;
+		transition: width .5s .1s;
 		&:hover { width: 170% !important; }
 	}
 }
