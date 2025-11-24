@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.1.5
+@version        2.2.9
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -15,8 +15,8 @@
 @var checkbox apply-blur "Apply blur on menu" 1
 @var select player-controls "Player controls:" {
     'Default': "default",
-	'YouTube Light*': "yt-light",
-	'YouTube Dark': "yt-dark",
+	'YouTube Light': "yt-light",
+	'YouTube Dark*': "yt-dark",
 }
 @var checkbox compact-pause "Use new chat pause" 1
 @var checkbox transparent-player "More transparent player" 1
@@ -52,6 +52,8 @@
     ' ': "holder-4"
 }
 
+@var checkbox remove-combo "Combo" 1
+@var checkbox remove-combo-overlay "Combo in fullscreen" 0
 @var checkbox remove-vods-muted-alert "VODs muted segments alert" 0
 @var checkbox remove-disclosure "Explicit content warning" 0
 @var checkbox remove-hype-train "Hypetrains" 0
@@ -167,9 +169,9 @@
 			white-space: nowrap;
 			background: linear-gradient(90deg, #9db2ff 0%, #9db2ff 40%, #de76f0 50%, #9db2ff 90%, #9db2ff 100%); 
 			background-size: 200% 200%;
-			animation: gradient 5s 2.5s linear infinite, logo 11s 4s backwards; /* logo-blink 4s 9s */
+			animation: gradient 5s 2.5s linear infinite, logo 11s 4s backwards; /* logo-blink 4s 9s */ // cubic-bezier(.57,-0.4,.28,1.03);
 			background-clip: text;
-			transition: .45s .05s, clip-path .6s .05s;
+			transition: .45s, clip-path .4s;
 			transition-property: opacity, clip-path, word-spacing, color;
 				/* state after animation */
 			clip-path: inset(0 25% 0 0); 
@@ -180,23 +182,26 @@
 		}
 		
 		.top-nav .itDlPz [data-test-selector="toggle-balloon-wrapper__mouse-enter-detector"] {
-			&:hover::after { word-spacing: 3.5px; }
-			&:active::after { clip-path: inset(0 0 0 0); word-spacing: unset; color: transparent; opacity: 1; }
+			&:hover::after { word-spacing: 3.5px; transition: .65s, clip-path .4s; }
+			&:active::after { clip-path: inset(0 0 0 0); word-spacing: 0; color: transparent; opacity: 1; transition: .5s .05s cubic-bezier(0.76, 0, 0.24, 1), clip-path .5s .05s, word-spacing .6s .05s cubic-bezier(0.76, 0, 0.24, 1) }
 		}
 	}
 	
 	if (player-controls!="default") {
+		
+		// -- PAUSE BUTTON -- //
+		
 		[data-a-target="player-play-pause-button"] {
 			width: 40px; 
 			height: 40px;
 			transition: background-color .3s;
 			
-			if (player-controls=="yt-light") { background-color: rgba(83, 83, 95, .478); }
-			else if (player-controls=="yt-dark") { background-color: hsla(240, 7%, 1%, .478); }
+			if (player-controls=="yt-light") { background-color: rgba(83, 83, 95, .478); } // TODO: REDORK WITH ?: AND VARS
+			else if (player-controls=="yt-dark") { background-color: rgba(2, 2, 3, .478); }
 			
 			&:hover { 
 				if (player-controls=="yt-light") { background-color: rgba(83, 83, 95, .71); }
-				else if (player-controls=="yt-dark") { background-color: hsla(240, 7%, 1%, .71); }
+				else if (player-controls=="yt-dark") { background-color: rgba(2, 2, 3, .71); }
 			}
 				
 			&:hover .tw-svg {
@@ -207,7 +212,7 @@
 				transition: transform .15s cubic-bezier(.05,0,0,1)
 			}
 				
-			.lnTwMD {
+			.lnTwMD { // icon
 				width: 22px; 
 				height: 22px;
 			}
@@ -236,6 +241,8 @@
 			}
 		}
 		
+		// -- VOLUME BUTTON & SLIDER -- //
+		
 		.player-controls__left-control-group [class="Layout-sc-1xcs6mc-0 kvrzxX"] {
 			position: relative;
 			border-radius: 55px !important;
@@ -256,9 +263,24 @@
 				.tw-svg { transform: scale(0.94); }
 			}
 			
-			.iPkwTD:hover { 
-				if (player-controls=="yt-light") { background-color: #40404942; }
+			
+			.iPkwTD:hover::after { // mute button
+				if (player-controls=="yt-light") { background-color: rgba(64, 64, 73, .259); }
 				else if (player-controls=="yt-dark") { background-color: rgba(255, 255, 255, .129); }
+				
+				transform: scale(1); 
+				opacity: 1;
+			}
+			
+			.iPkwTD::after {
+				content: "";
+				position: absolute;
+				inset: 1px;
+				pointer-events: none;
+				border-radius: 55px;
+				transition: .2s;
+				transform: scale(0.3); 
+				opacity: 0;
 			}
 				
 			&:hover::after {
@@ -305,6 +327,8 @@
 			}
 		}
 		
+		// -- RIGHT CONTROL GROUP -- //
+		
 		.player-controls__right-control-group {
 			> [class="Layout-sc-1xcs6mc-0 bDlkVb"] { // round clip button if it's first
 				border-top-left-radius: 55px;
@@ -330,20 +354,15 @@
 				margin-inline: 0px !important;
 			}
 						
-			.cofMAX { margin-inline: 6px; } // quality tag padding
+			.cofMAX { margin-inline: 5px; } // quality tag padding
 			
+				// -- TODO: REWORK CODE -- //
 			> div:not(.cofMAX, .resize-detector) { 
 				transition: background-color .15s;
 				position: relative;
 				
 				if (player-controls=="yt-light") { background-color: rgba(83, 83, 95, .478); }
-				else if (player-controls=="yt-dark") { background-color: rgba(2, 2, 3, .478); }
-		
-				&:hover { 
-					if (player-controls=="yt-light") { background-color: rgba(100, 100, 115, .478); }
-					else if (player-controls=="yt-dark") { background-color: rgba(2, 2, 3, .67); }
-				}
-				
+				else if (player-controls=="yt-dark") { background-color: rgba(2, 2, 3, .478); }	
 			}
 			
 			> div:not(.cofMAX, .resize-detector)::after {
@@ -352,15 +371,27 @@
 				inset: 2.5px;
 				pointer-events: none;
 				border-radius: 55px;
-				transition: background-color .15s;
+				transition: .15s;
+				transform: scale(0.3); 
+				opacity: 0;
 			}
 			
 			> div:not(.cofMAX, .resize-detector):hover::after {
 				if (player-controls=="yt-light") { background-color: rgba(255, 255, 255, .15); }
 				else if (player-controls=="yt-dark") { background-color: rgba(255, 255, 255, .1); }
 				
-				animation: content-in .2s;
+				transform: scale(1); 
+				opacity: 1;
 			}
+			
+			> div:not(.cofMAX, .resize-detector):active::after {
+				if (player-controls=="yt-light") { background-color: rgba(255, 255, 255, .2); }
+				else if (player-controls=="yt-dark") { background-color: rgba(255, 255, 255, .15); }
+				
+				transition: .05s;
+			}
+			
+			// -- -- //
 
 			[aria-label$="(alt+x)"]:hover .tw-svg { 
 				transform: translateY(-3px) rotate(-0.02turn);
@@ -387,6 +418,16 @@
 				
 				&[aria-label*="(alt+x)"] {
 					height: 40px; 
+				}
+				
+				&[aria-disabled="true"][aria-haspopup][class="ScCoreButton-sc-ocjdkq-0 gGttfb"]:disabled { // disabled clip button
+					background-color: #000 !important;
+					border-top-right-radius: 0;
+					border-bottom-right-radius: 0;
+					
+					[data-a-target="tw-core-button-label-text"] { 
+						display: none !important; 
+					}
 				}
 			}
 			
@@ -443,11 +484,11 @@
 	}
 	
 	if (dark-chat) {
-		.chat-room[data-a-target="chat-theme-dark"], .video-chat__message-list-wrapper {
+		.chat-room[data-a-target="chat-theme-dark"], .video-chat__message-list-wrapper, .video-chat .GHFzH {
 			background: #0e0e10 !important;
 			transition: background .5s;
 		}
-		
+
 		.chat-wysiwyg-input-box, .announcement-line, .announcement-line .jmdYJS {
 			background-color: #131315b0 !important;
 		}
@@ -465,7 +506,7 @@
 		.community-points-summary .fOtgyk {
 			background-color: #00c274;
 			
-			&:hover { background-color: hsl(156, 100%, 47%); }
+			&:hover { background-color: #00f090; }
 		}
 		
 		[data-a-target="chat-send-button"] {
@@ -498,7 +539,7 @@
 			
 		.community-highlight-stack__card {
 			.cKpxcT, .ircmYD, .community-highlight { 
-				border-radius: 11px !important; 
+				border-radius: 13px !important; 
 			}
 		}
 			
@@ -507,12 +548,34 @@
 			&:hover { background-color: #786090;  }
 		}
 			
+		.video-chat__message-list-wrapper .jyLLNw > .jLggkh {
+			&::before, &::after {
+				content: "";
+				height: 1rem;
+				width: 1rem;
+				display: block;
+				position: relative;
+				background: red;
+				border-radius: 50%;
+				justify-self: center;
+			}
+			
+			&::before {
+				top: 36px;
+				animation: indicator 1.5s infinite;
+			}
+			
+			&::after {
+				top: 1px;
+			}
+		}
+		
 		.tw-channel-status-text-indicator { color: #0e0e10 }
 			
 		[data-a-target="animated-channel-viewers-count"] {
 			color: #ff4542 !important;
 		}
-		.koIGve {
+		.cMyzPK {
 			fill: #ff4542 !important;
 		}
 		
@@ -530,7 +593,8 @@
 		}
 	}
 	
-	.seekbar-bar { transition: transform .25s }
+	.seekbar-bar { transition: transform .2s }
+	.seekbar-interaction-area { will-change: transform; }
 	.seekbar-interaction-area:hover { .seekbar-bar { transform: scaleY(1.5); } }
 	
 	if (use-glow) {
@@ -558,6 +622,13 @@
 	//if (remove-banner) { [style*="badge-promo-banner"] { display: none !important; } }
 	if (remove-hype-train) { .hype-train__banner, .side-nav-card [class="Layout-sc-1xcs6mc-0 hMzOYz"], .online-side-nav-channel-tooltip__body .ipRTld .hMzOYz { display: none !important; } }
 	if (remove-disclosure) { #channel-player-disclosures { display: none !important; } }
+	if (remove-combo) { 
+		#live-channel-stream-information { .eTyMgg > [class="Layout-sc-1xcs6mc-0 gEvECC"] { display: none !important; } } 
+		.video-player__overlay { .iZiJYe > #one-tap-store-id[role="menu"] { display: none !important; } }
+	}
+	if (remove-combo-overlay) { .video-player__overlay > [class="Layout-sc-1xcs6mc-0 hHZcXo"][style="pointer-events: none;"] > .cqrOTI[style^="padding"] { display: none !important; } }
+	
+	
 	if (transparent-player) { .player-controls, .top-bar { background: none; } }
 	
 	if (remove-bits) {
@@ -600,7 +671,7 @@
 				opacity: 0;
  				box-shadow: var(--shadow-elevation-2) !important; 
 				will-change: transform, opacity; 
-				transform: translateX(-99%);
+				transform: translateX(-98%);
 
 				&:hover { 
 					transform: translateX(0); opacity: 1; 
@@ -639,9 +710,9 @@
 					border-radius: var(--border-radius-medium) !important; }
 
 				.AoXTY::before {
+					content: "";
 					filter: blur(4px);
 					z-index: -1;
-					content: "";
 					height: 98%;
 					inset-inline-start: 50%;
 					position: absolute;
@@ -691,7 +762,7 @@
 	if (compact-pause) {
 		.chat-paused-footer--button { gap: 0; grid-template-columns: none; width: 185px !important; .hTJhrY { display: none; } } 
 		.chat-paused-footer .kaIUar { padding: 0 !important; }
-		.chat-paused-footer { backdrop-filter: blur(5px); width: 245px; inset-inline-start: 17% !important; bottom: 5px !important; &:hover { transform: scaleX(0.930); } button { height: 35px; width: 245px; } }
+		.chat-paused-footer { backdrop-filter: blur(5px); width: 245px; inset-inline-start: 0; justify-self: anchor-center; bottom: 5px !important; &:hover { transform: scaleX(0.930); } button { height: 35px; width: 245px; } }
 		.chat-paused-footer button:hover {
 			svg { transform: scale(1.6); }
 			path { animation: pause-svg .3s }
@@ -705,7 +776,8 @@
 		border-color: #4f4f4f7a; 
 		transition: .4s; 
 		opacity: 1;
-		inset-inline-start: 11%;
+		inset-inline-start: 0;
+		justify-self: anchor-center;
 		@css { @starting-style { transform: translateY(30px) !important; opacity: 0 !important; } } 
 	}
 	
@@ -728,7 +800,7 @@
 	.fOtgyk, .emote-button__link img, .edit-appearance__badge-chooser { transition: .3s }
 	.iOIbVE.iOIbVE, .chat-line__username-container--hoverable, .kMwhRV, .jUiaVy, .jwWicM, .predictions-list-item__body, .jLHIWd { transition: .2s }
 	.dcNXJO, .kzYOur, .kXuCmW, .jUkMRL, .kccyMt, .hovRjt, .dCFkna, .cAajJv, a.navigation-link, .hWTXlR, .kMwhRV, .dEeZDR, 
-	.social-media-link__external-link-icon, .gxYeIp, .bZLSuF, .gGttfb, .bNByMh, .kLgTJj, .eCrblY, .ldMHo, .fvWwI, .fixed-prediction-button, .dOkkBt, .iwMIba, .imYKMv, .bmaSLQ, .hQMzBR, .extensions-dock-card__image { transition: .15s }
+	.social-media-link__external-link-icon, .gxYeIp, .bZLSuF, .gGttfb, .bNByMh, .kLgTJj, .eCrblY, .ldMHo, .fvWwI, .fixed-prediction-button, .dOkkBt, .iwMIba, .imYKMv, .bmaSLQ, .hQMzBR, .extensions-dock-card__image, .media-row__info-description, .converter-preview-player-controls--gradient { transition: .15s }
 	.chat-line__message-highlight, .chat-line__icon, .kZmtcH, button.imYKMv, .gcA-DkW { transition: .05s linear }
 	.emote-button__link:hover img { transform: scale(0.7); }
 	.emote-button__link:active img { transform: scale(1.1); transition: .15s }
@@ -860,6 +932,8 @@
 		}
 	// --
 		
+		[aria-describedby="chapter-select-popover-body"] { animation: chat-tray .3s, blur-55 0.9s forwards !important; } 
+	
 			// verification badge animation
 		.channel-info-content .dMBVIY {
 			.ijyopa .tw-svg { transition: transform .35s; }
@@ -873,7 +947,8 @@
 			.kXaRRs { animation: streamer-card .6s !important; }
 			.jvDEkm { animation: spin-hue-180 .8s }
 			[data-a-target="follow-button"] { animation: follow-button .55s .25s backwards; }
-			[class="ScPlaceholderFill-sc-wb1w3c-2 eJtHtF"] { animation: follow-placeholder .4s .1s forwards }
+			//[class="ScPlaceholderFill-sc-wb1w3c-2 eJtHtF"] { animation: follow-placeholder .4s .1s forwards }
+			[class="ScPlaceholderFill-sc-wb1w3c-2 eJtHtF"] { animation: fade .4s .1s forwards }
 
 			.gboHV { overflow: hidden }
 		}
@@ -957,6 +1032,7 @@
 		}
 
 		.side-nav--expanded { animation: side-nav .3s ease; }
+			
 		.ScRangeFillValue-sc-q01wc3-3 { transition: background-color .5s; }
 
 		.seekbar-thumb { animation: seekbar-thumb .2s; transition: transform .2s; transform: scaleY(0.65) scaleZ(1) translateX(-50%); &:hover { transform: scale(1.3) scaleY(0.65) translateX(-6px) } }
@@ -970,7 +1046,7 @@
 		.search-box {
 		.tw-combo-input__input > div { z-index: 1; position: relative; }
 		[class="Layout-sc-1xcs6mc-0 bMcAyM"] { background: #18181B !important; padding: 7px !important; }
-		.hVLlmi { animation: search .4s, blur-15 0.6s .4s both; will-change: transform; background: #00000094 !important; }
+		.hVLlmi { animation: search .4s, blur-15 0.52s .25s both; will-change: transform; background: #00000094 !important; }
 		}
 		[data-a-target="player-settings-button"] .jgpfbi { transition: .3s; }
 		.player-controls__right-control-group:has(.resize-detector) { [data-a-target="player-settings-button"] .jgpfbi { transform: rotate(0.15turn) } }
@@ -985,7 +1061,7 @@
 	}
 	
 	if (apply-blur) {
-		[data-popper-placement], .support-panel-container, .clip-editor-popup, .dJwphs.chat-input-tray__open, [aria-labelledby="active-settings-menu-header"] > div, [data-a-target="player-overlay-video-stats"] { background: #00000094 !important; animation: blur-55 0.9s forwards; border-radius: var(--border-radius-large); .support-panel, .hMGodn, .bAWxnr, .kCsLVM, .dduVcl { background: none !important; } .boRevm, .fJjWcz, [data-a-target="player-settings-menu"] > [class="Layout-sc-1xcs6mc-0 igZqfU"]:first-of-type, .bJNNGV, .KbcXb { background: #17171787 !important } }
+		[data-popper-placement], .support-panel-container, .clip-editor-popup, .dJwphs.chat-input-tray__open, [aria-labelledby="active-settings-menu-header"] > div, [data-a-target="player-overlay-video-stats"], [aria-describedby="chapter-select-popover-body"] { background: #00000094 !important; animation: blur-55 0.9s forwards; border-radius: var(--border-radius-large); .support-panel, .hMGodn, .bAWxnr, .kCsLVM, .dduVcl { background: none !important; } .boRevm, .fJjWcz, [data-a-target="player-settings-menu"] > [class="Layout-sc-1xcs6mc-0 igZqfU"]:first-of-type, .bJNNGV, .KbcXb { background: #17171787 !important } }
 		[data-popper-placement]:has(.dduVcl), [aria-describedby="channel-points-reward-center-body"], .hVLlmi, [class="Attached-sc-go6eno-0 gdnAaW"] div, .icXHzp, .dEvhpQ:not(.chat-input-tray__open--persistent), [aria-label="emote-picker"], .vod-message .dduVcl, .kGRpNK { background: #18181bb0 !important; border-radius: var(--border-radius-large); animation: blur-15 0.4s forwards; .dduVcl, .iGvYpN { background: none !important; } }
 		[data-popper-placement][data-popper-placement="right-start"] { 
 			backdrop-filter: none !important; background: none !important; 
@@ -1051,7 +1127,7 @@
 		[aria-label*="(alt+x)"], .fJgKVb, .NjUUT, .kjWTWh { background-color: transparent !important; }
 	}
 	
-		.volume-slider__slider-container { clip-path: inset(0 100% 0 0); transition: clip-path .25s, opacity .2s; will-change: clip-path; }
+		.volume-slider__slider-container { clip-path: inset(0 100% 0 0); transition: clip-path .2s, opacity .2s; will-change: clip-path; }
 		.volume-slider__slider-container[aria-hidden="false"] { clip-path: inset(0 0 0 0); }
 		.volume-slider__slider-container[aria-hidden="true"] { .ScRangeFillValue-sc-q01wc3-3 { background-color: transparent; } }
 	
@@ -1101,6 +1177,9 @@
 	}*/
 	
 
+@keyframes indicator { 0% { opacity: 0.7; transform: scale(1); }
+to { opacity: 0; transform: scale(2.5);  } }
+	
 @keyframes reveal-badge { 0% { opacity: 1; }
 50% { opacity: 0; content: unset; }
 to { opacity: 1; content: unset; } }
@@ -1178,6 +1257,9 @@ to { opacity: 1; } }
 @keyframes opacity-cycle { 0% { opacity: 1; }
 50% { opacity: 0.7; }
 to { opacity: 1; } }
+	
+@keyframes fade { 0% { opacity: 1; }
+to { opacity: 0; } }
 
 @keyframes chat-pause { 0% { bottom: -44px; }
 to { bottom: 0px; } }
@@ -1265,8 +1347,8 @@ to { background-position: -200%; } }
 }
 
 @-moz-document url("https://clips.twitch.tv/create") {
-	.clips-root__main .cTHnga {
-		transition: width .5s .1s;
-		&:hover { width: 170% !important; }
+	.clips-root__main > div { 
+		.cTHnga { transition: width .45s; }
+		&:hover .cTHnga { width: 170% !important; }
 	}
 }
