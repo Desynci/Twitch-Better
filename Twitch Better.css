@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.2.9
+@version        2.3.4
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -246,15 +246,15 @@
 		.player-controls__left-control-group [class="Layout-sc-1xcs6mc-0 kvrzxX"] {
 			position: relative;
 			border-radius: 55px !important;
-			padding-right: 7px;
+			padding-right: 9px;
 			margin: 6px;
 			transition: background-color .15s;
 			
 			&:not(:hover) { .volume-slider__slider-container { visibility: hidden; } }
 			
 			&:hover {
-				if (player-controls=="yt-light") { background-color: #53535f7a; }
-				else if (player-controls=="yt-dark") { background-color: #0202037a; }
+				if (player-controls=="yt-light") { background-color: rgba(83, 83, 95, .478); }
+				else if (player-controls=="yt-dark") { background-color: rgba(2, 2, 3, .478); }
 				
 				[class="Layout-sc-1xcs6mc-0 dEKQxZ"], .iPkwTD { 
 					background-color: transparent;
@@ -263,11 +263,12 @@
 				.tw-svg { transform: scale(0.94); }
 			}
 			
+			.tw-svg {
+				transition: transform .25s;
+			}
+			
 			
 			.iPkwTD:hover::after { // mute button
-				if (player-controls=="yt-light") { background-color: rgba(64, 64, 73, .259); }
-				else if (player-controls=="yt-dark") { background-color: rgba(255, 255, 255, .129); }
-				
 				transform: scale(1); 
 				opacity: 1;
 			}
@@ -275,19 +276,19 @@
 			.iPkwTD::after {
 				content: "";
 				position: absolute;
-				inset: 1px;
+				inset: 2px;
 				pointer-events: none;
 				border-radius: 55px;
-				transition: .2s;
+				transition: .15s;
 				transform: scale(0.3); 
 				opacity: 0;
+				if (player-controls=="yt-light") { background-color: rgba(64, 64, 73, .259); }
+				else if (player-controls=="yt-dark") { background-color: rgba(255, 255, 255, .129); }
 			}
 				
 			&:hover::after {
-				if (player-controls=="yt-light") { background-color: rgba(255,255,255,0.1); }
-				else if (player-controls=="yt-dark") { background-color: rgba(0, 0, 0, .1); }
-				
-				animation: content-in .2s;
+				transform: scale(1); 
+				opacity: 1;
 			}
 			
 			&::after {
@@ -295,12 +296,12 @@
 				position: absolute;
 				inset: -3px;
 				pointer-events: none;
-				border-radius: 27px;
-				transition: background-color .15s;
-			}
-			
-			.tw-svg {
-				transition: transform .25s;
+				border-radius: 55px;
+				transition: .15s;
+				transform: scale(0.3); 
+				opacity: 0;
+				if (player-controls=="yt-light") { background-color: rgba(255,255,255,0.1); }
+				else if (player-controls=="yt-dark") { background-color: rgba(0, 0, 0, .1) }
 			}
 			
 			//.ekgjut[data-focus-visible-added]
@@ -310,8 +311,8 @@
 			}
 			
 			[class="Layout-sc-1xcs6mc-0 dEKQxZ"] {
-				if (player-controls=="yt-light") { background-color: #53535f7a; }
-				else if (player-controls=="yt-dark") { background-color: #0202037a; }
+				if (player-controls=="yt-light") { background-color: rgba(83, 83, 95, .478); }
+				else if (player-controls=="yt-dark") { background-color: rgba(2, 2, 3, .478); }
 				border-radius: 55px !important;
 				transition: background-color .15s;
 			}
@@ -374,12 +375,11 @@
 				transition: .15s;
 				transform: scale(0.3); 
 				opacity: 0;
+				if (player-controls=="yt-light") { background-color: rgba(255, 255, 255, .15); }
+				else if (player-controls=="yt-dark") { background-color: rgba(255, 255, 255, .1); }
 			}
 			
 			> div:not(.cofMAX, .resize-detector):hover::after {
-				if (player-controls=="yt-light") { background-color: rgba(255, 255, 255, .15); }
-				else if (player-controls=="yt-dark") { background-color: rgba(255, 255, 255, .1); }
-				
 				transform: scale(1); 
 				opacity: 1;
 			}
@@ -858,6 +858,21 @@
 			}
 		}
 		
+		/*.pinned-chat__highlight-card {
+			.highlight { 
+				.pinned-chat__scrollable-area {
+					transition: max-height .2s ease;
+					max-height: 50px;
+				}
+			}
+			
+			.highlight:not(.highlight__collapsed) { 
+				.pinned-chat__scrollable-area {
+					max-height: 20rem;
+				}
+			}
+		}*/
+		
 		if (animate-messages=="default") {
 			if (last-only) { .chat-scrollable-area__message-container > div:last-child { animation: messages .25s; } }
 			else { .chat-scrollable-area__message-container > div { animation: messages .4s; } }
@@ -868,7 +883,7 @@
 		}
 		
 		else if (animate-messages=="opacity") {
-			[data-a-target="chat-line-message-body"], .video-chat__message { animation: opacity .4s }
+			[data-a-target="chat-line-message-body"], .video-chat__message { animation: opacity-in .4s }
 		}  
 		
 		else if (animate-messages=="from-right") {
@@ -936,21 +951,22 @@
 	
 			// verification badge animation
 		.channel-info-content .dMBVIY {
-			.ijyopa .tw-svg { transition: transform .35s; }
-			a:hover+.ijyopa .tw-svg { transform: rotate(0.07turn) scale(1.1) }
+			.ijyopa .tw-svg { transition: transform .35s }
+			a:hover+.ijyopa .tw-svg { transform: rotate(0.07turn) scale(1.1); }
 		} 
 	
 		.tw-progress-bar .dqeKsq { animation: spin-hue 3s infinite linear; }
+		[data-a-target="tw-progress-bar-animation"] { --color-background-progress-status-success: #c100db !important; }
 		.reward-icon--large { transition: .25s; filter: hue-rotate(0); &:hover { filter: hue-rotate(0.1turn); } }
 	
 		.streamer-card__balloon {
 			.kXaRRs { animation: streamer-card .6s !important; }
-			.jvDEkm { animation: spin-hue-180 .8s }
+			.jvDEkm { animation: spin-hue-180 .8s; }
 			[data-a-target="follow-button"] { animation: follow-button .55s .25s backwards; }
-			//[class="ScPlaceholderFill-sc-wb1w3c-2 eJtHtF"] { animation: follow-placeholder .4s .1s forwards }
-			[class="ScPlaceholderFill-sc-wb1w3c-2 eJtHtF"] { animation: fade .4s .1s forwards }
+			[data-a-target="unfollow-button"] { animation: follow-placeholder .65s reverse cubic-bezier(0.76, 0, 0.24, 1); }
+			[class="ScPlaceholderFill-sc-wb1w3c-2 eJtHtF"] { animation: follow-placeholder .3s .1s forwards }
 
-			.gboHV { overflow: hidden }
+			.gboHV { overflow: hidden; }
 		}
 		
 		.chat-input-tray__open, .chat-settings__popover .chat-badge {
@@ -1016,9 +1032,9 @@
 
 		#channel-points-reward-center-body { overflow: hidden !important }
 		.rewards-list > div, .emote-picker__search-content-dark .tw-search-input, .emote-grid-section__header-title { animation: rewards-list .4s !important }
-		.scrollable-area.emote-picker__nav-content { animation: opacity .6s .15s backwards !important }
+		.scrollable-area.emote-picker__nav-content { animation: opacity-in .6s .15s backwards !important }
 			
-		[data-popper-placement][data-popper-placement="right-start"] { transition: .4s; animation: opacity .3s .3s backwards !important; @css { @starting-style { opacity: 0 !important; } } }
+		[data-popper-placement][data-popper-placement="right-start"] { transition: .4s; animation: opacity-in .3s .3s backwards !important; @css { @starting-style { opacity: 0 !important; } } }
 		[data-popper-placement]:has(.top-nav__overflow-menu) { 
 			animation: top-nav-menu .8s, blur-55 1s forwards !important;
 			[class="Layout-sc-1xcs6mc-0 kvjacc"] > div { animation: user-element .3s backwards; }
@@ -1251,15 +1267,12 @@ to { transform: translateX(0); } }
 @keyframes messages-right { 0% { transform: translateX(50%); opacity: 0;  }
 to { transform: translateX(0); opacity: 1; } }
 
-@keyframes opacity { 0% { opacity: 0; }
+@keyframes opacity-in { 0% { opacity: 0; }
 to { opacity: 1; } }
 	
-@keyframes opacity-cycle { 0% { opacity: 1; }
-50% { opacity: 0.7; }
-to { opacity: 1; } }
+@keyframes opacity-cycle { 50% { opacity: 0.7; } }
 	
-@keyframes fade { 0% { opacity: 1; }
-to { opacity: 0; } }
+@keyframes opacity-off { to { opacity: 0; } }
 
 @keyframes chat-pause { 0% { bottom: -44px; }
 to { bottom: 0px; } }
@@ -1276,11 +1289,9 @@ to { transform: translateY(0); } }
 @keyframes follow-button { 0% { transform: translateY(100%); opacity: 0; }
 to { transform: translateY(0); opacity: 1; } }
 
-@keyframes follow-placeholder { 0% { transform: scale(1); opacity: 1; }
-to { transform: scale(0); opacity: 0; } }
+@keyframes follow-placeholder { to { transform: scale(0.5); opacity: 0; } }
 
-@keyframes spin-hue { 0% { filter: hue-rotate(0deg); }
-to { filter: hue-rotate(360deg); } } 
+@keyframes spin-hue { to { filter: hue-rotate(360deg); } } 
 
 @keyframes spin-hue-180 { 0% { filter: hue-rotate(180deg); }
 to { filter: hue-rotate(360deg); } } 
@@ -1293,11 +1304,9 @@ to { transform: translateX(0); opacity: 1; } }
 @keyframes settings-menu { 0% { transform: translateX(-15%); opacity: 0.5; }
 to { transform: translateX(0); opacity: 1; } }
 
-@keyframes blur-15 { 0% {  backdrop-filter: blur(0px); }
-to {  backdrop-filter: blur(15px); } }
+@keyframes blur-15 { to { backdrop-filter: blur(15px); } }
 
-@keyframes blur-55 { 0% {  backdrop-filter: blur(0px); }
-to {  backdrop-filter: blur(55px); } }
+@keyframes blur-55 { to {  backdrop-filter: blur(55px); } }
 
 @keyframes gradient { 0% { background-position: 200%; }
 to { background-position: -200%; } }
