@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.3.6
+@version        2.3.7
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -23,7 +23,7 @@
 @var checkbox new-design "Apply design tweaks" 1
 @var checkbox dark-chat "Use dark chat mode" 1
 @var checkbox use-glow "Add glow effect to buttons" 1
-@var range night-mode-value "Player night mode:" [0,0,100,5,"%"]
+@var range night-mode-value "Player night mode:" [0,0,100,10,"%"]
 @var color timeline_color "VOD timeline color:" #a970ff
 @var color thumb_color "VOD thumb color:" #ffffff
 
@@ -47,6 +47,7 @@
 	
 }
 @var range sidebar-size "Width:" [24,12,28,0.2,"rem"]
+@var checkbox only-following "Following channels only" 0
 @var checkbox sidebar-hover-only "Show only on hover" 0
 
 @var select holder-4 "🍂 Removers" {
@@ -86,9 +87,10 @@
 	'→ Dino': "dino", 
 	'→ r/place 23': "cake",
 	'→ Awards 23': "tga2023",
+	'→ Good \'25': "good25",
 	'[Custom]': "custom"
 }
-@var text __custom-badge-url "[Custom] Image URL in quotes:" "'Site.com/img.jpg'"
+@var text __custom-badge-url "[Custom] Image URL in quotes:" "'Site.com/image.png'"
 
 ==/UserStyle== */
 
@@ -101,7 +103,8 @@
 	notifications = "'ScBalloonWrapper-sc-14jr088-0 PjurZ InjectLayout-sc-1i43xsx-0 bAWxnr tw-balloon'"
 	side-nav-bg = transparentify(#18181b, #fff, 0.8)
 	
-	if (night-mode-value>0) { .video-player[data-a-player-type="site"] video { filter: brightness(100 - night-mode-value/1.1); } }
+	.video-player[data-a-player-type="site"] video { transition: filter .5s; }
+	if (night-mode-value > 0) { .video-player[data-a-player-type="site"] video { filter: brightness(100 - night-mode-value/1.1); } }
 	.seekbar-bar > [style*="169"] { background-color: timeline_color !important; }
 	.seekbar-thumb { background-color: thumb_color !important; }
 	.channel-root--home .channel-info-content { width: unset; }
@@ -266,7 +269,7 @@
 				transition: transform .25s;
 			}
 			
-			.iPkwTD:hover::after { // mute button
+			.iPkwTD:hover::after { // mute unmute button
 				transform: scale(1);
 				opacity: 1;
 			}
@@ -277,7 +280,7 @@
 				inset: 2px;
 				pointer-events: none;
 				border-radius: 55px;
-				transition: .15s;
+				transition: .15s, transform .1s;
 				transform: scale(0.3);
 				opacity: 0;
 				if (player-controls=="yt-light") { background-color: rgba(64, 64, 73, .259); }
@@ -354,6 +357,14 @@
 			}
 						
 			.cofMAX { margin-inline: 5px; } // quality tag padding
+				
+			.gUwAuK {
+				color: rgb(247, 247, 247);
+				backdrop-filter: blur(3px);
+				
+				if (player-controls=="yt-light") { background-color: rgba(83, 83, 95, .478); }
+				else if (player-controls=="yt-dark") { background-color: rgba(2, 2, 3, .478); box-shadow: inset 0 0 0 var(--input-border-width-small) #333333b0; }
+			}
 			
 				// -- TODO: REWORK CODE -- //
 			> div:not(.cofMAX, .resize-detector) {
@@ -385,8 +396,6 @@
 			> div:not(.cofMAX, .resize-detector):active::after {
 				if (player-controls=="yt-light") { background-color: rgba(255, 255, 255, .2); }
 				else if (player-controls=="yt-dark") { background-color: rgba(255, 255, 255, .15); }
-				
-				transition: .05s;
 			}
 			
 			// -- -- //
@@ -514,7 +523,7 @@
 		}
 		
 		[data-test-selector="chat-private-callout-queue__callout-container"] .bTkUWo {
-			background-color: transparent !important;
+			background-color: #18181b !important;
 		}
 		
 		[data-a-target="chat-private-callout__primary-button"] {
@@ -601,7 +610,7 @@
 	
 	if (use-glow) {
 		.community-points-summary .fOtgyk {
-			__points-color = (dark-chat) ? #00800096 : #00a70085; // Stylelint false error detection
+			__points-color = (dark-chat) ? #00800096 : #00a70085;
 			__points-color-hover = (dark-chat) ? #008000cc : #00c70085;
 			
 			box-shadow: 0px 0px 8px __points-color;
@@ -695,6 +704,10 @@
 			
 			if (apply-blur) { .side-nav.kHqXhd { background: side-nav-bg !important; backdrop-filter: blur(55px); } }
 		}
+		
+		if (only-following) {
+			.side-nav-section:not(:nth-of-type(2)) { display: none !important; }
+		}
 	}
 	
 	if (highlight=="enabled") {
@@ -731,7 +744,7 @@
 			}
 		}
 		
-		if (custom-badge!="disabled") {
+		if (custom-badge!="disabled") { // TODO: rework
 			if (custom-badge=="custom") { __badge = __custom-badge-url }
 			if (custom-badge=="moderator") { __badge = "https://static-cdn.jtvnw.net/badges/v1/3267646d-33f0-4b17-b3df-f923a41db1d0/2" }
 			if (custom-badge=="author") { __badge = "https://static-cdn.jtvnw.net/badges/v1/5527c58c-fb7d-422d-b71b-f309dcb85cc1/2" }
@@ -742,8 +755,9 @@
 			if (custom-badge=="hypetrain") { __badge = "https://static-cdn.jtvnw.net/badges/v1/9c8d038a-3a29-45ea-96d4-5031fb1a7a81/2" }
 			if (custom-badge=="duolingo") { __badge = "https://static-cdn.jtvnw.net/badges/v1/be750d4d-a3b9-4116-ae75-6ee4f3294a19/2" }
 			if (custom-badge=="dino") { __badge = "https://static-cdn.jtvnw.net/badges/v1/1d4b03b9-51ea-42c9-8f29-698e3c85be3d/2" }
-			if (custom-badge=="cake") { __badge = "https://static-cdn.jtvnw.net/badges/v1/e33e0c67-c380-4241-828a-099c46e51c66/2" }
+			if (custom-badge=="cake") { __badge = "https://static-cdn.jtvnw.net/badges/v1/e33e0c67-c380-4241-828a-099c46e51c66/2" } 
 			if (custom-badge=="tga2023") { __badge = "https://static-cdn.jtvnw.net/badges/v1/10cf46de-61e7-4a42-807a-7898408ce352/2" }
+			if (custom-badge=="good25") { __badge = "https://static-cdn.jtvnw.net/badges/v1/192fb627-82b3-46e8-95d3-ac9feba4b1bc/2" }
 			
 			.chat-line__message[data-a-user={nick}] {
 				.chat-line__username-container span > .dvtAVE:last-of-type {
@@ -969,8 +983,8 @@
 			a:hover+.ijyopa .tw-svg { transform: rotate(0.07turn) scale(1.1); }
 		}
 	
-		.tw-progress-bar .dqeKsq { animation: spin-hue 3s infinite linear; }
-		[data-a-target="tw-progress-bar-animation"] { --color-background-progress-status-success: #c100db !important; }
+		.tw-progress-bar .dqeKsq { animation: spin-hue 3s infinite linear; background: #00db84 !important; }
+		[data-a-target="tw-progress-bar-animation"] { --color-background-progress-status-success: #d57de1 !important; }
 		.reward-icon--large { transition: .25s; filter: hue-rotate(0); &:hover { filter: hue-rotate(0.1turn); } }
 	
 		.streamer-card__balloon {
