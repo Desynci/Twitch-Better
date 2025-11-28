@@ -1,5 +1,5 @@
 > [!Important]
-> ##### Twitch Better is a CSS theme for Stylus that adds animations, new look, improved usability and more for twitch.tv
+> #### Twitch Better is a CSS theme for Stylus that adds animations, new look, improved usability and more for twitch.tv
 > This repo is only for the suggestions and contribution.
 
 - Requires [Stylus](https://github.com/openstyles/stylus?tab=readme-ov-file#releases) to work.  
