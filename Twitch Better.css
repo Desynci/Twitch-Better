@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.3.7
+@version        2.4.1
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -139,7 +139,7 @@
 	}
 	
 	button[data-a-target="user-menu-toggle"] {
-		transition: .25s ease;
+		transition: .25s;
 		border-radius: var(--border-radius-rounded);
 		
 		&:hover {
@@ -147,7 +147,8 @@
 		} 
 		
 		&[aria-expanded="true"] {
-			box-shadow: 0px 0px 0 2px var(--color-twitch-purple-12);
+			transition: .25s cubic-bezier(0.76, 0, 0.24, 1);
+			box-shadow: 0px 0px 0 2px var(--color-twitch-purple-10);
 		}
 	}
 	
@@ -274,6 +275,11 @@
 				opacity: 1;
 			}
 			
+			.iPkwTD:active::after {
+				if (player-controls=="yt-light") { background-color: rgba(64, 64, 73, .35); }
+				else if (player-controls=="yt-dark") { background-color: rgba(255, 255, 255, .18); }
+			}
+			
 			.iPkwTD::after {
 				content: "";
 				position: absolute;
@@ -283,7 +289,7 @@
 				transition: .15s, transform .1s;
 				transform: scale(0.3);
 				opacity: 0;
-				if (player-controls=="yt-light") { background-color: rgba(64, 64, 73, .259); }
+				if (player-controls=="yt-light") { background-color: rgba(64, 64, 73, .26); }
 				else if (player-controls=="yt-dark") { background-color: rgba(255, 255, 255, .129); }
 			}
 			
@@ -385,7 +391,7 @@
 				transform: scale(0.3);
 				opacity: 0;
 				if (player-controls=="yt-light") { background-color: rgba(255, 255, 255, .15); }
-				else if (player-controls=="yt-dark") { background-color: rgba(255, 255, 255, .1); }
+				else if (player-controls=="yt-dark") { background-color: rgba(255, 255, 255, .15); }
 			}
 			
 			> div:not(.cofMAX, .resize-detector):hover::after {
@@ -395,7 +401,7 @@
 			
 			> div:not(.cofMAX, .resize-detector):active::after {
 				if (player-controls=="yt-light") { background-color: rgba(255, 255, 255, .2); }
-				else if (player-controls=="yt-dark") { background-color: rgba(255, 255, 255, .15); }
+				else if (player-controls=="yt-dark") { background-color: rgba(255, 255, 255, .2); }
 			}
 			
 			// -- -- //
@@ -538,6 +544,12 @@
 	}
 	
 	if (new-design) {
+		.giftExpirationCallout--Y94PX {
+			background: none !important;
+		}
+		
+		.gift-button-blue { background-color: #2f2f35; }
+		
 		.video-chat__header {
 			height: 40px;
 			border-bottom: var(--border-width-default) solid var(--color-border-base) !important;
@@ -865,7 +877,7 @@
 	.dOkkBt, .iwMIba, .imYKMv, .bmaSLQ, .hQMzBR, .extensions-dock-card__image, .media-row__info-description, .converter-preview-player-controls--gradient { transition: .15s }
 		
 		// -- 0.05s -- //
-	.chat-line__message-highlight, .chat-line__icon, .kZmtcH, button.imYKMv, .gcA-DkW { transition: .05s linear }
+	.chat-line__message-highlight, .chat-line__icon, .kZmtcH, .gcA-DkW, button.imYKMv { transition: .05s linear }
 	
 		// -- ANIMATIONS
 	if (animations=="enabled") {
@@ -1001,7 +1013,7 @@
 			animation: chat-tray .4s;
 		}
 		
-		.chat-input-tray__open .chat-line__message {
+		.chat-input-tray__open .chat-line__message, .chat-input-tray__open > [class="Layout-sc-1xcs6mc-0"] {
 			animation: chat-tray .3s;
 		}
 		
@@ -1083,7 +1095,7 @@
 		.vod-message .dQedsG { animation: pop-small .3s; }
 		.viewer-card-layer__draggable { animation: swipe .45s .2s backwards; }
 		.viewer-card-header__background, .support-panel .goal_widget_v2__container { animation: content-in .5s }
-		.community-highlight [class="Layout-sc-1xcs6mc-0 fSfyIg"] { animation: community-highlight .35s }
+		.community-highlight [class="Layout-sc-1xcs6mc-0 fSfyIg"] { animation: community-highlight .3s }
 		[aria-label="Hide for yourself"] { animation: hide-button .45s; }
 		.emote-button, .chat-line__message--emote { animation: emotes .5s; transform: scale(1.1); }
 		.chat-line__message--emote-button { transition: .15s; transform: scale(1); &:hover { transform: scale(0.95) } }
@@ -1091,7 +1103,7 @@
 		.search-box {
 			.tw-combo-input__input > div { z-index: 1; position: relative; }
 			[class="Layout-sc-1xcs6mc-0 bMcAyM"] { background: #18181B !important; padding: 7px !important; }
-			.hVLlmi { animation: search .4s, blur-15 0.52s .25s both; will-change: transform; background: #00000094 !important; }
+			.hVLlmi { animation: search .4s, blur-15-decrease 0.6s .1s both; will-change: transform; background: #00000094 !important; }
 		}
 		
 		[data-a-target="player-settings-button"] .jgpfbi { transition: .3s; }
@@ -1112,7 +1124,7 @@
 			animation: blur-55 0.9s forwards;
 			border-radius: var(--border-radius-large);
 			
-			.support-panel, .hMGodn, .bAWxnr, .kCsLVM, .dduVcl {
+			.support-panel, .hMGodn, .bAWxnr, .kCsLVM {
 				background: none !important;
 			}
 			
@@ -1121,11 +1133,26 @@
 			}
 		}
 		
-		[data-popper-placement]:has(.dduVcl), [aria-describedby="channel-points-reward-center-body"], .hVLlmi, [class="Attached-sc-go6eno-0 gdnAaW"] div, .icXHzp, .dEvhpQ:not(.chat-input-tray__open--persistent), [aria-label="emote-picker"], .vod-message .dduVcl, .kGRpNK {
+		[data-popper-placement]:not([data-popper-placement="right-start"]):has(.dduVcl) {
 			background: #18181bb0 !important;
 			border-radius: var(--border-radius-large);
 			animation: blur-15 0.4s forwards;
+			box-shadow: var(--shadow-elevation-2) !important;
 
+			.dduVcl, .iGvYpN {
+				background: none !important;
+			}
+			
+			.dduVcl {
+				box-shadow: none !important;
+			}
+		}
+		
+		[aria-describedby="channel-points-reward-center-body"], .hVLlmi, [class="Attached-sc-go6eno-0 gdnAaW"] div, .icXHzp, .dEvhpQ:not(.chat-input-tray__open--persistent), [aria-label="emote-picker"], .vod-message .dduVcl, .kGRpNK {
+			background: #18181bb0 !important;
+			border-radius: var(--border-radius-large);
+			animation: blur-15 0.4s forwards;
+			
 			.dduVcl, .iGvYpN {
 				background: none !important;
 			}
@@ -1337,7 +1364,10 @@ to { filter: hue-rotate(360deg); } }
 
 @keyframes blur-15 { to { backdrop-filter: blur(15px); } }
 
-@keyframes blur-55 { to {  backdrop-filter: blur(55px); } }
+@keyframes blur-15-decrease { 0% { backdrop-filter: blur(70px); } 
+to { backdrop-filter: blur(15px); } }
+
+@keyframes blur-55 { to { backdrop-filter: blur(55px); } }
 
 @keyframes gradient { 0% { background-position: 200%; }
 to { background-position: -200%; } }
