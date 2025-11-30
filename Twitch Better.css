@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.4.7
+@version        2.4.8
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -11,7 +11,7 @@
     ' ': "holder-1"
 }
 @var checkbox welcome "Twitch Better logo" 1
-@var checkbox new-pause "Absolute pause (breaks extensions!)" 1
+@var checkbox new-pause "Pause anywhere (breaks stream extensions!)" 1
 @var checkbox apply-blur "Apply blur on menu" 1
 @var select player-controls "Player controls:" {
     'Default': "default",
@@ -23,7 +23,7 @@
 @var checkbox new-design "Apply design tweaks" 1
 @var checkbox dark-chat "Use dark chat mode" 1
 @var checkbox use-glow "Add glow effect to buttons" 1
-@var range night-mode-value "Player night mode:" [0,0,100,10,"%"]
+@var range night-mode-value "Player night mode:" [0,0,100,5,"%"]
 @var color timeline_color "VOD timeline color:" #a970ff
 @var color thumb_color "VOD thumb color:" #ffffff
 
@@ -92,7 +92,7 @@
 	'→ Golden clown': "'https://static-cdn.jtvnw.net/badges/v1/d98418bb-e4cf-43e3-9c25-c182e13de6fe/2'",
 	'[Custom]': "custom"
 }
-@var text __custom-badge-url "[Custom] Image URL in quotes:" "'Site.com/image.png'"
+@var text __custom-badge-url "[Custom] Image URL in quotes:" "'Example.com/img.png'"
 
 ==/UserStyle== */
 
@@ -141,7 +141,7 @@
 	}
 	
 	.gift-highlight-gradient-container .gift-highligh-element {
-		background: linear-gradient(90deg, #9db2ff 0%, #9db2ff 40%, #de76f0 50%, #9db2ff 90%, #9db2ff 100%);
+		background: linear-gradient(90deg, #9db2ff, #de76f0, #9db2ff);
 		animation: gradient 9s linear infinite;
 	}
 	
