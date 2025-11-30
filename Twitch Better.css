@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.4.6
+@version        2.4.7
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -42,13 +42,12 @@
 @var checkbox last-only "Animate last message only" 0
 
 @var select sidebar-tweaks "🍫 Sidebar tweaks" {
-    'ON*': "enabled",
-	'OFF': "disabled"
+    ' ': "holder-3"
 	
 }
 @var range sidebar-size "Width:" [24,13,28,0.2,"rem"]
-@var checkbox only-following "Clean all categories" 0
-@var checkbox sidebar-hover-only "Show only on hover" 0
+@var checkbox sidebar-hover-only "Show only on hover" 1
+@var checkbox only-following "Clear categories" 0
 
 @var select holder-4 "🍂 Removers" {
     ' ': "holder-4"
@@ -691,7 +690,7 @@
 		[data-a-target="subscribe-button"] { display: none !important; }
 	}
 	
-	if (sidebar-tweaks=="enabled") {
+	if (sidebar-tweaks) {
 		.side-nav--expanded { width: sidebar-size; }
 		
 		if (sidebar-hover-only) {
