@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.5.1
+@version        2.5.2
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -98,13 +98,14 @@
 
 @-moz-document domain("twitch.tv") {	
 	
-	__badge = ()
-	whispers-popup = "'ScBalloonWrapper-sc-14jr088-0 PjurZ InjectLayout-sc-1i43xsx-0 bAWxnr tw-balloon'"
-	settings = "'player-settings-menu'"
-	chat-customization = "'Attached-sc-go6eno-0 cJkJNl'"
-	notifications = "'ScBalloonWrapper-sc-14jr088-0 PjurZ InjectLayout-sc-1i43xsx-0 bAWxnr tw-balloon'"
+	$volume-container = "[class='Layout-sc-1xcs6mc-0 kvrzxX']"
+	$whispers-popup = "[class='ScBalloonWrapper-sc-14jr088-0 PjurZ InjectLayout-sc-1i43xsx-0 bAWxnr tw-balloon']"
+	$player-settings = "[data-a-target='player-settings-menu']"
+	$chat-customization = "[class='Attached-sc-go6eno-0 cJkJNl']"
+	$notifications = "[class='ScBalloonWrapper-sc-14jr088-0 PjurZ InjectLayout-sc-1i43xsx-0 bAWxnr tw-balloon']"
 	side-nav-bg = transparentify(#18181b, #fff, 0.8)
-
+	__badge = ()
+	
 	.video-player[data-a-player-type="site"] video { if (night-mode-value > 0) { filter: brightness(100 - night-mode-value/1.1); } transition: filter .5s; } 
 	.seekbar-bar > [style*="169"] { background-color: timeline_color !important; }
 	.seekbar-thumb { background-color: thumb_color !important; }
@@ -204,8 +205,8 @@
 		light-bg = rgba(83, 83, 95, .478);
 		dark-bg = rgba(2, 2, 3, .478);
 		
-		bg-after-on-hover = rgba(255, 255, 255, .15);
-		bg-after-on-active = rgba(255, 255, 255, .2);
+		bg-inset-on-hover = rgba(255, 255, 255, .15);
+		bg-inset-on-active = rgba(255, 255, 255, .2);
 		
 		light-volume-container-inset = rgba(255, 255, 255, .1);
 		dark-volume-container-inset = rgba(0, 0, 0, .1);
@@ -238,14 +239,14 @@
 			
 			if (new-pause) {
 				&[data-a-player-state="paused"]:hover::after {
-					background-color: bg-after-on-hover;
+					background-color: bg-inset-on-hover;
 					animation: content-in .2s;
 				}
 			}
 			
 			else {
 				&:hover::after {
-					background-color: bg-after-on-hover;
+					background-color: bg-inset-on-hover;
 					animation: content-in .2s;
 				}
 			}
@@ -262,14 +263,18 @@
 		
 		// -- VOLUME BUTTON & SLIDER -- //
 		
-		.player-controls__left-control-group [class="Layout-sc-1xcs6mc-0 kvrzxX"] {
+		.player-controls__left-control-group {$volume-container} {
 			position: relative;
 			border-radius: 55px !important;
 			padding-right: 9px;
 			margin: 6px;
 			transition: background-color .15s;
 			
-			&:not(:hover) { .volume-slider__slider-container { visibility: hidden; } }
+			[class="Layout-sc-1xcs6mc-0 dEKQxZ"] {
+				background-color: (player-controls=="yt-light") ? light-bg : dark-bg;
+				border-radius: 55px !important;
+				transition: background-color .15s;
+			}
 			
 			&:hover {
 				background-color: (player-controls=="yt-light") ? light-bg : dark-bg;
@@ -291,7 +296,7 @@
 			}
 			
 			.iPkwTD:active::after {
-				background-color: bg-after-on-active;
+				background-color: bg-inset-on-active;
 			}
 			
 			.iPkwTD::after {
@@ -303,7 +308,7 @@
 				transition: .15s;
 				transform: scale(0.3);
 				opacity: 0;
-				background-color: bg-after-on-hover;
+				background-color: bg-inset-on-hover;
 			}
 			
 			&:hover::after {
@@ -329,11 +334,7 @@
 				height: 3px;
 			}
 			
-			[class="Layout-sc-1xcs6mc-0 dEKQxZ"] {
-				background-color: (player-controls=="yt-light") ? light-bg : dark-bg;
-				border-radius: 55px !important;
-				transition: background-color .15s;
-			}
+			&:not(:hover) { .volume-slider__slider-container { visibility: hidden; } }
 		}
 		
 		[data-a-target="player-mute-unmute-button"] {
@@ -392,7 +393,7 @@
 			}
 			
 			> div:not(.cofMAX, .resize-detector):active::after {
-				background-color: bg-after-on-active;
+				background-color: bg-inset-on-active;
 			}
 			
 			> div:not(.cofMAX, .resize-detector)::after {
@@ -404,7 +405,7 @@
 				transition: .15s;
 				transform: scale(0.3);
 				opacity: 0;
-				background-color: bg-after-on-hover;
+				background-color: bg-inset-on-hover;
 			}
 			
 			// -- -- //
@@ -889,13 +890,13 @@
 	
 		// -- ANIMATIONS
 	if (animations=="enabled") {
-		[class={notifications}][data-test-selector="center-window__balloon"] {
+		{$notifications}[data-test-selector="center-window__balloon"] {
 			.scrollable-area { max-height: 46px; transition: max-height .6s ease; overflow-y: scroll; }
 			.scrollable-area:not(.center-window__short-scrollable-area) { max-height: 400px; }
 			.scrollable-area.center-window__short-scrollable-area:not(:has(.tw-loading-spinner)) { max-height: 300px; }
 		}
 		
-		[class={whispers-popup}] {
+		{$whispers-popup} {
 			.whispers-threads-box__scrollable-area {
 				transition: max-height .5s ease;
 				max-height: 200px;
@@ -959,18 +960,17 @@
 			}
 		}
 		
-		//[data-a-target={settings}] > div:not(:has(.tw-drop-down-menu-item-figure))
-		[data-a-target={settings}] > div, .chat-settings__content > div {
+		{$player-settings} > div, .chat-settings__content > div {
 			animation: settings-menu .225s;
 		}
 		
-		[data-a-target="player-settings-menu"] .CayVJ.imYKMv:first-of-type { // close icon animation
+		{$player-settings} .CayVJ.imYKMv:first-of-type { // close icon animation
 			.tw-drop-down-menu-item-figure { transition: .15s; }
 			&:active { .tw-drop-down-menu-item-figure { transform: scale(0.5); } }
 		}
 		
 	// -- settings arrows animation
-		[data-a-target={settings}] {
+		{$player-settings} {
 			.cWChvM > div { transition: .2s }
 			
 			.imYKMv[role="menuitem"]:hover {
@@ -1029,7 +1029,7 @@
 			animation: chat-tray .3s;
 		}
 
-		[class={chat-customization}] {
+		{$chat-customization} {
 			animation: chat-custom .5s;
 			margin-block-end: 0;
     		margin-inline-end: 0;
@@ -1192,7 +1192,7 @@
 			}
 		}
 		
-		[data-a-target="player-settings-menu"] > .igZqfU:first-of-type button {
+		{$player-settings} > .igZqfU:first-of-type button {
 			background: #17171787;
 			
 			&:hover { 
@@ -1222,7 +1222,7 @@
 		.gSwbdq { background-color: #5c16c58c !important; backdrop-filter: blur(4px); }
 		.streamer-card__balloon .gboHV { background: #18181bd1 }
 			
-		[class={chat-customization}] {
+		{$chat-customization} {
 			background: #00000094 !important; backdrop-filter: blur(55px);
 			.dduVcl, .chat-identity-menu__content { background: none !important; }
 		}
