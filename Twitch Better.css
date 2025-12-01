@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.5.2
+@version        2.5.3
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -564,11 +564,11 @@
 		.seekbar-thumb { width: 1.7rem; height: 1.7rem; }
 		.seekbar-bar, .seekbar-segment { height: 9px; }
 		
-		.community-highlight-stack__card {
+		@css {.community-highlight-stack__card, .community-highlight-stack__backlog-card {
 			.cKpxcT, .ircmYD, .community-highlight {
 				border-radius: 13px !important;
 			}
-		}
+		} }
 		
 		.rewards-list button.hWTXlR {
 			background-color: #544365;
@@ -771,11 +771,11 @@
 				img { content: url(__badge); max-height: 2rem; max-width: 2rem; }
 				
 				&:hover {
-					img { animation: reveal-badge-carousel .65s forwards cubic-bezier(0.76, 0, 0.24, 1); }
+					img { animation: reveal-badge-carousel .3s forwards cubic-bezier(0.76, 0, 0.24, 1); }
 				}
 				
 				&:not(:hover) {
-					img { animation: chat-badge .6s; }
+					img { animation: chat-badge .4s .1s backwards; }
 				}
 			}
 		}
@@ -880,7 +880,7 @@
 	.dcNXJO, .kzYOur, .kXuCmW, .jUkMRL, .kccyMt, .hovRjt, .dCFkna, .cAajJv, a.navigation-link, .hWTXlR, .kMwhRV, .dEeZDR,
 	.gxYeIp, .bZLSuF, .gGttfb, .bNByMh, .kLgTJj, .eCrblY, .ldMHo, .fvWwI, .fixed-prediction-button,
 	.dOkkBt, .iwMIba, .imYKMv, .bmaSLQ, .hQMzBR, .extensions-dock-card__image, .media-row__info-description, .converter-preview-player-controls--gradient,
- 	.iJmEhj, [data-a-target="tw-progress-bar-animation"] { transition: .15s }
+ 	.iJmEhj, [data-a-target="tw-progress-bar-animation"], .media-row__image-play-overlay { transition: .15s }
 		
 		// -- 0.1s -- //
 	.hYdssb, button.imYKMv { transition: .1s }
@@ -995,7 +995,13 @@
 		}
 	// --
 		
-		[aria-describedby="chapter-select-popover-body"] { animation: chat-tray .3s, blur-55 0.9s forwards !important; }
+		[aria-describedby="chapter-select-popover-body"], .preview-card-game-balloon .kCsLVM { 
+			animation: chat-tray .3s, blur-55 0.9s forwards !important;
+			border-radius: var(--border-radius-large);
+			background: #00000094 !important;
+			
+			.kCsLVM { background: none !important }
+		}
 	
 			// verification badge animation
 		.channel-info-content .dMBVIY {
@@ -1129,7 +1135,7 @@
 	
 	if (apply-blur) {
 			// -- @CSS to prevent unoptimized preprocessor code output -- //
-		@css { [data-popper-placement], .support-panel-container, .clip-editor-popup, .dJwphs.chat-input-tray__open, [aria-labelledby="active-settings-menu-header"] > div, [data-a-target="player-overlay-video-stats"], [aria-describedby="chapter-select-popover-body"] {
+		@css { [data-popper-placement], .support-panel-container, .clip-editor-popup, .dJwphs.chat-input-tray__open, [aria-labelledby="active-settings-menu-header"] > div, [data-a-target="player-overlay-video-stats"] {
 			background: #00000094 !important;
 			animation: blur-55 0.9s forwards;
 			border-radius: var(--border-radius-large);
