@@ -1,13 +1,13 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.5.3
+@version        2.5.4
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
 @preprocessor 	stylus
 
-@var select holder-1 "🌠  General" {
+@var select holder-1 "— 🌠  General —" {
     ' ': "holder-1"
 }
 @var checkbox welcome "Twitch Better logo" 1
@@ -27,7 +27,7 @@
 @var color timeline_color "VOD timeline color:" #a970ff
 @var color thumb_color "VOD thumb color:" #ffffff
 
-@var select animations "🎭 Animations" {
+@var select animations "— 🎭 Animations —" {
     'ON*': "enabled",
 	'OFF': "disabled"
 }
@@ -41,7 +41,7 @@
 }
 @var checkbox last-only "Animate last message only" 0
 
-@var select sidebar-tweaks "🍫 Sidebar tweaks" {
+@var select sidebar-tweaks "— 🍫 Sidebar tweaks —" {
     ' ': "holder-3"
 	
 }
@@ -49,7 +49,7 @@
 @var checkbox sidebar-hover-only "Show only on hover" 1
 @var checkbox only-following "Clear categories" 0
 
-@var select holder-4 "🍂 Removers" {
+@var select holder-4 "— 🍂 Removers —" {
     ' ': "holder-4"
 }
 
@@ -64,7 +64,7 @@
 @var checkbox remove-bits "All Bits buttons" 0
 @var checkbox remove-powerups "Power ups (Bits)" 0
 
-@var select highlight "🌌 Highlight Your Message" {
+@var select highlight "— 🌌 Highlight Messages —" {
     'ON*': "enabled",
 	'OFF': "disabled"
 }
@@ -73,6 +73,8 @@
     '→ Cosmic Abyss*': "cosmic",
 	'→ Rainbow': "rainbow"
 }
+@var checkbox nick-color-enabled "Use custom nick color" 0
+@var color nick-color "→ Select color:" red
 @var select custom-badge "Badge changer:" {
 	'None*': "disabled",
     '→ Moderator': "'https://static-cdn.jtvnw.net/badges/v1/3267646d-33f0-4b17-b3df-f923a41db1d0/2'",
@@ -105,7 +107,7 @@
 	$notifications = "[class='ScBalloonWrapper-sc-14jr088-0 PjurZ InjectLayout-sc-1i43xsx-0 bAWxnr tw-balloon']"
 	side-nav-bg = transparentify(#18181b, #fff, 0.8)
 	__badge = ()
-	
+		
 	.video-player[data-a-player-type="site"] video { if (night-mode-value > 0) { filter: brightness(100 - night-mode-value/1.1); } transition: filter .5s; } 
 	.seekbar-bar > [style*="169"] { background-color: timeline_color !important; }
 	.seekbar-thumb { background-color: thumb_color !important; }
@@ -120,15 +122,39 @@
 	.chat-wysiwyg-input-box, .jwWicM { box-shadow: inset 0 0 0 var(--input-border-width-small) #636363f2; }
 	.chat-input-tray__open { background: #232327b0 !important; }
 	[data-a-target="share-button"] { display: none; }
-		
+	
 		// Notification tweaks
 	.onsite-notification-toast__action.dhbGUE { display: none !important; }
 	.onsite-notification-toast__action-wrapper { width: unset; border-left: none !important; }
-	.onsite-notifications-toast-manager { animation: community-highlight .5s }
-		
-		// Fix strange animation bug on closing popup 
+	.onsite-notifications-toast-manager { animation: community-highlight .5s; border-radius: var(--border-radius-large); }
+	
+		// Fix strange animation bug on closing popup
 	.ReactModal__Overlay--after-open:has(.tw-transition[aria-hidden="true"]) { display: none; }
+	
+	#side-nav {
+		.side-nav__scrollable_content { scrollbar-width: none; }
 		
+		.side-nav-section:nth-of-type(2) {
+			counter-reset: active-channels-counter;
+			
+			[data-test-selector="followed-channel"]:not(.side-nav-card__link--offline) {
+				counter-increment: active-channels-counter;
+			}
+			
+			&::after {
+				@css { content: counter(active-channels-counter); }
+				display: block;
+				font-family: var(--font-display);
+    			font-size: 18px;
+    			color: var(--color-hinted-grey-9);
+   				font-variant-position: super;
+				position: absolute;
+				right: 43px;
+				top: 40px;
+			}
+		}
+	}
+	
 	.chat-line__message-body--highlighted {
 		background: linear-gradient(90deg, #9db2ff 0%, #9db2ff 40%, #de76f0 50%, #9db2ff 90%, #9db2ff 100%);
 		font-weight: 900;
@@ -142,7 +168,8 @@
 	}
 	
 	.gift-highlight-gradient-container .gift-highligh-element {
-		background: linear-gradient(90deg, #9db2ff, #de76f0, #9db2ff);
+		background: linear-gradient(90deg, #977F9B, #de76f0, #977F9B);
+		background-size: 200% 200%;
 		animation: gradient 9s linear infinite;
 	}
 	
@@ -152,7 +179,7 @@
 		
 		&:hover {
 			box-shadow: 0px 0px 0 4px #7171807a;
-		} 
+		}
 		
 		&[aria-expanded="true"] {
 			transition: .25s cubic-bezier(0.76, 0, 0.24, 1);
@@ -226,7 +253,7 @@
 				width: icon-size-left-panel;
 				height: icon-size-left-panel;
 			}
-
+			
 			background-color: (player-controls=="yt-light") ? light-bg !important : dark-bg !important;
 			
 			&:hover .tw-svg {
@@ -243,7 +270,6 @@
 					animation: content-in .2s;
 				}
 			}
-			
 			else {
 				&:hover::after {
 					background-color: bg-inset-on-hover;
@@ -673,8 +699,8 @@
 	}
 	
 	if (remove-turbo) {
-		.top-nav__menu [class="Layout-sc-1xcs6mc-0"] > [class="InjectLayout-sc-1i43xsx-0 iDMNUO"] { button[class="ScCoreButton-sc-ocjdkq-0 gGttfb"], button[class="ScCoreButton-sc-ocjdkq-0 iPkwTD ScButtonIcon-sc-9yap0r-0 dcNXJO"]:not([data-a-target]), button[class="ScCoreButton-sc-ocjdkq-0 iPkwTD ScButtonIcon-sc-9yap0r-0 dcNXJO"]:not([data-a-target])+.tw-new-item-indicator__container, button[class="ScCoreButton-sc-ocjdkq-0 gGttfb"]+.tw-new-item-indicator__container { display: none; } }
-	}
+		@css { .top-nav__menu [class="Layout-sc-1xcs6mc-0"] > [class="InjectLayout-sc-1i43xsx-0 iDMNUO"] { button[class="ScCoreButton-sc-ocjdkq-0 gGttfb"], button[class="ScCoreButton-sc-ocjdkq-0 iPkwTD ScButtonIcon-sc-9yap0r-0 dcNXJO"]:not([data-a-target]), button[class="ScCoreButton-sc-ocjdkq-0 iPkwTD ScButtonIcon-sc-9yap0r-0 dcNXJO"]:not([data-a-target])+.tw-new-item-indicator__container, button[class="ScCoreButton-sc-ocjdkq-0 gGttfb"]+.tw-new-item-indicator__container { display: none; } }
+	} }
 	
 	if (remove-gift) {
 		[data-a-target="gift-button"] { display: none; }
@@ -685,8 +711,6 @@
 	}
 	
 	if (sidebar-hover-only) {
-		.side-nav__scrollable_content { scrollbar-width: none; }
-		
 		.side-nav {
 			position: fixed;
 			z-index: 100000;
@@ -752,6 +776,12 @@
 			.chat-line__message-container { background: var(--color-background-body); margin: 1rem; padding: .8rem 1rem; }
 			.chat-line__icons { top: -0.9rem; }
 				
+			}
+		}
+		
+		if (nick-color-enabled) {
+			.chat-author__display-name[data-a-user={nick}] {
+				color: nick-color !important;
 			}
 		}
 		
@@ -870,23 +900,22 @@
 		}
 	}
 	
-	
 			// -- 0.5s, 0.3s, 0.2s -- //
 	.kJMgAB, .notched-range--handle, .offline-recommendations-video-card [class^="offline-recommendations-video-card-border"] { transition: .5s }
 	.fOtgyk, .emote-button__link img, .edit-appearance__badge-chooser { transition: .3s }
 	.iOIbVE.iOIbVE, .chat-line__username-container--hoverable, .kMwhRV, .jUiaVy, .jwWicM, .predictions-list-item__body, .jLHIWd, .social-media-link__external-link-icon { transition: .2s }
-		
+	
 		// -- 0.15s -- //
 	.dcNXJO, .kzYOur, .kXuCmW, .jUkMRL, .kccyMt, .hovRjt, .dCFkna, .cAajJv, a.navigation-link, .hWTXlR, .kMwhRV, .dEeZDR,
 	.gxYeIp, .bZLSuF, .gGttfb, .bNByMh, .kLgTJj, .eCrblY, .ldMHo, .fvWwI, .fixed-prediction-button,
 	.dOkkBt, .iwMIba, .imYKMv, .bmaSLQ, .hQMzBR, .extensions-dock-card__image, .media-row__info-description, .converter-preview-player-controls--gradient,
  	.iJmEhj, [data-a-target="tw-progress-bar-animation"], .media-row__image-play-overlay { transition: .15s }
-		
+	
 		// -- 0.1s -- //
 	.hYdssb, button.imYKMv { transition: .1s }
-		
+	
 		// -- 0.05s -- //
-	.chat-line__message-highlight, .chat-line__icon, .kZmtcH, .gcA-DkW { transition: .05s linear }
+	.chat-line__message-highlight, .chat-line__icon, .kZmtcH, .gcA-DkW, .highlight__progress-bar [data-a-target="tw-progress-bar-animation"] { transition: .05s linear }
 	
 		// -- ANIMATIONS
 	if (animations=="enabled") {
@@ -900,7 +929,7 @@
 			.whispers-threads-box__scrollable-area {
 				transition: max-height .5s ease;
 				max-height: 200px;
-			
+				
 				@css { @starting-style {
 					max-height: 20px !important;
 				} }
@@ -1463,8 +1492,10 @@ to { background-position: -200%; } }
 }
 
 @-moz-document url("https://clips.twitch.tv/create") {
-	.clips-root__main > div {
-		.cTHnga { transition: width .45s; }
-		&:hover .cTHnga { width: 170% !important; }
+	.clips-root__main {
+		padding-inline: 23px !important;
+		
+		.bLuwEe { max-width: unset !important; }
+		.kNocWT { width: 100% !important; }
 	}
 }
