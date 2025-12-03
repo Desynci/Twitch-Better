@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.5.4
+@version        2.5.7
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -131,9 +131,8 @@
 		// Fix strange animation bug on closing popup
 	.ReactModal__Overlay--after-open:has(.tw-transition[aria-hidden="true"]) { display: none; }
 	
+	.side-nav__scrollable_content { scrollbar-width: none; }
 	#side-nav {
-		.side-nav__scrollable_content { scrollbar-width: none; }
-		
 		.side-nav-section:nth-of-type(2) {
 			counter-reset: active-channels-counter;
 			
@@ -142,7 +141,7 @@
 			}
 			
 			&::after {
-				@css { content: counter(active-channels-counter); }
+				content: counter(active-channels-counter);
 				display: block;
 				font-family: var(--font-display);
     			font-size: 18px;
@@ -184,6 +183,10 @@
 		&[aria-expanded="true"] {
 			transition: .25s cubic-bezier(0.76, 0, 0.24, 1);
 			box-shadow: 0px 0px 0 2px var(--color-twitch-purple-10);
+		}
+		
+		.kjWTWh {
+			background-color: transparent !important;
 		}
 	}
 	
