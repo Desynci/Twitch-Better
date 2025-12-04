@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.5.7
+@version        2.5.9
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -64,7 +64,7 @@
 @var checkbox remove-bits "All Bits buttons" 0
 @var checkbox remove-powerups "Power ups (Bits)" 0
 
-@var select highlight "— 🌌 Highlight Messages —" {
+@var select highlight "— 🌌 Highlight messages —" {
     'ON*': "enabled",
 	'OFF': "disabled"
 }
@@ -126,13 +126,14 @@
 		// Notification tweaks
 	.onsite-notification-toast__action.dhbGUE { display: none !important; }
 	.onsite-notification-toast__action-wrapper { width: unset; border-left: none !important; }
-	.onsite-notifications-toast-manager { animation: community-highlight .5s; border-radius: var(--border-radius-large); }
+	.onsite-notifications-toast-manager .tw-animation { animation: community-highlight .8s cubic-bezier(0.76, 0, 0.24, 1) !important; }
+	.onsite-notification-toast { border-radius: var(--border-radius-extra-large) !important; }
 	
 		// Fix strange animation bug on closing popup
 	.ReactModal__Overlay--after-open:has(.tw-transition[aria-hidden="true"]) { display: none; }
 	
 	.side-nav__scrollable_content { scrollbar-width: none; }
-	#side-nav {
+	.side-nav--expanded {
 		.side-nav-section:nth-of-type(2) {
 			counter-reset: active-channels-counter;
 			
@@ -405,7 +406,7 @@
 			.gUwAuK {
 				color: rgb(247, 247, 247);
 				backdrop-filter: blur(2px);
-				if (player-controls=="yt-light") { background-color: light-bg; box-shadow: inset 0 0 0 var(--input-border-width-small) #8c8c8c69; }
+				if (player-controls=="yt-light") { background-color: light-bg; box-shadow: inset 0 0 0 var(--input-border-width-small) #8c8c8c4d; }
 				else if (player-controls=="yt-dark") { background-color: dark-bg; box-shadow: inset 0 0 0 var(--input-border-width-small) #33333369; }
 			}
 			
@@ -1130,7 +1131,7 @@
 		.user-menu-dropdown__main-menu {
 			animation: user-menu .6s; will-change: transform, clip-path;
 			[class="Layout-sc-1xcs6mc-0"], .kvjacc { > div { animation: user-element .3s backwards; will-change: transform; } }
-			for row in (1..17) { [class="Layout-sc-1xcs6mc-0"] > div:nth-of-type({row}) { animation-delay: 60ms*(row/1.5); } }
+			for row in (1..19) { [class="Layout-sc-1xcs6mc-0"] > div:nth-of-type({row}) { animation-delay: 60ms*(row/1.5); } }
 			for row in (2..6) { .kvjacc > div:nth-of-type({row}) { animation-delay: 60ms*(row/1.5)+550ms; } }
 		}
 
@@ -1211,6 +1212,12 @@
 		} }
 		
 		// -- //
+		
+		.onsite-notification-toast {
+    		background: #00000094 !important;
+    		animation: blur-55 0.9s forwards;
+			box-shadow: none !important;
+		}
 		
 		[data-popper-placement][data-popper-placement="right-start"] {
 			backdrop-filter: none !important; background: none !important;
