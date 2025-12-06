@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.6.0
+@version        2.6.2
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -126,7 +126,7 @@
 		// Notification tweaks
 	.onsite-notification-toast__action.dhbGUE { display: none !important; }
 	.onsite-notification-toast__action-wrapper { width: unset; border-left: none !important; }
-	.onsite-notifications-toast-manager .tw-animation { animation: community-highlight .8s cubic-bezier(0.76, 0, 0.24, 1) !important; }
+	.onsite-notifications-toast-manager .tw-animation { animation: notification .9s cubic-bezier(0.76, 0, 0.24, 1) !important; }
 	.onsite-notification-toast { border-radius: var(--border-radius-extra-large) !important; }
 	
 		// Fix strange animation bug on closing popup
@@ -179,12 +179,12 @@
 		border-radius: var(--border-radius-rounded);
 		
 		&:hover {
-			box-shadow: 0px 0px 0 4px #7171807a;
+			box-shadow: 0px 0px 0 5px #7171807a;
 		}
 		
 		&[aria-expanded="true"] {
 			transition: .25s cubic-bezier(0.76, 0, 0.24, 1);
-			box-shadow: 0px 0px 0 2px var(--color-twitch-purple-10);
+			box-shadow: 0px 0px 0 3px var(--color-twitch-purple-10);
 		}
 		
 		.kjWTWh {
@@ -226,7 +226,7 @@
 		
 		.top-nav .itDlPz [data-test-selector="toggle-balloon-wrapper__mouse-enter-detector"] {
 			&:hover::after { word-spacing: 3.5px; transition: .65s, clip-path .4s; }
-			&:active::after { clip-path: inset(0 0 0 0); word-spacing: 0; color: transparent; opacity: 1; transition: .5s .05s cubic-bezier(0.76, 0, 0.24, 1), clip-path .5s .05s, word-spacing .6s .05s cubic-bezier(0.76, 0, 0.24, 1) }
+			&:active::after { clip-path: inset(0 0 0 0); word-spacing: 0; color: transparent; opacity: 1; transition: .5s .05s, clip-path .65s .05s, word-spacing .6s .05s cubic-bezier(0.76, 0, 0.24, 1) }
 		}
 	}
 	
@@ -895,20 +895,22 @@
 	}
 	
 	.social-media-link__container:not(:hover)+.social-media-link__external-link-icon {
-		transform: translateX(-7px) scale(0.5);
+		transform: translateX(-5px) scale(0.5);
+		transition: .1s;
 	}
 	
 	.social-media-link__external-link-icon {
+		transition: .2s;
 		.dVDUDh {
-			width: 1.8rem;
-			height: 1.8rem;
+			width: 1.7rem;
+			height: 1.7rem;
 		}
 	}
 	
 			// -- 0.5s, 0.3s, 0.2s -- //
-	.kJMgAB, .notched-range--handle, .offline-recommendations-video-card [class^="offline-recommendations-video-card-border"] { transition: .5s }
-	.fOtgyk, .emote-button__link img, .edit-appearance__badge-chooser { transition: .3s }
-	.iOIbVE.iOIbVE, .chat-line__username-container--hoverable, .kMwhRV, .jUiaVy, .jwWicM, .predictions-list-item__body, .jLHIWd, .social-media-link__external-link-icon { transition: .2s }
+	.notched-range--handle, .offline-recommendations-video-card [class^="offline-recommendations-video-card-border"] { transition: .5s }
+	.fOtgyk, .emote-button__link img, .edit-appearance__badge-chooser, .kJMgAB { transition: .3s }
+	.iOIbVE.iOIbVE, .chat-line__username-container--hoverable, .kMwhRV, .jUiaVy, .jwWicM, .predictions-list-item__body, .jLHIWd { transition: .2s }
 	
 		// -- 0.15s -- //
 	.dcNXJO, .kzYOur, .kXuCmW, .jUkMRL, .kccyMt, .hovRjt, .dCFkna, .cAajJv, a.navigation-link, .hWTXlR, .kMwhRV, .dEeZDR,
@@ -917,7 +919,7 @@
  	.iJmEhj, [data-a-target="tw-progress-bar-animation"], .media-row__image-play-overlay { transition: .15s }
 	
 		// -- 0.1s -- //
-	.hYdssb, button.imYKMv { transition: .1s }
+	.hYdssb, button.imYKMv, .hlLhUC { transition: .1s }
 	
 		// -- 0.05s -- //
 	.chat-line__message-highlight, .chat-line__icon, .kZmtcH, .gcA-DkW, .highlight__progress-bar [data-a-target="tw-progress-bar-animation"] { transition: .05s linear }
@@ -1120,7 +1122,7 @@
 
 		#channel-points-reward-center-body { overflow: hidden !important }
 		.rewards-list > div, .emote-picker__search-content-dark .tw-search-input, .emote-grid-section__header-title { animation: rewards-list .4s !important }
-		[aria-label="emote-picker"] { animation: emote-picker .25s, blur-15 .4s forwards !important }
+		[aria-label="emote-picker"] { animation: emote-picker .28s, blur-15 .4s forwards !important }
 		.scrollable-area.emote-picker__nav-content { animation: opacity-in .6s .15s backwards !important }
 			
 		[data-popper-placement][data-popper-placement="right-start"] { transition: .4s; animation: opacity-in .3s .3s backwards !important; @css { @starting-style { opacity: 0 !important; } } }
@@ -1152,7 +1154,7 @@
 		.search-box {
 			.tw-combo-input__input > div { z-index: 1; position: relative; }
 			[class="Layout-sc-1xcs6mc-0 bMcAyM"] { background: #18181B !important; padding: 7px !important; }
-			.hVLlmi { animation: search .4s, blur-15-decrease 0.6s .1s both; will-change: transform; background: #00000094 !important; }
+			.hVLlmi { animation: search .4s, blur-15-decrease 0.8s .1s both; will-change: transform; background: #00000094 !important; }
 		}
 		
 		[data-a-target="player-settings-button"] .jgpfbi { transition: .3s; }
@@ -1202,7 +1204,7 @@
 			}
 		}
 		
-		[aria-describedby="channel-points-reward-center-body"], .hVLlmi, [class="Attached-sc-go6eno-0 gdnAaW"] div, .icXHzp, .dEvhpQ:not(.chat-input-tray__open--persistent), [aria-label="emote-picker"], .vod-message .dduVcl, .kGRpNK {
+		[aria-describedby="channel-points-reward-center-body"], .hVLlmi, [class="Attached-sc-go6eno-0 gdnAaW"] div, .icXHzp, .dEvhpQ:not(.chat-input-tray__open--persistent), [aria-label="emote-picker"], .vod-message .dduVcl {
 			background: #18181bb0 !important;
 			border-radius: var(--border-radius-large);
 			animation: blur-15 0.4s forwards;
@@ -1214,12 +1216,22 @@
 		
 		// -- //
 		
+		.tw-in-feature-notification .kGRpNK {
+			animation: blur-15 0.4s forwards;
+			background: #3b3b441a !important;
+		}
+		
+		.onsite-notifications-toast-manager .tw-animation {
+			animation: notification .9s cubic-bezier(0.76, 0, 0.24, 1), blur-55 0.8s forwards !important;
+    		overflow: hidden;
+			border-radius: var(--border-radius-extra-large);
+		}
+		
 		.onsite-notification-toast {
     		background: #00000094 !important;
 			box-shadow: none !important;
+			margin-block-end: 0 !important;
 		}
-		
-		.onsite-notifications-toast-manager .tw-animation { animation: community-highlight .8s cubic-bezier(0.76, 0, 0.24, 1), blur-55 0.9s forwards !important; }
 		
 		[data-popper-placement][data-popper-placement="right-start"] {
 			backdrop-filter: none !important; background: none !important;
@@ -1240,10 +1252,10 @@
 		}
 		
 		{$player-settings} > .igZqfU:first-of-type button {
-			background: #17171787;
+			background: rgba(23, 23, 23, .4);
 			
 			&:hover { 
-				background-color: #54545487; 
+				background-color: rgba(77, 77, 77, .4); 
 			}
 		}
 		
@@ -1395,6 +1407,8 @@ to { transform: scale(1.1); } }
 
 @keyframes community-highlight { from { transform: translateY(-100%); opacity: 0.1; } }
 
+@keyframes notification { from { transform: translateY(-150%); opacity: 0.1; } }
+
 @keyframes messages { from { transform: translateY(100%); opacity: 0; } }
 
 @keyframes messages-right { from { transform: translateX(50%); opacity: 0; } }
@@ -1411,7 +1425,7 @@ to { transform: scale(1.1); } }
 
 @keyframes rewards-list { from { transform: translateY(100%); } }
 
-@keyframes emote-picker { from { transform: translateY(5%); opacity: 0.8; } }
+@keyframes emote-picker { from { transform: translateY(10%); opacity: 0.5; } }
 
 @keyframes chat-tray { from { transform: translateY(50%); opacity: 0; }  }
 
@@ -1463,34 +1477,7 @@ to { background-position: -200%; } }
 	inherits: false;
 }*/
 
-// credits to Youtube RetroWave by xyadx
-// https://userstyles.world/style/292/youtube-retrowave
-/*@keyframes yadpogi { 0% { box-shadow: 0 0 9px 3px #ff00d4; }
-10% { box-shadow: 0 0 7px 3px #9d00ff; }
-20% { box-shadow: 0 0 9px 3px #5100ff; }
-30% { box-shadow: 0 0 7px 3px #00d9ff; }
-40% { box-shadow: 0 0 9px 3px #00ffc3; } 
-50% { box-shadow: 0 0 7px 3px #b3ff00; }
-60% { box-shadow: 0 0 9px 3px #ff8400; } 
-70% { box-shadow: 0 0 7px 3px #ff6a00; }
-80% { box-shadow: 0 0 9px 3px #f00; } 
-90% { box-shadow: 0 0 7px 3px #ee436b; } 
-100% { box-shadow: 0 0 7px 3px #ff00d4; } }
-
-@keyframes rainbow-border { 0% { border-color: #ff00d4; }
-10% { border-color: #9d00ff; }
-20% { border-color: #5100ff; }
-30% { border-color: #00d9ff; }
-40% { border-color: #00ffc3; }
-50% { border-color: #b3ff00; }
-60% { border-color: #ff8400; }
-70% { border-color: #ff6a00; }
-80% { border-color: #f00; }
-90% { border-color: #ee436b; }
-100% { border-color: #ff00d4; } }*/
-
 }
-
 @-moz-document regexp("https?:\/\/www\.twitch\.tv\/[^\/]+\/clip\/.*") {
 	if (new-pause) {
 		.player-controls {
@@ -1502,7 +1489,6 @@ to { background-position: -200%; } }
 		}
 	}
 }
-
 @-moz-document url("https://clips.twitch.tv/create") {
 	.clips-root__main {
 		padding-inline: 23px !important;
