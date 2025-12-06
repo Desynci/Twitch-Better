@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.5.9
+@version        2.6.0
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -45,7 +45,7 @@
     ' ': "holder-3"
 	
 }
-@var range sidebar-size "Width:" [24,13,28,0.2,"rem"]
+@var range sidebar-size "Width:" [24,13,28,0.5,"rem"]
 @var checkbox sidebar-hover-only "Show only on hover" 1
 @var checkbox only-following "Clear categories" 0
 
@@ -154,6 +154,7 @@
 			}
 		}
 	}
+	body.ReactModal__Body--open, .side-nav--expanded:hover { counter-reset: active-channels-counter; }
 	
 	.chat-line__message-body--highlighted {
 		background: linear-gradient(90deg, #9db2ff 0%, #9db2ff 40%, #de76f0 50%, #9db2ff 90%, #9db2ff 100%);
@@ -1215,9 +1216,10 @@
 		
 		.onsite-notification-toast {
     		background: #00000094 !important;
-    		animation: blur-55 0.9s forwards;
 			box-shadow: none !important;
 		}
+		
+		.onsite-notifications-toast-manager .tw-animation { animation: community-highlight .8s cubic-bezier(0.76, 0, 0.24, 1), blur-55 0.9s forwards !important; }
 		
 		[data-popper-placement][data-popper-placement="right-start"] {
 			backdrop-filter: none !important; background: none !important;
