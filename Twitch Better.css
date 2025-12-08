@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.6.3
+@version        2.6.4
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -210,12 +210,12 @@
 			content: "Twitch Better | V2";
 			padding-right: 2px;
 			position: absolute;
-			left: 51px;
-			font-size: var(--font-size-3);
+			left: 47px;
+			bottom: 8px;
+			font-size: var(--font-size-4);
 			line-height: var(--line-height-heading);
 			font-weight: 600;
 			letter-spacing: -0.18px;
-			bottom: 6px;
 			white-space: nowrap;
 			background: linear-gradient(90deg, #9db2ff 0%, #9db2ff 40%, #de76f0 50%, #9db2ff 90%, #9db2ff 100%);
 			background-size: 200% 200%;
@@ -228,6 +228,12 @@
 			opacity: 0.5;
 			color: #b1b1bf;
 			cursor: pointer;
+			
+			@media screen and (min-width: 1440px) {
+				font-size: var(--font-size-3);
+				bottom: 6px;
+				left: 51px;
+			}
 		}
 		
 		.top-nav .itDlPz [data-test-selector="toggle-balloon-wrapper__mouse-enter-detector"] {
@@ -303,8 +309,8 @@
 		.player-controls__left-control-group {$volume-container} {
 			position: relative;
 			border-radius: 55px !important;
-			padding-right: 9px;
-			margin: 8px;
+			padding-right: 10px;
+			margin: 6px;
 			transition: background-color .15s;
 			
 			[class="Layout-sc-1xcs6mc-0 dEKQxZ"] {
@@ -589,6 +595,12 @@
 	}
 	
 	if (new-design) {
+		#front-page-main-content .find-me {
+			padding: 12px 12px 0px 12px;
+   		 	background: hsla(240, 4%, 8%, .3);
+    		border-radius: 10px;
+		}
+		
 		.giftExpirationCallout--Y94PX, [aria-label*="(alt+x)"] {
 			background: none !important;
 		}
@@ -929,7 +941,7 @@
  	.iJmEhj, [data-a-target="tw-progress-bar-animation"], .media-row__image-play-overlay { transition: .15s }
 	
 		// -- 0.1s -- //
-	.hYdssb, button.imYKMv, .hlLhUC { transition: .1s }
+	.hYdssb, button.imYKMv, .hlLhUC, .bQjtjF, .ccSgUF { transition: .1s }
 	
 		// -- 0.05s -- //
 	.chat-line__message-highlight, .chat-line__icon, .kZmtcH, .gcA-DkW, .highlight__progress-bar [data-a-target="tw-progress-bar-animation"] { transition: .05s linear }
@@ -1227,7 +1239,7 @@
 		// -- //
 		
 		.tw-in-feature-notification .kGRpNK {
-			animation: blur-15 0.4s forwards;
+			backdrop-filter: blur(15px);
 			background: #3b3b441a !important;
 		}
 		
