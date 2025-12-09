@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.6.4
+@version        2.6.6
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -597,7 +597,7 @@
 	if (new-design) {
 		#front-page-main-content .find-me {
 			padding: 12px 12px 0px 12px;
-   		 	background: hsla(240, 4%, 8%, .3);
+   		 	background: #1d1d1f4d;
     		border-radius: 10px;
 		}
 		
@@ -1157,7 +1157,7 @@
 			animation: user-menu .6s; will-change: transform, clip-path;
 			[class="Layout-sc-1xcs6mc-0"], .kvjacc { > div { animation: user-element .3s backwards; will-change: transform; } }
 			for row in (1..19) { [class="Layout-sc-1xcs6mc-0"] > div:nth-of-type({row}) { animation-delay: 60ms*(row/1.5); } }
-			for row in (2..6) { .kvjacc > div:nth-of-type({row}) { animation-delay: 60ms*(row/1.5)+550ms; } }
+			for row in (2..6) { .kvjacc > div:nth-of-type({row}) { animation-delay: 10ms*(row/1.5)+760ms; } }
 		}
 
 		.side-nav--expanded { animation: side-nav .3s ease; }
