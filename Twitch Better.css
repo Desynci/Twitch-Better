@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.7.0
+@version        2.7.1b
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -16,7 +16,7 @@
 @var select player-controls "Player controls:" {
     'Default': "default",
 	'YouTube Light': "yt-light",
-	'YouTube Dark*': "yt-dark",
+	'YouTube Dark*': "yt-dark"
 }
 @var checkbox compact-pause "Use new chat pause" 1
 @var checkbox transparent-player "More transparent player" 1
@@ -37,7 +37,7 @@
     'None': "none",
 	'→ №1': "default",
 	'→ №2': "opacity",
-	'→ №3*': "from-right",
+	'→ №3*': "from-right"
 }
 @var checkbox last-only "Animate last message only" 0
 
@@ -74,14 +74,21 @@
     '→ Cosmic Abyss': "cosmic",
 	'→ Rainbow': "rainbow"
 }
-@var select nick-decoration "Nickname decoration:" {
+@var select nick-decoration "Nick decoration:" {
     'None': "disabled",
 	'→ Discord #1': "(linear-gradient(to right, #369876, #71ff9e, #369876) #369876)",
 	'→ Discord #2*': "(linear-gradient(to right, #ffa300, #ffea00, #ffa300) #ffa300)",
-	'→ Discord #3': "(linear-gradient(to right, #a9c9ff, #ffbbec, #ffc3a0, #a9c9ff) #ffc3a0)",
-	'[Custom color]': "color"
+	'→ Discord #3': "(linear-gradient(to right, #a9c9ff, #ffbbec, #ffc3a0, #a9c9ff) #ffc3a0)"
 }
-@var color nick-color "→ [custom color]:" red
+@var select nick-banner "Nick banner:" {
+    'None*': "disabled",
+	'→ Yuji Itadori': "'https://i.postimg.cc/0NqrRwYX/asset3-ezgif-com-video-to-gif-converter.gif' 0.8 linear-gradient(90deg, transparent 0%, rgba(144, 0, 7, 0.08) 20%, rgba(144, 0, 7, 0.08) 50%, rgba(144, 0, 7, 0.2) 100%)",
+	'→ Satoru Godjo': "'https://i.postimg.cc/BbT6YZy3/asset5-ezgif-com-video-to-gif-converter.gif' 0.8 linear-gradient(90deg, rgba(1, 49, 194, 0.1) 0%, rgba(1, 49, 194, 0.2) 100%)",
+	'→ Twilight': "'https://i.postimg.cc/8zhNmZ7h/asset8-ezgif-com-video-to-gif-converter.gif' 0.8 linear-gradient(90deg, transparent 0%, rgba(1, 49, 194, 0.08) 20%, rgba(1, 49, 194, 0.08) 50%, rgba(1, 49, 194, 0.2) 100%)",
+	'→ The Moon of Spirits': "'https://i.postimg.cc/5y1R1mxG/asset9-ezgif-com-video-to-gif-converter.gif' 0.8 linear-gradient(90deg, transparent 0%, rgba(115, 11, 200, 0.08) 20%, rgba(115, 11, 200, 0.08) 50%, rgba(115, 11, 200, 0.2) 100%)",
+	'→ The Arctic Aurora': "'https://i.postimg.cc/CMqDkfGk/asset15-ezgif-com-video-to-gif-converter.gif' 0.8 none",
+	'→ Green Mana': "'https://i.postimg.cc/K8s2D4Fy/Video-2025-12-10-221931-ezgif-com-video-to-gif-converter.gif' 1 linear-gradient(90deg, transparent 0%, rgba(4, 123, 32, 0.08) 20%, rgba(4, 123, 32, 0.08) 50%, rgba(4, 123, 32, 0.2) 100%) right",
+}
 @var select custom-badge "Badge changer:" {
 	'None*': "disabled",
     '→ Moderator': "'https://static-cdn.jtvnw.net/badges/v1/3267646d-33f0-4b17-b3df-f923a41db1d0/2'",
@@ -104,6 +111,7 @@
 	'→ Good \'25: Gooder': "'https://static-cdn.jtvnw.net/badges/v1/84a37e81-9d61-4c29-970e-64a32ec040c7/2'",
 	'→ Good \'25: The best': "'https://static-cdn.jtvnw.net/badges/v1/928b8033-3777-49cb-a056-230135a08a62/2'",
 	'→ Streamer Awards \'25': "'https://static-cdn.jtvnw.net/badges/v1/d52bd174-3509-460b-80ac-4a8d5840194b/2'",
+	'→ Rust': "'https://static-cdn.jtvnw.net/badges/v1/5ec1bcd1-82fa-4c42-abf1-be5b64cb63ed/2'",
 	'→ Battlefield': "'https://static-cdn.jtvnw.net/badges/v1/d7750af0-caca-47c5-b207-1af9be69ce1b/2'",
 	'→ Arc Raiders': "'https://static-cdn.jtvnw.net/badges/v1/d4aa495f-a0e4-4ab4-b3eb-7c2ea573b03f/2'",
 	'→ Lol Worlds \'25': "'https://static-cdn.jtvnw.net/badges/v1/4545b0b5-c825-487e-8958-ce5512eb6f84/2'",
@@ -823,7 +831,7 @@
 			}
 		}
 		
-		if (nick-decoration!="disabled" && nick-decoration!="color") {
+		if (nick-decoration!="disabled") {
 			.chat-author__display-name[data-a-user={nick} i], .tw-link[href$={nick} i], a[href$={nick} i] > .tw-title, [data-test-selector="user-menu-dropdown__display-name"] {
 				background: nick-decoration[0];
 				background-clip: text;
@@ -845,12 +853,46 @@
 					pointer-events: none;
 				}
 			}
+			
 			.metadata-layout__support .dMBVIY a[href$={nick} i] { text-decoration-color: nick-decoration[1]; }
+				
+			button[data-a-target="user-menu-toggle"][aria-expanded="true"] {
+				box-shadow: 0px 0px 0 3px nick-decoration[1];
+			}
 		}
 		
-		else if (nick-decoration=="color") {
-			.chat-author__display-name[data-a-user={nick} i] {
-				color: nick-color !important;
+		if (nick-banner!="disabled") {
+			
+			.chat-line__message[data-a-user={nick} i] .chat-line__username-container { position: relative; padding-right: 3px; }
+			
+			.chat-line__message[data-a-user={nick} i] .chat-line__username-container::before {
+				    content: '';
+					background-image: url(nick-banner[0]);
+					background-size: cover;
+					opacity: nick-banner[1];
+					position: absolute;
+					height: 100%;
+					width: 100%;
+					border-radius: 4px;
+					pointer-events: none;
+					background-position: nick-banner[3];
+			}
+			
+			.chat-line__message[data-a-user={nick} i] .chat-line__username-container::after {
+				    content: '';
+					position: absolute;
+					height: 100%;
+					width: 100%;
+					border-radius: 4px;
+					left: 0px;
+  					top: 0px;
+					background: nick-banner[2];
+					pointer-events: none;
+			}
+			
+			.chat-author__display-name, [data-a-target="chat-badge"] {
+				position: relative;
+				z-index: 2;
 			}
 		}
 		
@@ -1190,13 +1232,13 @@
 		.rewards-list > div, .emote-picker__search-content-dark .tw-search-input, .emote-grid-section__header-title { animation: rewards-list .4s !important }
 		[aria-label="emote-picker"] { animation: emote-picker .28s, blur-15 .4s forwards !important }
 		.scrollable-area.emote-picker__nav-content { animation: opacity-in .6s .15s backwards !important }
-			
+		
 		[data-popper-placement][data-popper-placement="right-start"] { transition: .4s; animation: opacity-in .3s .3s backwards !important; @css { @starting-style { opacity: 0 !important; } } }
 		@css { [data-popper-placement]:has(.top-nav__overflow-menu) {
 			animation: top-nav-menu 1s, blur-55 1s forwards !important;
 			[class="Layout-sc-1xcs6mc-0 kvjacc"] > div { animation: user-element .3s backwards; }
 		} }
-		[data-popper-placement] { for row in (1..26) { [class="Layout-sc-1xcs6mc-0 kvjacc"] > div:nth-of-type({row}) { animation-delay: 63ms*(row/1.6); } } }
+		[data-popper-placement] { for row in (1..26) { [class="Layout-sc-1xcs6mc-0 kvjacc"] > div:nth-of-type({row}) { animation-delay: 60ms*(row/1.6); } } }
 		
 		.user-menu-dropdown__main-menu {
 			animation: user-menu .6s; will-change: transform, clip-path;
