@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.7.2
+@version        2.7.3
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -71,17 +71,17 @@
 	'None': "disabled",
     '→ Cosmic Abyss': "cosmic",
 	'→ Rainbow': "rainbow",
-	'→ Discord #1*': "'https://i.postimg.cc/0NqrRwYX/asset3-ezgif-com-video-to-gif-converter.gif' 0.8 linear-gradient(90deg, transparent 0%, rgba(144, 0, 7, 0.08) 20%, rgba(144, 0, 7, 0.08) 50%, rgba(144, 0, 7, 0.2) 100%)",
-	'→ Discord #2': "'https://i.postimg.cc/BbT6YZy3/asset5-ezgif-com-video-to-gif-converter.gif' 0.8 linear-gradient(90deg, rgba(1, 49, 194, 0.1) 0%, rgba(1, 49, 194, 0.2) 100%)",
-	'→ Discord #3': "'https://i.postimg.cc/5y1R1mxG/asset9-ezgif-com-video-to-gif-converter.gif' 0.8 linear-gradient(90deg, transparent 0%, rgba(115, 11, 200, 0.08) 20%, rgba(115, 11, 200, 0.08) 50%, rgba(115, 11, 200, 0.2) 100%)",
-	'→ Discord #4': "'https://i.postimg.cc/CMqDkfGk/asset15-ezgif-com-video-to-gif-converter.gif' 0.8 none",
-	'→ Discord #5': "'https://i.postimg.cc/K8s2D4Fy/Video-2025-12-10-221931-ezgif-com-video-to-gif-converter.gif' 1 linear-gradient(90deg, transparent 0%, rgba(4, 123, 32, 0.08) 20%, rgba(4, 123, 32, 0.08) 50%, rgba(4, 123, 32, 0.2) 100%)"
+	'→ Yuji Itadori*': "'https://i.postimg.cc/0NqrRwYX/asset3-ezgif-com-video-to-gif-converter.gif' 0.8 linear-gradient(90deg, transparent 0%, rgba(144, 0, 7, 0.08) 20%, rgba(144, 0, 7, 0.08) 50%, rgba(144, 0, 7, 0.2) 100%)",
+	'→ Satoru Godjo': "'https://i.postimg.cc/BbT6YZy3/asset5-ezgif-com-video-to-gif-converter.gif' 0.8 linear-gradient(90deg, rgba(1, 49, 194, 0.1) 0%, rgba(1, 49, 194, 0.2) 100%)",
+	'→ The Moon of Spirits': "'https://i.postimg.cc/5y1R1mxG/asset9-ezgif-com-video-to-gif-converter.gif' 0.8 linear-gradient(90deg, transparent 0%, rgba(115, 11, 200, 0.08) 20%, rgba(115, 11, 200, 0.08) 50%, rgba(115, 11, 200, 0.2) 100%)",
+	'→ The Arctic Aurora': "'https://i.postimg.cc/CMqDkfGk/asset15-ezgif-com-video-to-gif-converter.gif' 0.8 none",
+	'→ Green Mana': "'https://i.postimg.cc/K8s2D4Fy/Video-2025-12-10-221931-ezgif-com-video-to-gif-converter.gif' 1 linear-gradient(90deg, transparent 0%, rgba(4, 123, 32, 0.08) 20%, rgba(4, 123, 32, 0.08) 50%, rgba(4, 123, 32, 0.2) 100%)"
 }
 @var select nick-gradient "Nickname gradient:" {
     'None': "disabled",
-	'→ Discord Green': "(linear-gradient(to right, #369876, #71ff9e, #369876) #369876)",
-	'→ Discord Gold*': "(linear-gradient(to right, #ffa300, #ffea00, #ffa300) #ffa300)",
-	'→ Discord Mild': "(linear-gradient(to right, #a9c9ff, #ffbbec, #ffc3a0, #a9c9ff) #ffc3a0)"
+	'→ Discord #1': "(linear-gradient(to right, #369876, #71ff9e, #369876) #369876)",
+	'→ Discord #2*': "(linear-gradient(to right, #ffa300, #ffea00, #ffa300) #ffa300)",
+	'→ Discord #3': "(linear-gradient(to right, #a9c9ff, #ffbbec, #ffc3a0, #a9c9ff) #ffc3a0)"
 }
 @var select custom-badge "Badge changer:" {
 	'None*': "disabled",
