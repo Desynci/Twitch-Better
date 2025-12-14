@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.7.1b
+@version        2.7.2
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -43,7 +43,6 @@
 
 @var select sidebar-tweaks "— 🍫 Sidebar tweaks —" {
     ' ': "holder-3"
-	
 }
 @var range sidebar-size "Width:" [24,13,28,0.5,"rem"]
 @var checkbox sidebar-hover-only "Show only on hover" 1
@@ -52,7 +51,6 @@
 @var select holder-4 "— 🍂 Removers —" {
     ' ': "holder-4"
 }
-
 @var checkbox remove-combo "Combo" 1
 @var checkbox remove-combo-overlay "Combo in fullscreen" 0
 @var checkbox remove-vods-muted-alert "VODs muted segments alert" 0
@@ -68,26 +66,22 @@
     'ON*': "enabled",
 	'OFF': "disabled"
 }
-@var text nick "Your exact nickname:" nickname
+@var text nick "[REQUIRED] Enter your exact nickname:" nickname
 @var select highlight-type "Highlight type:" {
-	'None*': "disabled",
+	'None': "disabled",
     '→ Cosmic Abyss': "cosmic",
-	'→ Rainbow': "rainbow"
+	'→ Rainbow': "rainbow",
+	'→ Discord #1*': "'https://i.postimg.cc/0NqrRwYX/asset3-ezgif-com-video-to-gif-converter.gif' 0.8 linear-gradient(90deg, transparent 0%, rgba(144, 0, 7, 0.08) 20%, rgba(144, 0, 7, 0.08) 50%, rgba(144, 0, 7, 0.2) 100%)",
+	'→ Discord #2': "'https://i.postimg.cc/BbT6YZy3/asset5-ezgif-com-video-to-gif-converter.gif' 0.8 linear-gradient(90deg, rgba(1, 49, 194, 0.1) 0%, rgba(1, 49, 194, 0.2) 100%)",
+	'→ Discord #3': "'https://i.postimg.cc/5y1R1mxG/asset9-ezgif-com-video-to-gif-converter.gif' 0.8 linear-gradient(90deg, transparent 0%, rgba(115, 11, 200, 0.08) 20%, rgba(115, 11, 200, 0.08) 50%, rgba(115, 11, 200, 0.2) 100%)",
+	'→ Discord #4': "'https://i.postimg.cc/CMqDkfGk/asset15-ezgif-com-video-to-gif-converter.gif' 0.8 none",
+	'→ Discord #5': "'https://i.postimg.cc/K8s2D4Fy/Video-2025-12-10-221931-ezgif-com-video-to-gif-converter.gif' 1 linear-gradient(90deg, transparent 0%, rgba(4, 123, 32, 0.08) 20%, rgba(4, 123, 32, 0.08) 50%, rgba(4, 123, 32, 0.2) 100%)"
 }
-@var select nick-decoration "Nick decoration:" {
+@var select nick-gradient "Nickname gradient:" {
     'None': "disabled",
-	'→ Discord #1': "(linear-gradient(to right, #369876, #71ff9e, #369876) #369876)",
-	'→ Discord #2*': "(linear-gradient(to right, #ffa300, #ffea00, #ffa300) #ffa300)",
-	'→ Discord #3': "(linear-gradient(to right, #a9c9ff, #ffbbec, #ffc3a0, #a9c9ff) #ffc3a0)"
-}
-@var select nick-banner "Nick banner:" {
-    'None*': "disabled",
-	'→ Yuji Itadori': "'https://i.postimg.cc/0NqrRwYX/asset3-ezgif-com-video-to-gif-converter.gif' 0.8 linear-gradient(90deg, transparent 0%, rgba(144, 0, 7, 0.08) 20%, rgba(144, 0, 7, 0.08) 50%, rgba(144, 0, 7, 0.2) 100%)",
-	'→ Satoru Godjo': "'https://i.postimg.cc/BbT6YZy3/asset5-ezgif-com-video-to-gif-converter.gif' 0.8 linear-gradient(90deg, rgba(1, 49, 194, 0.1) 0%, rgba(1, 49, 194, 0.2) 100%)",
-	'→ Twilight': "'https://i.postimg.cc/8zhNmZ7h/asset8-ezgif-com-video-to-gif-converter.gif' 0.8 linear-gradient(90deg, transparent 0%, rgba(1, 49, 194, 0.08) 20%, rgba(1, 49, 194, 0.08) 50%, rgba(1, 49, 194, 0.2) 100%)",
-	'→ The Moon of Spirits': "'https://i.postimg.cc/5y1R1mxG/asset9-ezgif-com-video-to-gif-converter.gif' 0.8 linear-gradient(90deg, transparent 0%, rgba(115, 11, 200, 0.08) 20%, rgba(115, 11, 200, 0.08) 50%, rgba(115, 11, 200, 0.2) 100%)",
-	'→ The Arctic Aurora': "'https://i.postimg.cc/CMqDkfGk/asset15-ezgif-com-video-to-gif-converter.gif' 0.8 none",
-	'→ Green Mana': "'https://i.postimg.cc/K8s2D4Fy/Video-2025-12-10-221931-ezgif-com-video-to-gif-converter.gif' 1 linear-gradient(90deg, transparent 0%, rgba(4, 123, 32, 0.08) 20%, rgba(4, 123, 32, 0.08) 50%, rgba(4, 123, 32, 0.2) 100%) right",
+	'→ Discord Green': "(linear-gradient(to right, #369876, #71ff9e, #369876) #369876)",
+	'→ Discord Gold*': "(linear-gradient(to right, #ffa300, #ffea00, #ffa300) #ffa300)",
+	'→ Discord Mild': "(linear-gradient(to right, #a9c9ff, #ffbbec, #ffc3a0, #a9c9ff) #ffc3a0)"
 }
 @var select custom-badge "Badge changer:" {
 	'None*': "disabled",
@@ -115,7 +109,7 @@
 	'→ Battlefield': "'https://static-cdn.jtvnw.net/badges/v1/d7750af0-caca-47c5-b207-1af9be69ce1b/2'",
 	'→ Arc Raiders': "'https://static-cdn.jtvnw.net/badges/v1/d4aa495f-a0e4-4ab4-b3eb-7c2ea573b03f/2'",
 	'→ Lol Worlds \'25': "'https://static-cdn.jtvnw.net/badges/v1/4545b0b5-c825-487e-8958-ce5512eb6f84/2'",
-	'→ Onryō mask': "'https://static-cdn.jtvnw.net/badges/v1/e0d21894-8d58-4266-9127-b1bd61177899/2'",
+	'→ Chrome Star': "'https://static-cdn.jtvnw.net/badges/v1/d139bccf-8184-4fec-a970-cd8d81a7f51a/2'",
 	'→ Golden clown': "'https://static-cdn.jtvnw.net/badges/v1/d98418bb-e4cf-43e3-9c25-c182e13de6fe/2'",
 	'[Custom image]': "custom"
 }
@@ -130,7 +124,7 @@
 	$player-settings = "[data-a-target='player-settings-menu']"
 	$chat-customization = "[class='Attached-sc-go6eno-0 cJkJNl']"
 	$notifications = "[class='ScBalloonWrapper-sc-14jr088-0 PjurZ InjectLayout-sc-1i43xsx-0 bAWxnr tw-balloon']"
-	side-nav-bg = transparentify(#18181b, #fff, 0.8)
+	side-nav-bg = transparentify(#0E0E10, #fff, 0.8)
 	__badge = ()
 		
 	:root { --sidebar-size: sidebar-size; }
@@ -201,6 +195,15 @@
 		animation: gradient 9s linear infinite;
 	}
 	
+	.chat-room__viewer-card .core-error__message-container p, .emote-card__display-name h4 {
+		background: linear-gradient(to right, #ffa300, #ffea00, #ffa300);
+		background-clip: text;
+		color: transparent !important;
+		background-size: 100px auto;
+		animation: gradient-discord 1.5s linear infinite;
+		font-weight: 600 !important;
+	}
+	
 	button[data-a-target="user-menu-toggle"] {
 		transition: .25s;
 		border-radius: var(--border-radius-rounded);
@@ -226,7 +229,7 @@
 		&:hover { transform: scale(1.2) }
 	}
 	
-	if (welcome) {
+	if (welcome) { /* logo-blink 4s 9s */ // cubic-bezier(.57,-0.4,.28,1.03);
 		.top-nav .itDlPz [data-test-selector="toggle-balloon-wrapper__mouse-enter-detector"]::after {
 			content: "Twitch Better | V2";
 			padding-right: 2px;
@@ -240,7 +243,7 @@
 			white-space: nowrap;
 			background: linear-gradient(90deg, #9db2ff 0%, #9db2ff 40%, #de76f0 50%, #9db2ff 90%, #9db2ff 100%);
 			background-size: 200% 200%;
-			animation: gradient 5s 2.5s linear infinite, logo 11s 4s backwards; /* logo-blink 4s 9s */ // cubic-bezier(.57,-0.4,.28,1.03);
+			animation: gradient 5s 2.5s linear infinite, logo 11s 4s backwards;
 			background-clip: text;
 			transition: .45s, clip-path .4s;
 			transition-property: opacity, clip-path, word-spacing, color;
@@ -254,6 +257,17 @@
 				font-size: var(--font-size-3);
 				bottom: 6px;
 				left: 51px;
+			}
+		}
+		
+		if (nick-gradient!="disabled") {
+			.top-nav .itDlPz [data-test-selector="toggle-balloon-wrapper__mouse-enter-detector"] {
+				&::after {
+					background: nick-gradient[0];
+					background-size: 100px auto;
+					animation: gradient-discord 1.5s linear infinite, logo 11s 4s backwards;
+					background-clip: text;
+				}
 			}
 		}
 		
@@ -398,7 +412,7 @@
 				height: 3px;
 			}
 			
-			&:not(:hover) { .volume-slider__slider-container { visibility: hidden; } }
+			&:not(:hover) { .volume-slider__slider-container { opacity: 0; } }
 		}
 		
 		[data-a-target="player-mute-unmute-button"] {
@@ -805,11 +819,13 @@
 		
 		else if (highlight-type=="rainbow") {
 			.chat-line__message[data-a-user={nick} i] {
+				.chat-line__message-container { background: var(--color-background-body); margin: 1rem; padding: .8rem 1rem; }
+				.chat-line__icons { top: -0.9rem; }
 				
 				.AoXTY {
 					overflow: hidden !important;
 					border-radius: var(--border-radius-medium) !important; }
-
+				
 				.AoXTY::before {
 					content: "";
 					filter: blur(4px);
@@ -824,16 +840,48 @@
 					animation: gradient-rotate 4s linear infinite; 
 					background-image: conic-gradient(from var(--angle), #b23ff8, #3cc890, #38a7ca, #b23ff8); 
 				}
-				
-			.chat-line__message-container { background: var(--color-background-body); margin: 1rem; padding: .8rem 1rem; }
-			.chat-line__icons { top: -0.9rem; }
-				
 			}
 		}
 		
-		if (nick-decoration!="disabled") {
+		else {
+			.chat-line__message[data-a-user={nick} i] .chat-line__message-container {
+				&::before {
+					content: '';
+					position: absolute;
+					z-index: -2;
+					height: 100%;
+					width: 100%;
+					border-radius: 4px;
+					opacity: highlight-type[1];
+					background-position: right;
+					background-image: url(highlight-type[0]);
+					background-size: cover;
+					pointer-events: none;
+				}
+				
+				&::after {
+					content: '';
+					position: absolute;
+					z-index: -1;
+					height: 100%;
+					width: 100%;
+					border-radius: 4px;
+					left: 0px;
+					top: 0px;
+					background: highlight-type[2];
+					pointer-events: none;
+				}
+				
+				[data-a-target="chat-line-message-body"] {
+					font-weight: 600;
+					text-shadow: 0 0 9px #000, 0 0 3px #181818, 0 0 3px #181818;
+				}
+			}
+		}
+		
+		if (nick-gradient!="disabled") {
 			.chat-author__display-name[data-a-user={nick} i], .tw-link[href$={nick} i], a[href$={nick} i] > .tw-title, [data-test-selector="user-menu-dropdown__display-name"] {
-				background: nick-decoration[0];
+				background: nick-gradient[0];
 				background-clip: text;
 				color: transparent !important;
 				background-size: 100px auto;
@@ -845,7 +893,7 @@
 					position: absolute;
 					opacity: .6;
 					filter: blur(4px);
-					background: nick-decoration[0];
+					background: nick-gradient[0];
 					background-clip: text;
 					color: transparent;
 					background-size: 100px auto;
@@ -854,45 +902,10 @@
 				}
 			}
 			
-			.metadata-layout__support .dMBVIY a[href$={nick} i] { text-decoration-color: nick-decoration[1]; }
+			.metadata-layout__support .dMBVIY a[href$={nick} i] { text-decoration-color: nick-gradient[1]; }
 				
 			button[data-a-target="user-menu-toggle"][aria-expanded="true"] {
-				box-shadow: 0px 0px 0 3px nick-decoration[1];
-			}
-		}
-		
-		if (nick-banner!="disabled") {
-			
-			.chat-line__message[data-a-user={nick} i] .chat-line__username-container { position: relative; padding-right: 3px; }
-			
-			.chat-line__message[data-a-user={nick} i] .chat-line__username-container::before {
-				    content: '';
-					background-image: url(nick-banner[0]);
-					background-size: cover;
-					opacity: nick-banner[1];
-					position: absolute;
-					height: 100%;
-					width: 100%;
-					border-radius: 4px;
-					pointer-events: none;
-					background-position: nick-banner[3];
-			}
-			
-			.chat-line__message[data-a-user={nick} i] .chat-line__username-container::after {
-				    content: '';
-					position: absolute;
-					height: 100%;
-					width: 100%;
-					border-radius: 4px;
-					left: 0px;
-  					top: 0px;
-					background: nick-banner[2];
-					pointer-events: none;
-			}
-			
-			.chat-author__display-name, [data-a-target="chat-badge"] {
-				position: relative;
-				z-index: 2;
+				box-shadow: 0px 0px 0 3px nick-gradient[1];
 			}
 		}
 		
@@ -1325,7 +1338,7 @@
 		
 		// -- //
 		
-		.tw-in-feature-notification .kGRpNK {
+		.tw-in-feature-notification .kGRpNK, .emote-card__banner {
 			backdrop-filter: blur(15px);
 			background: #3b3b441a !important;
 		}
@@ -1333,13 +1346,28 @@
 		.onsite-notifications-toast-manager .tw-animation {
 			animation: notification .9s cubic-bezier(0.76, 0, 0.24, 1), blur-55 0.8s forwards !important;
     		overflow: hidden;
-			border-radius: var(--border-radius-extra-large);
+			border-radius: var(--border-radius-extra-large) !important;
+		}
+		
+		.emote-card, .emote-card__banner {
+			border-radius: var(--border-radius-extra-large) !important;
+			border-color: #78787f45 !important;
+		}
+		
+		.viewer-card-layer__draggable {
+			width: 30rem;
 		}
 		
 		.onsite-notification-toast {
     		background: #00000094 !important;
 			box-shadow: none !important;
 			margin-block-end: 0 !important;
+		}
+		
+		.viewer-card-layer__draggable > .fSnwvz {
+			animation: blur-15 .7s forwards;
+			background: #18181bb0 !important;
+			border-color: #53535f47 !important;
 		}
 		
 		[data-popper-placement][data-popper-placement="right-start"] {
@@ -1458,6 +1486,10 @@
 		.iPkwTD[data-a-player-state="paused"] {
 			> .lnTwMD { position: absolute; color: white !important; opacity: 1; }
 		}
+		
+		@css { .extensions-popover-view-layout__body::after {
+			content: "NOTE: Twitch Better\'s \"PAUSE ANYWHERE\" option breaks an interaction with the stream extenstions. Disable it in the settings of style if you want to use them.";
+		} }
 	}
 
 @css {
