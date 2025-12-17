@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.7.3
+@version        2.7.6
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -87,7 +87,6 @@
 	'None*': "disabled",
     '→ Moderator': "'https://static-cdn.jtvnw.net/badges/v1/3267646d-33f0-4b17-b3df-f923a41db1d0/2'",
 	'→ Channel creator': "'https://static-cdn.jtvnw.net/badges/v1/5527c58c-fb7d-422d-b71b-f309dcb85cc1/2'",
-	'→ VIP': "'https://static-cdn.jtvnw.net/badges/v1/b817aba4-fad8-49e2-b88a-7cc744dfa6ec/2'",
 	'→ Verified': "'https://static-cdn.jtvnw.net/badges/v1/d12a2e27-16f6-41d0-ab77-b780518f00a3/2'",
 	'→ Hornet': "'https://static-cdn.jtvnw.net/badges/v1/4dc7b047-8c59-4522-97f2-24fb63147f56/2'",
 	'→ Ruby Heart': "'https://static-cdn.jtvnw.net/badges/v1/ca0aa8ce-b2a8-4582-a5de-4d5b6915dc47/2'",
@@ -257,17 +256,6 @@
 				font-size: var(--font-size-3);
 				bottom: 6px;
 				left: 51px;
-			}
-		}
-		
-		if (nick-gradient!="disabled") {
-			.top-nav .itDlPz [data-test-selector="toggle-balloon-wrapper__mouse-enter-detector"] {
-				&::after {
-					background: nick-gradient[0];
-					background-size: 100px auto;
-					animation: gradient-discord 1.5s linear infinite, logo 11s 4s backwards;
-					background-clip: text;
-				}
 			}
 		}
 		
@@ -631,9 +619,17 @@
 	
 	if (new-design) {
 		#front-page-main-content .find-me {
-			padding: 12px 12px 0px 12px;
-   		 	background: #1d1d1f4d;
+			padding: 15px 15px 0px 15px;
+			background: #18181b99;
     		border-radius: 10px;
+		}
+		
+		.guest-star-live-card-border {
+			background: crimson;
+		}
+		
+		.guest-star-live-card-clip-edge {
+			clip-path: inset(1px);
 		}
 		
 		.giftExpirationCallout--Y94PX, [aria-label*="(alt+x)"] {
@@ -874,13 +870,13 @@
 				
 				[data-a-target="chat-line-message-body"] {
 					font-weight: 600;
-					text-shadow: 0 0 9px #000, 0 0 3px #181818, 0 0 3px #181818;
+					text-shadow: 0 0 9px #000, 0 0 4px #181818, 0 0 4px #181818;
 				}
 			}
 		}
 		
 		if (nick-gradient!="disabled") {
-			.chat-author__display-name[data-a-user={nick} i], .tw-link[href$={nick} i], a[href$={nick} i] > .tw-title, [data-test-selector="user-menu-dropdown__display-name"] {
+			.chat-author__display-name[data-a-user={nick} i], .tw-link[href$={nick} i], a[href$={nick} i] > .tw-title, [data-test-selector="user-menu-dropdown__display-name"], .thread-message__message--user-name[aria-label={nick} i] {
 				background: nick-gradient[0];
 				background-clip: text;
 				color: transparent !important;
@@ -1058,9 +1054,7 @@
 				transition: max-height .5s ease;
 				max-height: 200px;
 				
-				@css { @starting-style {
-					max-height: 20px !important;
-				} }
+				@css { @starting-style { max-height: 20px !important; } }
 			}
 		}
 		
@@ -1487,8 +1481,9 @@
 			> .lnTwMD { position: absolute; color: white !important; opacity: 1; }
 		}
 		
-		@css { .extensions-popover-view-layout__body::after {
-			content: "NOTE: Twitch Better\'s \"PAUSE ANYWHERE\" option breaks an interaction with the stream extenstions. Disable it in the settings of style if you want to use them.";
+		@css { .extensions-popover-view-layout__body::before {
+			content: "NOTE: Twitch Better\'s option \"PAUSE ANYWHERE\" breaks an interaction with the stream extensions. Disable it in the settings of style if needed.";
+			color: #ff9898;
 		} }
 	}
 
