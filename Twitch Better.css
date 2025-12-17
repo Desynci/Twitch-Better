@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.7.6
+@version        2.7.7
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -648,11 +648,11 @@
 		.seekbar-thumb { width: 1.7rem; height: 1.7rem; }
 		.seekbar-bar, .seekbar-segment { height: 9px; }
 		
-		@css {.community-highlight-stack__card, .community-highlight-stack__backlog-card {
+		.community-highlight-stack__card, .community-highlight-stack__backlog-card {
 			.cKpxcT, .ircmYD, .community-highlight {
 				border-radius: 13px !important;
 			}
-		} }
+		}
 		
 		.rewards-list button.hWTXlR {
 			background-color: #544365;
@@ -909,7 +909,7 @@
 			if (custom-badge=="custom") { __badge = __custom-badge-url }
 			else { __badge = custom-badge }
 			
-			.chat-line__message[data-a-user={nick}] {
+			.chat-line__message[data-a-user={nick} i] {
 				.chat-line__username-container span > .dvtAVE:last-of-type {
 					.chat-badge { content: url(__badge); max-height: 18px; max-width: 18px;
 						&:hover { animation: reveal-badge .5s forwards; }
@@ -1192,24 +1192,27 @@
     		margin-inline-end: 0;
     		right: 200%;
 				
-			.chat-identity-menu__content {
-				.hyBNWd,
-				[data-test-selector="global-badges-test-selector"],
-				.ipRTld,
-				[data-test-selector="badges-description-test-selector"],
-				[data-test-selector="subscriber-badge-test-selector"],
- 				[class="Layout-sc-1xcs6mc-0 hyBNWd"] > [class="Layout-sc-1xcs6mc-0"] > [data-test-selector="use-custom-channel-badge-test-selector"],
- 				[data-test-selector="channel-badges-test-selector"] {
-					animation: custom-element .5s backwards;
+			@css { 
+				.chat-identity-menu__content {
+					.hyBNWd,
+					[data-test-selector="global-badges-test-selector"],
+					.ipRTld,
+					[data-test-selector="badges-description-test-selector"],
+					[data-test-selector="subscriber-badge-test-selector"],
+					[class="Layout-sc-1xcs6mc-0 hyBNWd"] > [class="Layout-sc-1xcs6mc-0"] > [data-test-selector="use-custom-channel-badge-test-selector"],
+					[data-test-selector="channel-badges-test-selector"] {
+						animation: custom-element .5s backwards;
+					}
 				}
-			}
 				
-			.chat-identity-menu__content {
-				.hyBNWd, [data-test-selector="use-custom-channel-badge-test-selector"], [data-test-selector="global-badges-test-selector"] { animation-delay: 100ms; }
-				[data-test-selector="badges-description-test-selector"], [data-test-selector="subscriber-badge-test-selector"] { animation-delay: 200ms; }
-				[class="Layout-sc-1xcs6mc-0 hyBNWd"] > [class="Layout-sc-1xcs6mc-0"] > [data-test-selector="use-custom-channel-badge-test-selector"] { animation-delay: 300ms; }
-				[data-test-selector="channel-badges-test-selector"] { animation-delay: 300ms; }
-				.ipRTld { animation-delay: 400ms; } }
+				.chat-identity-menu__content {
+					.hyBNWd, [data-test-selector="use-custom-channel-badge-test-selector"], [data-test-selector="global-badges-test-selector"] { animation-delay: 100ms; }
+					[data-test-selector="badges-description-test-selector"], [data-test-selector="subscriber-badge-test-selector"] { animation-delay: 200ms; }
+					[class="Layout-sc-1xcs6mc-0 hyBNWd"] > [class="Layout-sc-1xcs6mc-0"] > [data-test-selector="use-custom-channel-badge-test-selector"] { animation-delay: 300ms; }
+					[data-test-selector="channel-badges-test-selector"] { animation-delay: 300ms; }
+					.ipRTld { animation-delay: 400ms; } 
+				}
+			} 
 		}
 		
 	// credits to Youtube RetroWave by xyadx
