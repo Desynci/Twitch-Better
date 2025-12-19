@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.7.7
+@version        2.7.8
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -1036,7 +1036,7 @@
  	.iJmEhj, [data-a-target="tw-progress-bar-animation"], .media-row__image-play-overlay { transition: .15s }
 	
 		// -- 0.1s -- //
-	.hYdssb, button.imYKMv, .hlLhUC, .bQjtjF, .ccSgUF { transition: .1s }
+	.hYdssb, button.imYKMv, .hlLhUC, .bQjtjF, .ccSgUF, .fKHFsE::before { transition: .1s }
 	
 		// -- 0.05s -- //
 	.chat-line__message-highlight, .chat-line__icon, .kZmtcH, .gcA-DkW, .highlight__progress-bar [data-a-target="tw-progress-bar-animation"] { transition: .05s linear }
@@ -1171,8 +1171,10 @@
 			[data-a-target="unfollow-button"] { animation: follow-placeholder .65s reverse cubic-bezier(0.76, 0, 0.24, 1); }
 			[class="ScPlaceholderFill-sc-wb1w3c-2 eJtHtF"] { animation: follow-placeholder .3s .1s forwards }
 
-			.gboHV { overflow: hidden; }
+			.kyIBpI { overflow: hidden; }
 		}
+		
+		.fKHFsE::after { animation: content-in-checkbox .5s .05s backwards } // circle checkbox animation
 		
 		.chat-input-tray__open, .chat-settings__popover .chat-badge {
 			animation: chat-tray .4s;
@@ -1413,7 +1415,7 @@
 		
 		[aria-label="emote-picker"] .dnjUiS, .gxOWjV { background: #18181b57 !important; }
 		.gSwbdq { background-color: #5c16c58c !important; backdrop-filter: blur(4px); }
-		.streamer-card__balloon .gboHV { background: #18181bd1 }
+		.streamer-card__balloon .kyIBpI .lhua-dz { background: #18181bd1 !important; }
 			
 		{$chat-customization} {
 			background: #00000094 !important; backdrop-filter: blur(55px);
@@ -1538,7 +1540,10 @@
 	to { pointer-events: none; } }
 
 	@keyframes content-in { from { transform: scale(0.3); opacity: 0; filter: grayscale(1); } }
-
+	
+	@keyframes content-in-checkbox { from { transform: translate3d(var(--checkbox-fill-transform-x), -50%, 0) scale(0.3); } 
+	to { transform: translate3d(var(--checkbox-fill-transform-x), -50%, 0); } }
+	
 	@keyframes seekbar-thumb { 0% { transform: scale(0.3) scaleY(1) translateX(-50%); opacity: 0; filter: grayscale(1); transform-origin: left; }
 	to { transform: scale(1) scaleY(0.65) translateX(-50%); transform-origin: left; } }
 
@@ -1639,5 +1644,7 @@
 		
 		.bLuwEe { max-width: unset !important; }
 		.kNocWT { width: 100% !important; }
+			
+		.kvrzxX .tw-transition[aria-hidden] { opacity: 1 !important; } // volume slider
 	}
 }
