@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.8.0
+@version        2.8.1
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -23,6 +23,14 @@
 @var checkbox new-design "Apply design tweaks" 1
 @var checkbox dark-chat "Use dark chat mode" 1
 @var checkbox use-glow "Add glow effect to buttons" 1
+@var select custom-chat-button "Customize chat button:" {
+	'None': "disabled",
+	'→ Yuji Itadori*': "'https://i.postimg.cc/0NqrRwYX/asset3-ezgif-com-video-to-gif-converter.gif' 1 linear-gradient(90deg, transparent 0%, rgba(144, 0, 7, 0.08) 20%, rgba(144, 0, 7, 0.08) 50%, rgba(144, 0, 7, 0.2) 100%)",
+	'→ Satoru Godjo': "'https://i.postimg.cc/BbT6YZy3/asset5-ezgif-com-video-to-gif-converter.gif' 2 linear-gradient(90deg, rgba(1, 49, 194, 0.1) 0%, rgba(1, 49, 194, 0.2) 100%)",
+	'→ The Moon of Spirits': "'https://i.postimg.cc/5y1R1mxG/asset9-ezgif-com-video-to-gif-converter.gif' 3 linear-gradient(90deg, transparent 0%, rgba(115, 11, 200, 0.08) 20%, rgba(115, 11, 200, 0.08) 50%, rgba(115, 11, 200, 0.2) 100%)",
+	'→ The Arctic Aurora': "'https://i.postimg.cc/CMqDkfGk/asset15-ezgif-com-video-to-gif-converter.gif' 4 none",
+	'→ Green Mana': "'https://i.postimg.cc/K8s2D4Fy/Video-2025-12-10-221931-ezgif-com-video-to-gif-converter.gif' 5 linear-gradient(90deg, transparent 0%, rgba(4, 123, 32, 0.08) 20%, rgba(4, 123, 32, 0.08) 50%, rgba(4, 123, 32, 0.2) 100%)"
+}
 @var range night-mode-value "Player night mode:" [0,0,100,5,"%"]
 @var color timeline_color "VOD timeline color:" #a970ff
 @var color thumb_color "VOD thumb color:" #ffffff
@@ -724,6 +732,48 @@
 			
 			box-shadow: 0px 0px 8px __chat-color;
 			&:hover { box-shadow: 0px 0px 10px __chat-color-hover; }
+		}
+	}
+	
+	if (custom-chat-button!="disabled") {
+		[data-a-target="chat-send-button"] {
+			background: none !important;
+			box-shadow: 0px 0px 8px #9f9f9f2b;
+			
+			&:hover { box-shadow: 0px 0px 10px #9f9f9f2b; }
+			
+			&[disabled] {
+				&::before, &::after { opacity: 0.5; }
+			}
+			
+			&::before {
+				content: '';
+				position: absolute;
+				z-index: 0;
+				height: 100%;
+				width: 100%;
+				background-position: right;
+				background-image: url(custom-chat-button[0]);
+				background-size: cover;
+				pointer-events: none;
+				animation: content-in+custom-chat-button[1] .6s;
+			}
+				// poor workaround to make animation work on settings change
+			@keyframes content-in1 { from { transform: scale(0.3); opacity: 0; filter: grayscale(1); } }
+			@keyframes content-in2 { from { transform: scale(0.3); opacity: 0; filter: grayscale(1); } }
+			@keyframes content-in3 { from { transform: scale(0.3); opacity: 0; filter: grayscale(1); } }
+			@keyframes content-in4 { from { transform: scale(0.3); opacity: 0; filter: grayscale(1); } }
+			@keyframes content-in5 { from { transform: scale(0.3); opacity: 0; filter: grayscale(1); } }
+			
+			&::after {
+				content: '';
+				position: absolute;
+				z-index: 1;
+				height: 100%;
+				width: 100%;
+				background: custom-chat-button[2];
+				pointer-events: none;
+			}
 		}
 	}
 	
