@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.8.2
+@version        2.8.3
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -59,6 +59,7 @@
 @var select holder-4 "— 🍂 Removers —" {
     ' ': "holder-4"
 }
+@var checkbox remove-ads "Ads" 1
 @var checkbox remove-combo "Combo" 1
 @var checkbox remove-combo-overlay "Combo in fullscreen" 0
 @var checkbox remove-vods-muted-alert "VOD muted segments alert" 0
@@ -114,6 +115,7 @@
 	'→ Streamer Awards \'25': "'https://static-cdn.jtvnw.net/badges/v1/d52bd174-3509-460b-80ac-4a8d5840194b/2'",
 	'→ Rust': "'https://static-cdn.jtvnw.net/badges/v1/5ec1bcd1-82fa-4c42-abf1-be5b64cb63ed/2'",
 	'→ Battlefield': "'https://static-cdn.jtvnw.net/badges/v1/d7750af0-caca-47c5-b207-1af9be69ce1b/2'",
+	'→ Hunt Crosses': "'https://static-cdn.jtvnw.net/badges/v1/b1e77273-2fc0-4d36-873a-67a7c1647efe/2'",
 	'→ Arc Raiders': "'https://static-cdn.jtvnw.net/badges/v1/d4aa495f-a0e4-4ab4-b3eb-7c2ea573b03f/2'",
 	'→ Lol Worlds \'25': "'https://static-cdn.jtvnw.net/badges/v1/4545b0b5-c825-487e-8958-ce5512eb6f84/2'",
 	'→ Chrome Star': "'https://static-cdn.jtvnw.net/badges/v1/d139bccf-8184-4fec-a970-cd8d81a7f51a/2'",
@@ -739,11 +741,13 @@
 		[data-a-target="chat-send-button"] {
 			background: none !important;
 			box-shadow: 0px 0px 7px #9f9f9f26 !important;
+			color: transparent !important;
 			
 			&:hover { box-shadow: 0px 0px 10px #9f9f9f2b !important; }
+			&:hover::before { filter: saturate(5); opacity: 0.8; }
 			
 			&[disabled] {
-				&::before, &::after { opacity: 0.5; }
+				&::before, &::after { opacity: 0.6; }
 			}
 			
 			&::before {
@@ -757,6 +761,7 @@
 				background-size: cover;
 				pointer-events: none;
 				animation: content-in+custom-chat-button[1] .6s;
+				transition: filter .5s, opacity 0.3s;
 			}
 				// poor workaround to make animation work on settings change
 			@keyframes content-in1 { from { transform: scale(0.3); opacity: 0; filter: grayscale(1); } }
@@ -777,6 +782,7 @@
 		}
 	}
 	
+	if (remove-ads) { .stream-display-ad__wrapper { display: none !important; } }
 	if (remove-vods-muted-alert) { .muted-segments-alert__position-wrapper { display: none !important; } }
 	//@var checkbox remove-banner "Clips banner" 1
 	//if (remove-banner) { [style*="badge-promo-banner"] { display: none !important; } }
@@ -922,6 +928,10 @@
 				[data-a-target="chat-line-message-body"] {
 					font-weight: 600;
 					text-shadow: 0 0 9px #000, 0 0 4px #181818, 0 0 4px #181818;
+				}
+				
+				.mention-fragment--recipient {
+					color: white !important;
 				}
 			}
 		}
@@ -1244,7 +1254,7 @@
 			[data-a-target="unfollow-button"] { animation: follow-placeholder .65s reverse cubic-bezier(0.76, 0, 0.24, 1); }
 			[class="ScPlaceholderFill-sc-wb1w3c-2 eJtHtF"] { animation: follow-placeholder .3s .1s forwards }
 
-			.kyIBpI { overflow: hidden; }
+			[data-popper-placement] { overflow: hidden; }
 		}
 		
 		.fKHFsE::after { animation: content-in-checkbox .45s backwards } // circle checkbox animation
