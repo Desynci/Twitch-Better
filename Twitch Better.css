@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.8.7
+@version        2.9.0
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -159,6 +159,10 @@
 	.chat-wysiwyg-input-box, .jwWicM { box-shadow: inset 0 0 0 var(--input-border-width-small) #636363f2; }
 	.chat-input-tray__open { background: #232327b0 !important; }
 	[data-a-target="share-button"] { display: none; }
+		
+	.ScToggleInput-sc-iguyno-1:checked:hover + .fWQStf {
+		&::after { background-color: hsl(264, 100%, 68%); }
+	}
 	
 		// Notification tweaks
 	.onsite-notification-toast__action.dhbGUE { display: none !important; }
@@ -198,18 +202,12 @@
 		background: linear-gradient(90deg, #9db2ff 0%, #9db2ff 40%, #de76f0 50%, #9db2ff 90%, #9db2ff 100%);
 		font-weight: 900;
 		background-size: 200% 200%;
-		animation: gradient 8s linear infinite;
+		animation: gradient-custom 8s linear infinite;
 		background-clip: text;
 		color: transparent;
 		border: none !important;
 		font-size: 15px;
 		font-variant-emoji: text;
-	}
-	
-	.gift-highlight-gradient-container .gift-highligh-element {
-		background: linear-gradient(90deg, #977F9B, #de76f0, #977F9B);
-		background-size: 200% 200%;
-		animation: gradient 9s linear infinite;
 	}
 	
 	.chat-room__viewer-card .core-error__message-container p, .emote-card__display-name h4 {
@@ -260,7 +258,7 @@
 			white-space: nowrap;
 			background: linear-gradient(90deg, #9db2ff 0%, #9db2ff 40%, #de76f0 50%, #9db2ff 90%, #9db2ff 100%);
 			background-size: 200% 200%;
-			animation: gradient 5s 2.5s linear infinite, logo 11s 4s backwards;
+			animation: gradient-custom 5s 2.5s linear infinite, logo 11s 4s backwards;
 			background-clip: text;
 			transition: .45s, clip-path .4s;
 			transition-property: opacity, clip-path, word-spacing, color;
@@ -626,7 +624,7 @@
 		[data-a-target="chat-private-callout__primary-button"] {
 			background: linear-gradient(90deg, #9db2ff 0%, #de76f0 50%, #9db2ff 100%);
 			background-size: 200% 200%;
-			animation: gradient 8s linear infinite;
+			animation: gradient-custom 8s linear infinite;
 			
 			&:hover {
 				transform: scale(0.98)
@@ -637,7 +635,7 @@
 	if (new-design) {
 		#front-page-main-content .find-me {
 			padding: 15px 15px 0px 15px;
-			background: #18181b99;
+			background: rgba(24, 24, 27, .4);
     		border-radius: 10px;
 		}
 		
@@ -1119,7 +1117,7 @@
 			height: 2px;
 			background-color: transparent;
 			transform: scaleY(0);
-			transition: transform .3s, background-color .4s;
+			transition: transform .25s, background-color .3s;
 			will-change: transform;
 			border-radius: 5px;
 		}
@@ -1127,7 +1125,7 @@
 		&:hover::after {
 			transform: scaleY(1);
 			background-color: #A776F0;
-			transition: transform .3s, background-color .3s;
+			transition: transform .2s, background-color .2s;
 		}
 	}
 	
@@ -1140,10 +1138,10 @@
 	.dcNXJO, .kzYOur, .kXuCmW, .jUkMRL, .kccyMt, .hovRjt, .dCFkna, .cAajJv, a.navigation-link, .hWTXlR, .kMwhRV, .dEeZDR,
 	.gxYeIp, .bZLSuF, .gGttfb, .bNByMh, .kLgTJj, .eCrblY, .ldMHo, .fvWwI, .fixed-prediction-button,
 	.dOkkBt, .iwMIba, .imYKMv, .bmaSLQ, .hQMzBR, .extensions-dock-card__image, .media-row__info-description, .converter-preview-player-controls--gradient,
- 	.iJmEhj, [data-a-target="tw-progress-bar-animation"], .media-row__image-play-overlay { transition: .15s }
+ 	.iJmEhj, [data-a-target="tw-progress-bar-animation"], .media-row__image-play-overlay, .eoyBQj { transition: .15s }
 	
 		// -- 0.1s -- //
-	.hYdssb, button.imYKMv, .hlLhUC, .bQjtjF, .ccSgUF, .fKHFsE::before { transition: .1s }
+	.hYdssb, button.imYKMv, .hlLhUC, .bQjtjF, .ccSgUF, .fKHFsE::before, .fWQStf, .fWQStf::after { transition: .1s }
 	
 		// -- 0.05s -- //
 	.chat-line__message-highlight, .chat-line__icon, .kZmtcH, .gcA-DkW, .highlight__progress-bar [data-a-target="tw-progress-bar-animation"] { transition: .05s linear }
@@ -1399,7 +1397,7 @@
 	
 	if (apply-blur) {
 			// -- @CSS to prevent unoptimized preprocessor code output -- //
-		@css { [data-popper-placement], .support-panel-container, .clip-editor-popup, .dJwphs.chat-input-tray__open, [aria-labelledby="active-settings-menu-header"] > div, [data-a-target="player-overlay-video-stats"] {
+		@css { [data-popper-placement], .support-panel-container, .clip-editor-popup, .dJwphs.chat-input-tray__open, [aria-labelledby="active-settings-menu-header"] > div {
 			background: #00000094 !important;
 			animation: blur-55 0.9s forwards;
 			border-radius: var(--border-radius-large);
@@ -1513,6 +1511,11 @@
 		}
 		
 		[data-a-target="player-overlay-video-stats"] {
+			background: #18181beb !important;
+			border-radius: var(--border-radius-large);
+			box-shadow: var(--shadow-elevation-2) !important;
+			backdrop-filter: blur(15px);
+			
 			.tw-table-heading { background: #ffffff0d !important; border: none !important; }
 			.tw-table { box-shadow: none; }
 		}
@@ -1721,7 +1724,7 @@
 
 	@keyframes settings-blur { to { backdrop-filter: blur(55px) saturate(180%); } }
 
-	@keyframes gradient { 0% { background-position: 200%; }
+	@keyframes gradient-custom { 0% { background-position: 200%; }
 	to { background-position: -200%; } }
 
 	@keyframes gradient-discord { 0% { background-position: 0; }
