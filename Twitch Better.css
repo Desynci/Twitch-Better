@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.9.3
+@version        2.9.5
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -23,6 +23,7 @@
 @var checkbox new-design "Apply design tweaks" 1
 @var checkbox dark-chat "Use dark chat mode" 1
 @var checkbox use-glow "Add glow effect to buttons" 1
+@var checkbox hide-chat-scroller "Hide chat scrollbar" 0
 @var select custom-chat-button "Customize chat button:" {
 	'None': "disabled",
 	'→ Yuji Itadori': "'https://i.postimg.cc/0NqrRwYX/asset3-ezgif-com-video-to-gif-converter.gif' content-in1 linear-gradient(90deg, transparent 0%, rgba(144, 0, 7, 0.08) 20%, rgba(144, 0, 7, 0.08) 50%, rgba(144, 0, 7, 0.2) 100%)",
@@ -289,9 +290,7 @@
 		
 		bg-inset-on-hover = rgba(255, 255, 255, .15);
 		bg-inset-on-active = rgba(255, 255, 255, .2);
-		
-		light-volume-container-inset = rgba(255, 255, 255, .1);
-		dark-volume-container-inset = rgba(0, 0, 0, .1);
+		bg-inset-volume = rgba(255, 255, 255, .1);
 		
 		button-size = 32px + 8px;
 		icon-size-left-panel = 2rem + 0.4rem;
@@ -347,7 +346,7 @@
 		.player-controls__left-control-group {$volume-container} {
 			position: relative;
 			border-radius: 55px !important;
-			padding-right: 10px;
+			padding-right: 9px;
 			margin: 6px;
 			transition: background-color .15s;
 			
@@ -393,23 +392,22 @@
 			}
 			
 			&:hover::after {
-				transform: scale(1);
+				transform: scaleX(1);
 				opacity: 1;
 			}
 			
 			&::after {
 				content: "";
 				position: absolute;
-				inset: -3px;
+				inset: 2px;
 				pointer-events: none;
 				border-radius: 55px;
 				transition: .15s;
-				transform: scale(0.3);
+				transform: scaleX(0.5);
 				opacity: 0;
-				background-color: (player-controls=="yt-light") ? light-volume-container-inset : dark-volume-container-inset;
+				background-color: bg-inset-volume;
+				transform-origin: left;
 			}
-			
-			//.ekgjut[data-focus-visible-added]
 			
 			.ScRangeFillContainer-sc-q01wc3-2 {
 				height: 3px;
@@ -799,6 +797,8 @@
 		}
 	}
 	
+	if (hide-chat-scroller) { .chat-room__content [data-a-target="chat-scroller"] { scrollbar-width: none; } }
+	
 	if (remove-ads) { .stream-display-ad__wrapper { display: none !important; } }
 	if (remove-vods-muted-alert) { .muted-segments-alert__position-wrapper { display: none !important; } }
 	if (remove-banners) { .giftExpirationCallout--Y94PX { display: none !important; } }
@@ -1022,7 +1022,7 @@
 		.chat-paused-footer--button { gap: 0; grid-template-columns: none; width: 185px !important; .hTJhrY { display: none; } }
 		.chat-paused-footer .kaIUar { padding: 0 !important; }
 		.chat-paused-footer {
-			backdrop-filter: blur(5px); width: 245px; height: 35px; inset-inline-start: 0; justify-self: anchor-center; bottom: 5px !important;
+			backdrop-filter: blur(5px); width: 245px; height: 35px; inset-inline-start: 15% !important; bottom: 5px !important;
 			button { height: 35px; width: 100%; }
 			
 			&:hover {
@@ -1043,9 +1043,15 @@
 		border-color: #4f4f4f7a;
 		transition: .4s;
 		opacity: 1;
-		inset-inline-start: 0;
-		justify-self: anchor-center;
+		inset-inline-start: 10%;
 		@css { @starting-style { transform: translateY(30px) !important; opacity: 0 !important; } }
+        
+        @supports (justify-self: anchor-center) {
+            .chat-paused-footer {
+                justify-self: anchor-center;
+                inset-inline-start: 0 !important;
+            }
+        }
 	}
 	
 	.video-chat__sync-button {
@@ -1492,7 +1498,7 @@
 			border-color: #53535f47 !important;
 		}
 		
-		[data-popper-placement][data-popper-placement="right-start"] { // sidepanel stream tooltip poopup
+		@css { [data-popper-placement][data-popper-placement="right-start"] { /* sidepanel stream tooltip poopup */
 			backdrop-filter: none !important; background: none !important;
 			.dduVcl { background: #18181bd6 !important; }
 			.gyaZBH { padding-block: 1px !important; }
@@ -1500,7 +1506,7 @@
 			.dAvGIo { padding: 0 !important; }
 			.jtfmFN { font-size: 1.35rem; }
 			.focus-visible { outline: none; }
-		}
+		} }
 		
 		[data-popper-placement] {
 			background: #18181bb0 !important;
