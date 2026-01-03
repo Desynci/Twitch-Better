@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.9.7
+@version        2.9.8
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -290,7 +290,7 @@
 		
 		bg-inset-on-hover = rgba(255, 255, 255, .15);
 		bg-inset-on-active = rgba(255, 255, 255, .2);
-		bg-inset-volume = rgba(255, 255, 255, .1);
+		bg-inset-volume = rgba(255, 255, 255, .09);
 		
 		button-size = 32px + 8px;
 		icon-size-left-panel = 2rem + 0.4rem;
@@ -805,7 +805,7 @@
 	
 	if (remove-ads) { .stream-display-ad__wrapper { display: none !important; } }
 	if (remove-vods-muted-alert) { .muted-segments-alert__position-wrapper { display: none !important; } }
-	if (remove-banners) { .giftExpirationCallout--Y94PX { display: none !important; } }
+	if (remove-banners) { .kXYDBY[class*="giftExpirationCallout"] { display: none !important; } }
 	if (remove-hype-train) { .hype-train__banner, .side-nav-card [class="Layout-sc-1xcs6mc-0 hMzOYz"], .online-side-nav-channel-tooltip__body .ipRTld .hMzOYz { display: none !important; } }
 	if (remove-disclosure) { #channel-player-disclosures { display: none !important; } }
 	if (remove-combo) {
@@ -854,7 +854,7 @@
 	if (transparent-player) { .player-controls, .top-bar { background: none; } }
 	
 	if (sidebar-hover-only) {
-		@css { .foAhuv [data-popper-placement="bottom"][style$="translate3d(10.4px, 70.4px, 0px);"] { /* channels list sorting popup */
+		@css { .foAhuv [data-popper-placement="bottom"]:is([style$="translate3d(10.4px, 70.4px, 0px);"], [style$="translate3d(10.0333px, 70.2333px, 0px);"]) { /* channels list sorting popup */
 			transform: translate3d(var(--sidebar-size), 70.4px, 0px) !important;
 		} }
 		
@@ -1051,10 +1051,8 @@
 		@css { @starting-style { transform: translateY(30px) !important; opacity: 0 !important; } }
         
         @supports (justify-self: anchor-center) {
-            .chat-paused-footer {
-                justify-self: anchor-center;
-                inset-inline-start: 0 !important;
-            }
+            justify-self: anchor-center;
+            inset-inline-start: 0 !important;
         }
 	}
 	
