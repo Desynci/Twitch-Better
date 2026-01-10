@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        2.9.9
+@version        3.0.1
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -147,7 +147,7 @@
 	:root { --sidebar-size: sidebar-size; }
 		
 	.video-player[data-a-player-type="site"] video { if (night-mode-value > 0) { filter: brightness(100 - night-mode-value/1.1); } transition: filter .5s; } 
-	.seekbar-bar > [style*="169"] { background-color: timeline_color !important; }
+	.seekbar-bar > [style*="rgb(169"] { background-color: timeline_color !important; }
 	.seekbar-thumb { background-color: thumb_color !important; }
 	.channel-root--home .channel-info-content { width: unset; }
 	.side-nav--expanded { width: sidebar-size; }
@@ -346,7 +346,7 @@
 		.player-controls__left-control-group {$volume-container} {
 			position: relative;
 			border-radius: 55px !important;
-			padding-right: 9px;
+			padding-right: 9.2px;
 			margin: 6px;
 			transition: background-color .15s;
 			
@@ -494,7 +494,7 @@
 				transition: transform .25s !important;
 			}
 			
-			[data-a-target="player-settings-button"]:hover .tw-aspect {
+			[data-a-target="player-settings-button"]:hover .tw-svg {
 				transform: rotate(0.05turn) scale(0.95);
 			}
 			
@@ -538,7 +538,7 @@
 		}
 		
 		.persistent-player:not(.persistent-player--theatre) .player-controls__right-control-group { // default mode
-			[aria-label$="(alt+t)"]:hover svg {
+			[aria-label$="(alt+t)"]:hover .tw-svg {
 				transform: scaleY(1.15);
 			}
 			
@@ -564,7 +564,7 @@
 				}
 			}
 			
-			[aria-label$="(alt+t)"]:hover svg {
+			[aria-label$="(alt+t)"]:hover .tw-svg {
 				transform: scaleY(0.85);
 				fill: #989898 !important;
 			}
@@ -1372,7 +1372,7 @@
 			
 		.ScRangeFillValue-sc-q01wc3-3 { transition: background-color .5s; }
 
-		.seekbar-thumb { animation: seekbar-thumb .2s; transition: transform .2s; transform: scaleY(0.65) scaleZ(1) translateX(-50%); &:hover { transform: scale(1.3) scaleY(0.65) translateX(-6px) } }
+		.seekbar-thumb { animation: seekbar-thumb .2s; transition: transform .2s; transform: scaleY(0.7) scaleZ(1) translateX(-50%); &:hover { transform: scale(1.3) scaleY(0.65) translateX(-6px) } }
 		.vod-message .dQedsG { animation: pop-small .3s; }
 		.viewer-card-layer__draggable { animation: swipe .45s .2s backwards; }
 		.viewer-card-header__background, .support-panel .goal_widget_v2__container { animation: content-in .5s }
@@ -1387,8 +1387,8 @@
 			.hVLlmi { animation: search .4s, blur-15-decrease 0.8s .1s both; will-change: transform; background: #00000094 !important; }
 		}
 		
-		[data-a-target="player-settings-button"] .jgpfbi { transition: .3s; }
-		.player-controls__right-control-group:has(.resize-detector) { [data-a-target="player-settings-button"] .jgpfbi { transform: rotate(0.15turn) } }
+		[data-a-target="player-settings-button"] .tw-svg { transition: .3s; }
+		.player-controls__right-control-group:has(.resize-detector) { [data-a-target="player-settings-button"] .tw-svg { transform: rotate(0.15turn) } }
 		
 		.default-panel {
 			&>a>img { transition: .3s; transform: scale(1); }
@@ -1671,7 +1671,7 @@
 	to { transform: translate3d(var(--checkbox-fill-transform-x), -50%, 0); } }
 	
 	@keyframes seekbar-thumb { 0% { transform: scale(0.3) scaleY(1) translateX(-50%); opacity: 0; filter: grayscale(1); transform-origin: left; }
-	to { transform: scale(1) scaleY(0.65) translateX(-50%); transform-origin: left; } }
+	to { transform: scale(1) scaleY(0.7) translateX(-50%); transform-origin: left; } }
 
 	@keyframes emotes { 0% { transform: scale(0.3); opacity: 0; }
 	to { transform: scale(1.1); } }
