@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        3.0.1
+@version        3.0.2
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -1378,7 +1378,7 @@
 		.viewer-card-header__background, .support-panel .goal_widget_v2__container { animation: content-in .5s }
 		.community-highlight [class="Layout-sc-1xcs6mc-0 fSfyIg"] { animation: community-highlight .3s }
 		[aria-label="Hide for yourself"] { animation: hide-button .45s; }
-		.emote-button, .chat-line__message--emote { animation: emotes .5s; transform: scale(1.1); }
+		.chat-line__message--emote { animation: emotes .5s; }
 		.chat-line__message--emote-button { transition: .15s; transform: scale(1); &:hover { transform: scale(0.95) } }
 		
 		.search-box {
@@ -1674,7 +1674,7 @@
 	to { transform: scale(1) scaleY(0.7) translateX(-50%); transform-origin: left; } }
 
 	@keyframes emotes { 0% { transform: scale(0.3); opacity: 0; }
-	to { transform: scale(1.1); } }
+	to { transform: scale(1); } }
 
 	@keyframes community-highlight { from { transform: translateY(-100%); opacity: 0.1; } }
 
@@ -1698,7 +1698,7 @@
 
 	@keyframes emote-picker { from { transform: translateY(10%); opacity: 0.5; } }
 
-	@keyframes chat-tray { from { transform: translateY(50%); opacity: 0; }  }
+	@keyframes chat-tray { from { transform: translateY(50%); opacity: 0; } }
 
 	@keyframes chat-badge { 0% { transform: translateY(50%); opacity: 0; pointer-events: none; }
 	to { pointer-events: none; } }
