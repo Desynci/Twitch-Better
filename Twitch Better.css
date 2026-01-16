@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        3.0.4
+@version        3.0.5
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -55,10 +55,7 @@
 }
 @var range sidebar-size "Width:" [24,13,28,0.5,"rem"]
 @var checkbox sidebar-hover-only "Show only on hover" 1
-@var select sidebar-transition "Transition on hover:" {
-    'Slide*': "slide",
-	'Opacity': "opacity"
-}
+@var checkbox sidebar-reduce-motion "Reduce motion on hover" 0
 @var checkbox only-following "Clear categories" 0
 
 @var select holder-4 "— 🍂 Removers —" {
@@ -865,40 +862,36 @@
 		}
 		
 		.side-nav--expanded {
-			opacity: 0;
-			
-            if (sidebar-transition=="slide") {
-                transition: transform .28s cubic-bezier(0.76, 0, 0.24, 1), opacity .4s cubic-bezier(0.76, 0, 0.24, 1);
-                
-                &:hover {
-				    transition: transform .3s .05s, opacity .05s;
-			    }
-            }
+            transition: transform .28s cubic-bezier(0.76, 0, 0.24, 1), opacity .4s cubic-bezier(0.76, 0, 0.24, 1);
             
-            else {
-                transition: transform 0s .4s, opacity .25s cubic-bezier(0.76, 0, 0.24, 1);
-                
-                &:hover {
-				    transition: opacity .25s .05s;
-			    }
-            }
+            &:hover {
+				transition: transform .3s .05s;
+			}
             
             @media (prefers-reduced-motion: reduce) {
-                transition: transform 0s .4s, opacity .2s cubic-bezier(0.76, 0, 0.24, 1);
+                transition: transform 0s .2s, opacity .2s cubic-bezier(0.76, 0, 0.24, 1);
                 
                 &:hover {
-				    transition: opacity .2s .05s;
+				    transition: opacity .1s .05s;
+			    }
+            }
+            
+            if (sidebar-reduce-motion) {
+                transition: transform 0s .3s, opacity .3s cubic-bezier(0.76, 0, 0.24, 1);
+                
+                &:hover {
+				    transition: opacity .35s .05s;
 			    }
             }
 		}
 		
 		.side-nav--collapsed {
-			width: 5rem; opacity: 0; transition: transform .25s .05s, opacity .25s .05s;
+			width: 5rem; transition: transform .25s .05s, opacity .25s .05s;
 		}
-			
+		
 		if (apply-blur) { .side-nav.kHqXhd { background: side-nav-bg !important; backdrop-filter: blur(55px); } }
 	}
-		
+	
 	if (only-following) {
 		.side-nav-section:not(:nth-of-type(2)) { display: none !important; }
 	}
@@ -1151,22 +1144,22 @@
 	.notched-range--handle, .offline-recommendations-video-card [class^="offline-recommendations-video-card-border"] { transition: .5s }
 	.fOtgyk, .emote-button__link img, .edit-appearance__badge-chooser, .kJMgAB { transition: .3s }
 	.iOIbVE.iOIbVE, .chat-line__username-container--hoverable, .kMwhRV, .jUiaVy, .jwWicM, .predictions-list-item__body, .jLHIWd { transition: .2s }
-	
-	.rewardsLearnMoreExpandedViewDark--EoAxN { transition: .3s !important }
 		
 		// -- 0.15s -- //
 	.dcNXJO, .kzYOur, .kXuCmW, .jUkMRL, .kccyMt, .hovRjt, .dCFkna, .cAajJv, a.navigation-link, .hWTXlR, .kMwhRV, .dEeZDR,
 	.gxYeIp, .bZLSuF, .gGttfb, .bNByMh, .kLgTJj, .eCrblY, .ldMHo, .fvWwI, .fixed-prediction-button,
 	.dOkkBt, .iwMIba, .imYKMv, .bmaSLQ, .hQMzBR, .extensions-dock-card__image, .media-row__info-description, .converter-preview-player-controls--gradient,
  	.iJmEhj, [data-a-target="tw-progress-bar-animation"], .media-row__image-play-overlay, .eoyBQj { transition: .15s }
-		
-	.rewardsLearnMoreHeadersDark--HAOZi { transition: .15s !important }
 	
 		// -- 0.1s -- //
 	.hYdssb, button.imYKMv, .hlLhUC, .bQjtjF, .ccSgUF, .fKHFsE::before, .fWQStf, .fWQStf::after { transition: .1s }
 	
 		// -- 0.05s -- //
 	.chat-line__message-highlight, .chat-line__icon, .kZmtcH, .gcA-DkW, .highlight__progress-bar [data-a-target="tw-progress-bar-animation"] { transition: .05s linear }
+        
+        // -- !important -- //
+    .rewardsLearnMoreExpandedViewDark--EoAxN { transition: .3s !important }
+	.rewardsLearnMoreHeadersDark--HAOZi { transition: .15s !important }
 	
 		// -- ANIMATIONS
 	if (animations=="enabled") {
