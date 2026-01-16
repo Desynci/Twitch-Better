@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        3.0.2
+@version        3.0.4
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -55,6 +55,10 @@
 }
 @var range sidebar-size "Width:" [24,13,28,0.5,"rem"]
 @var checkbox sidebar-hover-only "Show only on hover" 1
+@var select sidebar-transition "Transition on hover:" {
+    'Slide*': "slide",
+	'Opacity': "opacity"
+}
 @var checkbox only-following "Clear categories" 0
 
 @var select holder-4 "— 🍂 Removers —" {
@@ -70,7 +74,7 @@
 @var checkbox remove-turbo "Turbo promotion" 1
 @var checkbox remove-gift "Gift button" 0
 @var checkbox remove-subscription "Subscription button" 0
-@var checkbox remove-bits "All Bits buttons" 0
+@var checkbox remove-bits "Bits buttons" 0
 @var checkbox remove-powerups "Rewards list power ups" 0
 
 @var select highlight "— 🌌 Highlight messages —" {
@@ -862,11 +866,30 @@
 		
 		.side-nav--expanded {
 			opacity: 0;
-			transition: transform .28s cubic-bezier(0.76, 0, 0.24, 1), opacity .4s cubic-bezier(0.76, 0, 0.24, 1);
 			
-			&:hover {
-				transition: transform .3s .05s, opacity .05s !important;
-			}
+            if (sidebar-transition=="slide") {
+                transition: transform .28s cubic-bezier(0.76, 0, 0.24, 1), opacity .4s cubic-bezier(0.76, 0, 0.24, 1);
+                
+                &:hover {
+				    transition: transform .3s .05s, opacity .05s;
+			    }
+            }
+            
+            else {
+                transition: transform 0s .4s, opacity .25s cubic-bezier(0.76, 0, 0.24, 1);
+                
+                &:hover {
+				    transition: opacity .25s .05s;
+			    }
+            }
+            
+            @media (prefers-reduced-motion: reduce) {
+                transition: transform 0s .4s, opacity .2s cubic-bezier(0.76, 0, 0.24, 1);
+                
+                &:hover {
+				    transition: opacity .2s .05s;
+			    }
+            }
 		}
 		
 		.side-nav--collapsed {
@@ -1037,11 +1060,6 @@
 		opacity: 1;
 		inset-inline-start: 10%;
 		@css { @starting-style { transform: translateY(30px) !important; opacity: 0 !important; } }
-        
-        @supports (justify-self: anchor-center) {
-            justify-self: anchor-center;
-            inset-inline-start: 0 !important;
-        }
 	}
 	
 	.video-chat__sync-button {
