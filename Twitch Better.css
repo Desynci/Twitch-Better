@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        3.0.9
+@version        3.1.0
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -82,8 +82,8 @@
 @var select highlight-type "Highlight type:" {
 	'None': "disabled",
     '→ Cosmic Abyss': "cosmic",
-	'→ Rainbow': "rainbow",
-	'→ Yuji Itadori*': "'https://i.postimg.cc/0NqrRwYX/asset3-ezgif-com-video-to-gif-converter.gif' 0.8 linear-gradient(90deg, transparent 0%, rgba(144, 0, 7, 0.08) 20%, rgba(144, 0, 7, 0.08) 50%, rgba(144, 0, 7, 0.2) 100%)",
+	'→ Rainbow*': "rainbow",
+	'→ Yuji Itadori': "'https://i.postimg.cc/0NqrRwYX/asset3-ezgif-com-video-to-gif-converter.gif' 0.8 linear-gradient(90deg, transparent 0%, rgba(144, 0, 7, 0.08) 20%, rgba(144, 0, 7, 0.08) 50%, rgba(144, 0, 7, 0.2) 100%)",
 	'→ Satoru Godjo': "'https://i.postimg.cc/BbT6YZy3/asset5-ezgif-com-video-to-gif-converter.gif' 0.8 linear-gradient(90deg, rgba(1, 49, 194, 0.1) 0%, rgba(1, 49, 194, 0.2) 100%)",
 	'→ Moon of Spirits': "'https://i.postimg.cc/5y1R1mxG/asset9-ezgif-com-video-to-gif-converter.gif' 0.8 linear-gradient(90deg, transparent 0%, rgba(115, 11, 200, 0.08) 20%, rgba(115, 11, 200, 0.08) 50%, rgba(115, 11, 200, 0.2) 100%)",
 	'→ Arctic Aurora': "'https://i.postimg.cc/CMqDkfGk/asset15-ezgif-com-video-to-gif-converter.gif' 0.8 none",
@@ -555,7 +555,7 @@
 			}
 		}
 		
-		.persistent-player--theatre .player-controls__right-control-group { // theatre mode (must be overrided in fullscreen mode below!)
+		.persistent-player--theatre .player-controls__right-control-group { // theatre mode (must be overrided for fullscreen mode below!)
 			[data-a-target="player-fullscreen-button"] {
 				&:hover .tw-svg {
 					transform: scale(1.15);
@@ -865,7 +865,7 @@
 		
 		.side-nav--expanded {
             transition: transform .28s cubic-bezier(0.76, 0, 0.24, 1), opacity .4s cubic-bezier(0.76, 0, 0.24, 1), filter .4s;
-            filter: blur(2px);
+            filter: blur(3px);
             
             &:hover {
 				transition: transform .3s .05s;
