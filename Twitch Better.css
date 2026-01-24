@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        3.1.0
+@version        3.1.1
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -153,7 +153,7 @@
 	.channel-root--home .channel-info-content { width: unset; }
 	.side-nav--expanded { width: sidebar-size; }
 	.reward-icon__animated, .predictions-list-item__body, .extensions-dock-card__image { will-change: transform; }
-	.finNtM a { text-decoration: none; }
+	.finNtM a, .offline-recommendations-video-card:hover { text-decoration: none; }
 	.chat-scrollable-area__message-container--paused { padding-bottom: 1rem; }
 	.whispers-threads-box__header, .whispers-threads-box__header+.gxOWjV, .jmERFg { border-bottom: none !important; }
 	.side-nav { background: #18181b !important; }
@@ -509,7 +509,7 @@
 					background-color: transparent !important;
 				}
 				
-				&:not([aria-label*="(alt+x)"]) {
+				&:not([aria-label*="(alt+x)"], .hMaomf.iwMIba) {
 					width: button-size;
 					height: button-size;
 				}
@@ -527,7 +527,7 @@
 						display: none !important;
 					}
 				}
-			}
+            }
 			
 			.lnTwMD, .hHUQhB {
 				width: icon-size-right-panel;
@@ -853,7 +853,7 @@
 			z-index: 10000;
 			top: 0;
  			box-shadow: var(--shadow-elevation-2) !important;
-			will-change: transform, opacity;
+			will-change: transform, filter;
 			transform: translateX(-98%);
             opacity: 0;
             
@@ -864,7 +864,7 @@
 		}
 		
 		.side-nav--expanded {
-            transition: transform .28s cubic-bezier(0.76, 0, 0.24, 1), opacity .4s cubic-bezier(0.76, 0, 0.24, 1), filter .4s;
+            transition: transform .28s cubic-bezier(0.76, 0, 0.24, 1), opacity .4s cubic-bezier(0.76, 0, 0.24, 1), filter .6s;
             filter: blur(3px);
             
             &:hover {
