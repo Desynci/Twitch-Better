@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        3.1.1
+@version        3.1.2
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -74,7 +74,7 @@
 @var checkbox remove-bits "Bits buttons" 0
 @var checkbox remove-powerups "Rewards list power ups" 0
 
-@var select highlight "— 🌌 Highlight messages —" {
+@var select highlight "— 🌌 Message highlight —" {
     'ON*': "enabled",
 	'OFF': "disabled"
 }
@@ -91,9 +91,18 @@
 }
 @var select nick-gradient "Nickname gradient:" {
     'None': "disabled",
-	'→ Discord #1': "(linear-gradient(to right, #369876, #71ff9e, #369876) #369876)",
-	'→ Discord #2*': "(linear-gradient(to right, #ffa300, #ffea00, #ffa300) #ffa300)",
-	'→ Discord #3': "(linear-gradient(to right, #a9c9ff, #ffbbec, #ffc3a0, #a9c9ff) #ffc3a0)"
+	'→ Discord #1': "discord linear-gradient(to right, #369876, #71ff9e, #369876) #369876",
+	'→ Discord #2*': "discord linear-gradient(to right, #ffa300, #ffea00, #ffa300) #ffa300",
+	'→ Discord #3': "discord linear-gradient(to right, #a9c9ff, #ffbbec, #ffc3a0, #a9c9ff) #ffc3a0",
+    '→ 7TV #1': "7tv linear-gradient(90deg, #fff700 0%, #ffc400 20%, #ff8438 40%, #ff1f77 60%, #f0b 80%, #e0f 100%) #FF455F (drop-shadow(#e0f 0px 0px 0.1px))",
+    '→ 7TV #2': "7tv url(\"https://cdn.7tv.app/paint/01KC2M1QNZ1Q1E47KPM14VSERH/layer/01KC2MMGYA4K0XE948FKRM307F/1x.webp\") #ec7600 (drop-shadow(rgb(236, 118, 0) 0px 0px 1.5px))",
+    '→ 7TV #3': "7tv repeating-linear-gradient(90deg, #feb820 0%, #ffc014 23%, #8c01fe 53%, #8c01fe 0%, #0fc 100%) #8c01fe (drop-shadow(#56caf0 0px 0px 1px))",
+    '→ 7TV #4': "7tv url(\"https://cdn.7tv.app/paint/01J5V7WVKR0007BA288WXC38TK/layer/01JAMR3CE2TDB8GKKV1YPNMAYG/1x.webp\") #4D5AF1 (drop-shadow(#e739fe 0px 0px 0.1px) drop-shadow(#620075 1px 1px 0.1px))",
+    '→ 7TV #5': "7tv url(\"https://cdn.7tv.app/paint/01JM8F9NQPFQEF9GQMT5RB9BAG/layer/01JM8G5NZJN36FF9137NCVGV2R/1x.webp\") #D90694 (drop-shadow(#f00 0px 0px 0.5px) drop-shadow(#f00 0px 0px 0.5px) drop-shadow(#f00 0px 0px 0.5px) drop-shadow(#8d00ff 0px 0px 3px))",
+    '→ 7TV #6': "7tv url(\"https://cdn.7tv.app/paint/01JPRTCB0EVDD1FERZGQY4MWBA/layer/01KFCQSQGRZGS9FGJWXSQZPNK4/1x.webp\") #2E5252 (drop-shadow(#56caf0 0px 0px 1px))",
+    '→ 7TV #7': "7tv linear-gradient(90deg, #f70066 0%, #a200c6 100%) #f70066 (drop-shadow(#ff0059 0px 0px 5px))",
+    '→ 7TV #8': "7tv radial-gradient(#fbff00 27%, #e0f 47%, #5a00e0 56%) #e0f (drop-shadow(#b727b9 -1px 2px 1px))",
+    '→ 7TV #9': "7tv url(\"https://cdn.7tv.app/paint/01K7CGQFRSHJCFDJQSN27QY3WF/layer/01K7CHQH380ZFE913AA4XZX7NX/1x.webp\") #AD6A03 (drop-shadow(#000 0px 0px 1px))",
 }
 @var select custom-badge "Badge changer:" {
 	'None*': "disabled",
@@ -128,6 +137,15 @@
 	'→ Lol Worlds \'25': "'https://static-cdn.jtvnw.net/badges/v1/4545b0b5-c825-487e-8958-ce5512eb6f84/2'",
 	'→ Chrome Star': "'https://static-cdn.jtvnw.net/badges/v1/d139bccf-8184-4fec-a970-cd8d81a7f51a/2'",
 	'→ Golden clown': "'https://static-cdn.jtvnw.net/badges/v1/d98418bb-e4cf-43e3-9c25-c182e13de6fe/2'",
+    '→ 7TV Admin': "'https://cdn.7tv.app/badge/01GAFAKCYG000E8VNG1S1RMTBH/2x.avif'",
+    '→ 7TV Gold': "'https://cdn.7tv.app/badge/01JJQEDT21JXF1JM4F1P805VTK/2x.avif'",
+    '→ 7TV Diamond': "'https://cdn.7tv.app/badge/01JJQEENE6CJ6KR70CBCF39ACN/2x.avif'",
+    '→ 7TV Glint': "'https://cdn.7tv.app/badge/01JFQTXCRE600BMC0214W6KHMF/2x.avif'",
+    '→ 7TV Netherite': "'https://cdn.7tv.app/badge/01JFQTXN0EFQ9K6Y1TXQRHPA8W/2x.avif'",
+    '→ 7TV X-MAS \'24': "'https://cdn.7tv.app/badge/01JFQV88ENDHWA3TXJHVVT0BQJ/2x.avif'",
+    '→ 7TV Valentine': "'https://cdn.7tv.app/badge/01JM3F4N2Y65KKHDGWDEDFTJNA/2x.avif'",
+    '→ 7TV Sub #1': "'https://cdn.7tv.app/badge/01GJGRX0FG0002GRV318PGDRKT/2x.avif'",
+    '→ 7TV Sub #2': "'https://cdn.7tv.app/badge/01JAT9BPCRSDK1BQSM17278GJN/2x.avif'",
 	'[Custom image]': "custom"
 }
 @var text __custom-badge-url "→ [custom image] URL in quotes:" "'Example.com/img.png'"
@@ -864,11 +882,11 @@
 		}
 		
 		.side-nav--expanded {
-            transition: transform .28s cubic-bezier(0.76, 0, 0.24, 1), opacity .4s cubic-bezier(0.76, 0, 0.24, 1), filter .6s;
+            transition: transform .28s cubic-bezier(0.76, 0, 0.24, 1), opacity .4s cubic-bezier(0.76, 0, 0.24, 1), filter .4s;
             filter: blur(3px);
             
             &:hover {
-				transition: transform .3s .05s;
+				transition: transform .3s .05s, opacity .1s .05s;
                 filter: none;
 			}
             
@@ -915,7 +933,8 @@
 				
 				.AoXTY {
 					overflow: hidden !important;
-					border-radius: var(--border-radius-medium) !important; }
+					border-radius: var(--border-radius-medium) !important; 
+                }
 				
 				.AoXTY::before {
 					content: "";
@@ -975,35 +994,47 @@
 		}
 		
 		if (nick-gradient!="disabled") {
-			.chat-author__display-name[data-a-user={nick} i], .tw-link[href$={nick} i], a[href$={nick} i] > .tw-title, [data-test-selector="user-menu-dropdown__display-name"], .thread-message__message--user-name[aria-label={nick} i], .message-preview__line .chat-author__display-name {
-				background: nick-gradient[0];
-				background-clip: text;
-				color: transparent !important;
-				background-size: 100px auto;
-				animation: gradient-discord 1.5s linear infinite;
-				font-weight: 600 !important;
-				
-				&::before {
-					content: "" + nick;
-					position: absolute;
-					opacity: .6;
-					filter: blur(4px);
-					background: nick-gradient[0];
-					background-clip: text;
-					color: transparent;
-					background-size: 100px auto;
-					animation: gradient-discord 1.5s linear infinite;
-					pointer-events: none;
-				}
-			}
-			
-			.message-preview__line .chat-author__display-name::before { content: "Kappa"; }
-			
-			.metadata-layout__support .dMBVIY a[href$={nick} i]:hover::after { background-color: nick-gradient[1] !important; }
-				
-			button[data-a-target="user-menu-toggle"][aria-expanded="true"] {
-				box-shadow: 0px 0px 0 3px nick-gradient[1];
-			}
+            if (nick-gradient[0] == "discord") {
+                    .chat-author__display-name[data-a-user={nick} i], .tw-link[href$={nick} i], a[href$={nick} i] > .tw-title, [data-test-selector="user-menu-dropdown__display-name"], .thread-message__message--user-name[aria-label={nick} i], .message-preview__line .chat-author__display-name {
+                        background: nick-gradient[1];
+                        background-clip: text;
+                        color: transparent !important;
+                        background-size: 100px auto;
+                        animation: gradient-discord 1.5s linear infinite;
+                        font-weight: 600 !important;
+
+                        &::before {
+                            content: "" + nick;
+                            position: absolute;
+                            opacity: .6;
+                            filter: blur(4px);
+                            background: nick-gradient[1];
+                            background-clip: text;
+                            color: transparent;
+                            background-size: 100px auto;
+                            animation: gradient-discord 1.5s linear infinite;
+                            pointer-events: none;
+                        }
+                    }
+
+                .message-preview__line .chat-author__display-name::before { content: "Kappa"; }
+            }
+            
+            else if (nick-gradient[0] == "7tv") {
+                .chat-author__display-name[data-a-user={nick} i], .tw-link[href$={nick} i], a[href$={nick} i] > .tw-title, [data-test-selector="user-menu-dropdown__display-name"], .thread-message__message--user-name[aria-label={nick} i], .message-preview__line .chat-author__display-name {
+                    background: nick-gradient[1];
+                    background-clip: text;
+                    color: transparent !important;
+                    background-size: 100% 100%;
+                    filter: nick-gradient[3];
+                }
+            }
+            
+            .metadata-layout__support .dMBVIY a[href$={nick} i]:hover::after { background-color: nick-gradient[2] !important; }
+
+            button[data-a-target="user-menu-toggle"][aria-expanded="true"] {
+                box-shadow: 0px 0px 0 3px nick-gradient[2];
+            }
 		}
 		
 		if (custom-badge!="disabled") {
