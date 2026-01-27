@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        3.1.2
+@version        3.1.3
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -331,11 +331,11 @@
 			background-color: (player-controls=="yt-light") ? light-bg !important : dark-bg !important;
 			
 			&:hover .tw-svg {
-				transform: scale(1.15);
+				transform: scale(1.1);
 			}
 			
 			.tw-svg {
-				transition: transform .15s cubic-bezier(.05, 0, 0, 1);
+				transition: transform .15s;
 			}
 			
 			if (new-pause) {
@@ -343,21 +343,38 @@
 					background-color: bg-inset-on-hover;
 					animation: content-in .2s;
 				}
+                
+                &::after {
+                    content: "";
+                    position: absolute;
+                    inset: 2px;
+                    pointer-events: none;
+                    border-radius: 27px;
+                    transition: none !important;
+                }
 			}
+            
 			else {
 				&:hover::after {
-					background-color: bg-inset-on-hover;
-					animation: content-in .2s;
+					transform: scale(1);
+				    opacity: 1;
 				}
-			}
-			
-			&::after {
-				content: "";
-				position: absolute;
-				inset: 2px;
-				pointer-events: none;
-				border-radius: 27px;
-				transition: none !important;
+                
+                &:active::after {
+				    background-color: bg-inset-on-active;
+			    }
+                
+                &::after {
+                    content: "";
+                    position: absolute;
+                    inset: 2.5px;
+                    pointer-events: none;
+                    border-radius: 55px;
+                    transition: .15s;
+                    transform: scale(0.3);
+                    opacity: 0;
+                    background-color: bg-inset-on-hover;
+                }
 			}
 		}
 		
