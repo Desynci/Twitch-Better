@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        3.1.4
+@version        3.1.5
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -113,6 +113,7 @@
 	'→ Hypetrain': "'https://static-cdn.jtvnw.net/badges/v1/9c8d038a-3a29-45ea-96d4-5031fb1a7a81/2'",
 	'→ Twitch Staff': "'https://static-cdn.jtvnw.net/badges/v1/e48bfab8-6697-4c5b-84df-e64fb0150701/2'",
 	'→ Twitch Intern \'22': "'https://static-cdn.jtvnw.net/badges/v1/91ed38ea-32fe-4f14-8db1-852537d19aa5/2'",
+    '→ TwitchCon \'19': "'https://static-cdn.jtvnw.net/badges/v1/590eee9e-f04d-474c-90e7-b304d9e74b32/2'",
 	'→ Clips 100': "'https://static-cdn.jtvnw.net/badges/v1/d2030c7e-c400-4605-a2cf-ce32bd06af8f/2'",
 	'→ Clips 100 000': "'https://static-cdn.jtvnw.net/badges/v1/590698dd-2bc4-4401-817a-17c641f5e881/2'",
 	'→ Marathon': "'https://static-cdn.jtvnw.net/badges/v1/ae1c6c62-c057-4fad-a1d4-663bf988701f/2'",
@@ -1204,7 +1205,7 @@
 	.dcNXJO, .kzYOur, .kXuCmW, .jUkMRL, .kccyMt, .hovRjt, .dCFkna, .cAajJv, a.navigation-link, .hWTXlR, .kMwhRV, .dEeZDR,
 	.gxYeIp, .bZLSuF, .gGttfb, .bNByMh, .kLgTJj, .eCrblY, .ldMHo, .fvWwI, .fixed-prediction-button,
 	.dOkkBt, .iwMIba, .imYKMv, .bmaSLQ, .hQMzBR, .extensions-dock-card__image, .media-row__info-description, .converter-preview-player-controls--gradient,
- 	.iJmEhj, [data-a-target="tw-progress-bar-animation"], .media-row__image-play-overlay, .eoyBQj { transition: .15s }
+ 	.iJmEhj, [data-a-target="tw-progress-bar-animation"]:not([class="ScProgressBarFill-sc-1aarjxm-1 caosbx InjectLayout-sc-1i43xsx-0 cireTk"]), .media-row__image-play-overlay, .eoyBQj { transition: .15s }
 	
 		// -- 0.1s -- //
 	.hYdssb, button.imYKMv, .hlLhUC, .bQjtjF, .ccSgUF, .fKHFsE::before, .fWQStf, .fWQStf::after { transition: .1s }
@@ -1449,7 +1450,7 @@
 		
 		.search-box {
 			.tw-combo-input__input > div { z-index: 1; position: relative; }
-			[class="Layout-sc-1xcs6mc-0 bMcAyM"] { background: #18181B !important; padding: 7px !important; }
+			[class="Layout-sc-1xcs6mc-0 bMcAyM"] { background: #18181B !important; padding: 3px !important; padding-left: 5px !important; }
 			.hVLlmi { animation: search .4s, blur-15-decrease 0.8s .1s both; will-change: transform; background: #00000094 !important; }
 		}
 		
