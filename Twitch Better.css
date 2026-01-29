@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Twitch Better V2
 @namespace      1337
-@version        3.1.5
+@version        3.1.6
 @author         idesync
 @description 	Twitch Better adds animations, new look, improved usability and more for twitch.tv!
 @supportURL 	https://github.com/Desynci/Twitch-Better/issues
@@ -1021,7 +1021,7 @@
                         background-size: 100px auto;
                         animation: gradient-discord 1.5s linear infinite;
                         font-weight: 600 !important;
-
+                        
                         &::before {
                             content: "" + nick;
                             position: absolute;
@@ -1050,7 +1050,7 @@
             }
             
             .metadata-layout__support .dMBVIY a[href$={nick} i]:hover::after { background-color: nick-gradient[2] !important; }
-
+            
             button[data-a-target="user-menu-toggle"][aria-expanded="true"] {
                 box-shadow: 0px 0px 0 3px nick-gradient[2];
             }
@@ -1200,7 +1200,7 @@
 	.notched-range--handle, .offline-recommendations-video-card [class^="offline-recommendations-video-card-border"] { transition: .5s }
 	.fOtgyk, .emote-button__link img, .edit-appearance__badge-chooser, .kJMgAB { transition: .3s }
 	.iOIbVE.iOIbVE, .chat-line__username-container--hoverable, .kMwhRV, .jUiaVy, .jwWicM, .predictions-list-item__body, .jLHIWd { transition: .2s }
-		
+	
 		// -- 0.15s -- //
 	.dcNXJO, .kzYOur, .kXuCmW, .jUkMRL, .kccyMt, .hovRjt, .dCFkna, .cAajJv, a.navigation-link, .hWTXlR, .kMwhRV, .dEeZDR,
 	.gxYeIp, .bZLSuF, .gGttfb, .bNByMh, .kLgTJj, .eCrblY, .ldMHo, .fvWwI, .fixed-prediction-button,
@@ -1212,7 +1212,7 @@
 	
 		// -- 0.05s -- //
 	.chat-line__message-highlight, .chat-line__icon, .kZmtcH, .gcA-DkW, .highlight__progress-bar [data-a-target="tw-progress-bar-animation"] { transition: .05s linear }
-        
+    
         // -- !important -- //
     .rewardsLearnMoreExpandedViewDark--EoAxN { transition: .3s !important }
 	.rewardsLearnMoreHeadersDark--HAOZi { transition: .15s !important }
@@ -1254,7 +1254,7 @@
 			else { .chat-scrollable-area__message-container > div { animation: messages .4s; } }
 			
 			.vod-message { animation: messages .4s; }
-				
+			
 			.chat-scrollable-area__message-container { overflow-y: hidden; } // remove chat scroller caused by messages transform
 		}
 		
@@ -1267,7 +1267,7 @@
 			else { .chat-scrollable-area__message-container > div { animation: messages-right .4s } }
 			
 			.vod-message { animation: messages-right .4s }
-				
+			
 			.chat-scrollable-area__message-container { overflow-x: hidden; } // remove chat scroller caused by messages transform
 		}  
 		
@@ -1315,7 +1315,7 @@
 		
 		[data-test-selector="main-menu"] {
 			.cjzCcJ > div { transition: .2s .1s }
-				
+			
 			&:hover {
 				.cjzCcJ > div { transform: translateX(-3px) }
 			}
@@ -1329,28 +1329,25 @@
 			
 			.kCsLVM { background: none !important }
 		}
-	
+	    
 			// verification badge animation
 		.channel-info-content .dMBVIY {
-			.ijyopa .tw-svg { transition: transform .35s }
+			.ijyopa .tw-svg { transition: transform .35s; }
 			a:hover+.ijyopa .tw-svg { transform: rotate(0.07turn) scale(1.1); }
 		}
-	
+	    
 		.tw-progress-bar .dqeKsq { animation: spin-hue 3s infinite linear; background: #00db84 !important; }
 		[data-a-target="tw-progress-bar-animation"] { --color-background-progress-status-success: #d57de1 !important; }
 		.reward-icon--large { transition: .25s; filter: hue-rotate(0); &:hover { filter: hue-rotate(0.1turn); } }
-	
+	    
 		.streamer-card__balloon {
 			.kXaRRs { animation: streamer-card .6s !important; }
 			.jvDEkm { animation: spin-hue-180 .8s; }
 			[data-a-target="follow-button"] { animation: follow-button .55s .25s backwards; }
 			[data-a-target="unfollow-button"] { animation: follow-placeholder .65s reverse cubic-bezier(0.76, 0, 0.24, 1); }
-			[class="ScPlaceholderFill-sc-wb1w3c-2 eJtHtF"] { animation: follow-placeholder .3s .1s forwards }
-
+			[class="ScPlaceholderFill-sc-wb1w3c-2 eJtHtF"] { animation: follow-placeholder .3s .1s forwards; }
 			[data-popper-placement] { overflow: hidden; }
 		}
-		
-		// .fKHFsE::after { animation: content-in-checkbox .45s backwards } // circle checkbox animation
 		
 		.chat-input-tray__open, .chat-settings__popover .chat-badge {
 			animation: chat-tray .4s;
@@ -1363,13 +1360,13 @@
 		[data-test-selector="view-all-button"] > div {
 			animation: chat-tray .3s;
 		}
-
+        
 		{$chat-customization} {
 			animation: chat-custom .5s;
 			margin-block-end: 0;
     		margin-inline-end: 0;
     		right: 200%;
-				
+			
 			@css { 
 				.chat-identity-menu__content {
 					.hyBNWd,
@@ -1388,34 +1385,11 @@
 					[data-test-selector="badges-description-test-selector"], [data-test-selector="subscriber-badge-test-selector"] { animation-delay: 200ms; }
 					[class="Layout-sc-1xcs6mc-0 hyBNWd"] > [class="Layout-sc-1xcs6mc-0"] > [data-test-selector="use-custom-channel-badge-test-selector"] { animation-delay: 300ms; }
 					[data-test-selector="channel-badges-test-selector"] { animation-delay: 300ms; }
-					.ipRTld { animation-delay: 400ms; } 
+					.ipRTld { animation-delay: 400ms; }
 				}
-			} 
+			}
 		}
-		
-	// credits to Youtube RetroWave by xyadx
-	// https://userstyles.world/style/292/youtube-retrowave
-		/*.seekbar-thumb::after {
-			display: block;
-    		opacity: 1;
-			content: "";
-			height: 25px;
-			width: 25px;
-			background-image: url(https://i.postimg.cc/wxtHHvWL/starfall.gif);
-			background-repeat: no-repeat;
-   	 		background-position: center;
-   	 		background-size: 100%;
-    		transform: rotate(258deg) translateY(-5px) translateX(6px);
-    		border-radius: 81px;
-		}
-		
-		.seekbar-thumb {
-			background: red;
-			animation: yadpogi 3s linear infinite;
-			&:hover { transform: scale(1.5) translateX(-5.5px); }
-			transition: transform .2s cubic-bezier(.05,0,0,1);
-		}*/
-
+        
 		#channel-points-reward-center-body { overflow: hidden !important }
 		.rewards-list > div, .emote-picker__search-content-dark .tw-search-input, .emote-grid-section__header-title { animation: rewards-list .4s !important }
 		[aria-label="emote-picker"] { animation: emote-picker .28s, blur-15 .4s forwards !important }
@@ -1426,7 +1400,7 @@
 			animation: top-nav-menu 1s, blur-55 1s forwards !important;
 			[class="Layout-sc-1xcs6mc-0 kvjacc"] > div { animation: user-element .3s backwards; }
 		} }
-		[data-popper-placement] { for row in (1..26) { [class="Layout-sc-1xcs6mc-0 kvjacc"] > div:nth-of-type({row}) { animation-delay: 60ms*(row/1.6); } } }
+		[data-popper-placement] { for row in (1..26) { .kvjacc > div:nth-of-type({row}) { animation-delay: 60ms*(row/1.6); } } }
 		
 		.user-menu-dropdown__main-menu {
 			animation: user-menu .6s; will-change: transform, clip-path;
@@ -1434,24 +1408,26 @@
 			for row in (1..19) { [class="Layout-sc-1xcs6mc-0"] > div:nth-of-type({row}) { animation-delay: 60ms*(row/1.5); } }
 			for row in (2..6) { .kvjacc > div:nth-of-type({row}) { animation-delay: 40ms*(row/1.5)+750ms; } }
 		}
-
+        
 		if (!sidebar-hover-only) { .side-nav--expanded { animation: side-nav .3s ease; } }
-			
+		
 		.ScRangeFillValue-sc-q01wc3-3 { transition: background-color .5s; }
-
-		.seekbar-thumb { animation: seekbar-thumb .2s; transition: transform .2s; transform: scaleY(0.7) scaleZ(1) translateX(-50%); &:hover { transform: scale(1.3) scaleY(0.65) translateX(-6px) } }
-		.vod-message .dQedsG { animation: pop-small .3s; }
-		.viewer-card-layer__draggable { animation: swipe .45s .2s backwards; }
+        
+		.seekbar-thumb { animation: seekbar-thumb .2s; transition: transform .2s; transform: scaleY(0.7) scaleZ(1) translateX(-50%); &:hover { transform: scale(1.3) scaleY(0.65) translateX(-6px); } }
+		.vod-message .dQedsG { animation: pop-small .3s }
+		.viewer-card-layer__draggable { animation: swipe .45s .2s backwards }
 		.viewer-card-header__background, .support-panel .goal_widget_v2__container { animation: content-in .5s }
 		.community-highlight [class="Layout-sc-1xcs6mc-0 fSfyIg"] { animation: community-highlight .3s }
-		[aria-label="Hide for yourself"] { animation: hide-button .45s; }
-		.chat-line__message--emote { animation: emotes .5s; }
+		[aria-label="Hide for yourself"] { animation: hide-button .45s }
+		.chat-line__message--emote { animation: emotes .5s }
 		.chat-line__message--emote-button { transition: .15s; transform: scale(1); &:hover { transform: scale(0.95) } }
 		
 		.search-box {
 			.tw-combo-input__input > div { z-index: 1; position: relative; }
 			[class="Layout-sc-1xcs6mc-0 bMcAyM"] { background: #18181B !important; padding: 3px !important; padding-left: 5px !important; }
 			.hVLlmi { animation: search .4s, blur-15-decrease 0.8s .1s both; will-change: transform; background: #00000094 !important; }
+            .tw-tray-item--highlighted.imYKMv:hover { background-color: var(--color-background-interactable-hover); }
+            .imYKMv { transition: none; }
 		}
 		
 		[data-a-target="player-settings-button"] .tw-svg { transition: .3s; }
